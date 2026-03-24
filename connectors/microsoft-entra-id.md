@@ -25,27 +25,27 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 
 ### Authentication Tables
 
-| Table | Description | Retention Recommendation | Rationale |
-|:------|:------------|:------------------------|:----------|
-| **SigninLogs** | Interactive user sign-ins (browser, desktop apps) | Hot: 90d / Archive: 2y | **Core identity security table.** Detects compromised accounts, brute-force, password spray, MFA bypass, and impossible travel. MCSB IM-1 (Centralise identity management), IM-4 (Authenticate server and services). Every identity-based investigation starts here. |
-| **AADNonInteractiveUserSignInLogs** | Token refresh, background app authentication | Hot: 90d / Archive: 1y | Detects token theft and replay attacks, session hijacking. Non-interactive sign-ins often reveal attacker persistence after initial compromise. High volume but critical for AiTM phishing investigation. |
-| **AADServicePrincipalSignInLogs** | Application and service principal authentication | Hot: 90d / Archive: 2y | Detects compromised application credentials, OAuth abuse, and consent phishing (MITRE T1550.001). MCSB IM-4. Service principals are high-value targets — a compromised app registration can have tenant-wide access. |
-| **AADManagedIdentitySignInLogs** | Managed identity authentication events | Hot: 90d / Archive: 1y | Detects anomalous use of managed identities by Azure resources. While lower risk than user credentials (no extractable secrets), compromised Azure resources can abuse their managed identity. |
-| **ADFSSignInLogs** | Active Directory Federation Services sign-in events | Hot: 90d / Archive: 2y | Critical for hybrid identity environments. Detects Golden SAML attacks (as seen in SolarWinds/Nobelium). MCSB IM-1. If you have ADFS, this table is essential. |
+| Table | Description | Retention Recommendation | Rationale | Example Detection |
+|:------|:------------|:------------------------|:----------|:------------------|
+| **SigninLogs** | Interactive user sign-ins (browser, desktop apps) | Analytics: 90d / Lake: 365d | **Core identity security table.** Detects compromised accounts, brute-force, password spray, MFA bypass, and impossible travel. MCSB IM-1 (Centralise identity management), IM-4 (Authenticate server and services). Every identity-based investigation starts here. | Brute-force / password spray (T1110.003), Impossible travel (T1078), MFA fatigue (T1621) |
+| **AADNonInteractiveUserSignInLogs** | Token refresh, background app authentication | Analytics: 90d / Lake: 365d | Detects token theft and replay attacks, session hijacking. Non-interactive sign-ins often reveal attacker persistence after initial compromise. High volume but critical for AiTM phishing investigation. | AiTM phishing — token use from different IP after interactive sign-in (T1557) |
+| **AADServicePrincipalSignInLogs** | Application and service principal authentication | Analytics: 90d / Lake: 365d | Detects compromised application credentials, OAuth abuse, and consent phishing (MITRE T1550.001). MCSB IM-4. Service principals are high-value targets — a compromised app registration can have tenant-wide access. | Service principal auth from unexpected IP or with unusual scope (T1550.001) |
+| **AADManagedIdentitySignInLogs** | Managed identity authentication events | Analytics: 90d / Lake: 365d | Detects anomalous use of managed identities by Azure resources. While lower risk than user credentials (no extractable secrets), compromised Azure resources can abuse their managed identity. | Managed identity used from unexpected Azure resource |
+| **ADFSSignInLogs** | Active Directory Federation Services sign-in events | Analytics: 90d / Lake: 365d | Critical for hybrid identity environments. Detects Golden SAML attacks (as seen in SolarWinds/Nobelium). MCSB IM-1. If you have ADFS, this table is essential. | Golden SAML — SAML token without corresponding ADFS auth event (T1606.002) |
 
 ### Directory and Audit Tables
 
-| Table | Description | Retention Recommendation | Rationale |
-|:------|:------------|:------------------------|:----------|
-| **AuditLogs** | Directory changes: user/group/role modifications, app registrations, policy changes | Hot: 90d / Archive: 2y | **Core governance table.** Tracks privilege escalation (adding Global Admin), persistence (new app registrations, federation changes), and policy tampering. MCSB PA-1 (Protect privileged users), PA-7 (Follow just enough administration). |
-| **AADProvisioningLogs** | User provisioning events to/from applications | Hot: 90d / Archive: 1y | Tracks automated account creation/modification in connected apps. Detects provisioning anomalies and unauthorized access propagation. |
+| Table | Description | Retention Recommendation | Rationale | Example Detection |
+|:------|:------------|:------------------------|:----------|:------------------|
+| **AuditLogs** | Directory changes: user/group/role modifications, app registrations, policy changes | Analytics: 90d / Lake: 365d | **Core governance table.** Tracks privilege escalation (adding Global Admin), persistence (new app registrations, federation changes), and policy tampering. MCSB PA-1 (Protect privileged users), PA-7 (Follow just enough administration). | User added to Global Admin (T1098.003), New app with high-privilege API permissions (T1136.003) |
+| **AADProvisioningLogs** | User provisioning events to/from applications | Analytics: 90d / Lake: 365d | Tracks automated account creation/modification in connected apps. Detects provisioning anomalies and unauthorized access propagation. | Unexpected user provisioned to sensitive SaaS application |
 
 ### Risk Tables (Entra ID P2)
 
-| Table | Description | Retention Recommendation | Rationale |
-|:------|:------------|:------------------------|:----------|
-| **AADRiskyUsers** | Users flagged as risky by Entra ID Protection | Hot: 90d / Archive: 2y | Provides a risk-scored view of users. Enables automated response (e.g., require password change, block access). MCSB IM-1. Critical input for risk-based Conditional Access policies monitored via Sentinel. |
-| **AADUserRiskEvents** | Individual risk detections (leaked credentials, anonymous IP, malware-linked IP, etc.) | Hot: 90d / Archive: 2y | Detailed risk event telemetry. Enables correlation of risk signals with sign-in activity. Supports investigation of why a user was flagged and the specific indicators involved. |
+| Table | Description | Retention Recommendation | Rationale | Example Detection |
+|:------|:------------|:------------------------|:----------|:------------------|
+| **AADRiskyUsers** | Users flagged as risky by Entra ID Protection | Analytics: 90d / Lake: 365d | Provides a risk-scored view of users. Enables automated response (e.g., require password change, block access). MCSB IM-1. Critical input for risk-based Conditional Access policies monitored via Sentinel. | High-risk user sign-in correlated with suspicious inbox rule |
+| **AADUserRiskEvents** | Individual risk detections (leaked credentials, anonymous IP, malware-linked IP, etc.) | Analytics: 90d / Lake: 365d | Detailed risk event telemetry. Enables correlation of risk signals with sign-in activity. Supports investigation of why a user was flagged and the specific indicators involved. | Leaked credentials detection (T1078), Anomalous token usage (T1550.001) |
 
 ---
 
@@ -103,5 +103,11 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 - Consider ingesting **Entra ID Provisioning logs** if you use automated provisioning to SaaS apps
 - The **NetworkAccessTraffic** table becomes available if you deploy Global Secure Access (Entra Internet/Private Access) — this is a Tier 2+ consideration
 - Entra ID sign-in logs in Entra by default retain for **30 days** (P1/P2) — Sentinel provides the extended retention you need for forensic readiness
+
+### Useful Workbooks
+
+| Workbook | Purpose | Source |
+|:---------|:--------|:-------|
+| **Workspace Usage Report** | Monitor Entra ID table ingestion volumes and retention | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 
 *[Back to overview](../README.md)*

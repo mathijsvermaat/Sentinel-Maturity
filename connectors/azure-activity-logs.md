@@ -21,15 +21,15 @@ Azure Activity Logs capture **subscription-level events** across all your Azure 
 
 ## Tables and Rationale
 
-| Table | Category | Description | Retention Recommendation | Rationale |
-|:------|:---------|:------------|:------------------------|:----------|
-| **AzureActivity** | Administrative | Resource creation, modification, deletion (PUT, PATCH, DELETE operations) | Hot: 90d / Archive: 2y | Detects unauthorized resource deployment (crypto-mining VMs, exfiltration infrastructure), resource deletion (sabotage), and configuration changes. MCSB AM-2 (Use only approved services), LT-3. |
-| **AzureActivity** | Security | Security Center / Defender for Cloud alerts and recommendations | Hot: 90d / Archive: 1y | Provides a secondary view of Defender for Cloud alerts at the platform level. |
-| **AzureActivity** | ServiceHealth | Azure service incidents, planned maintenance | Hot: 90d / Archive: 6m | Operational context — helps distinguish between attacker activity and platform issues during investigations. |
-| **AzureActivity** | Alert | Azure Monitor alert events | Hot: 90d / Archive: 6m | Operational alerting correlated with security context. |
-| **AzureActivity** | Policy | Azure Policy evaluation results (compliance/non-compliance) | Hot: 90d / Archive: 1y | Tracks policy violations that may indicate security drift. MCSB GS-3 (Align organisation roles and responsibilities). |
-| **AzureActivity** | Autoscale | Autoscale engine events | Hot: 90d / Archive: 6m | Can indicate unusual resource consumption patterns potentially triggered by an attacker. |
-| **AzureActivity** | ResourceHealth | Resource health status changes | Hot: 90d / Archive: 6m | Operational context for resource availability investigations. |
+| Table | Category | Description | Retention Recommendation | Rationale | Example Detection |
+|:------|:---------|:------------|:------------------------|:----------|:------------------|
+| **AzureActivity** | Administrative | Resource creation, modification, deletion (PUT, PATCH, DELETE operations) | Analytics: 90d / Lake: 365d | Detects unauthorized resource deployment (crypto-mining VMs, exfiltration infrastructure), resource deletion (sabotage), and configuration changes. MCSB AM-2 (Use only approved services), LT-3. | Crypto-mining VM deployment in unusual region (T1496), Mass resource group deletion (T1485) |
+| **AzureActivity** | Security | Security Center / Defender for Cloud alerts and recommendations | Analytics: 90d / Lake: 365d | Provides a secondary view of Defender for Cloud alerts at the platform level. | Defender for Cloud alert correlation with resource changes |
+| **AzureActivity** | ServiceHealth | Azure service incidents, planned maintenance | Analytics: 90d / Lake: 365d | Operational context — helps distinguish between attacker activity and platform issues during investigations. | Rule out platform issue during incident investigation |
+| **AzureActivity** | Alert | Azure Monitor alert events | Analytics: 90d / Lake: 365d | Operational alerting correlated with security context. | Azure Monitor alert correlated with suspicious activity |
+| **AzureActivity** | Policy | Azure Policy evaluation results (compliance/non-compliance) | Analytics: 90d / Lake: 365d | Tracks policy violations that may indicate security drift. MCSB GS-3 (Align organisation roles and responsibilities). | Non-compliant resource deployed bypassing policy (T1562.001) |
+| **AzureActivity** | Autoscale | Autoscale engine events | Analytics: 90d / Lake: 365d | Can indicate unusual resource consumption patterns potentially triggered by an attacker. | Unexpected autoscale triggered by resource abuse |
+| **AzureActivity** | ResourceHealth | Resource health status changes | Analytics: 90d / Lake: 365d | Operational context for resource availability investigations. | Resource health degradation correlated with attack activity |
 
 ---
 
@@ -114,5 +114,11 @@ This ensures new subscriptions are automatically connected to your Sentinel work
 - Activity logs cover the **control plane** only — for data plane operations (e.g., blob access, SQL queries), you need resource-specific diagnostic logs (Tier 2+)
 - Consider combining with **Azure Resource Graph** snapshots for point-in-time infrastructure state during investigations
 - High-value operations to watchlist: role assignments at subscription/management group scope, diagnostic settings changes, policy exemptions
+
+### Useful Workbooks
+
+| Workbook | Purpose | Source |
+|:---------|:--------|:-------|
+| **Workspace Usage Report** | Monitor AzureActivity ingestion volumes and retention | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 
 *[Back to overview](../README.md)*

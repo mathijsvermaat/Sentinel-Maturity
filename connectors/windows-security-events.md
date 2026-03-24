@@ -20,7 +20,7 @@ There are two approaches to collecting these events:
 
 | License | What it unlocks |
 |:--------|:----------------|
-| **Defender for Servers P2** | 500 MB/day free ingestion per server (covers Security Events, Syslog, and other security data types) |
+| **[Defender for Servers P2](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit)** | [500 MB/day free ingestion per server](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) (covers Security Events, Syslog, and other security data types) |
 | **Defender for Servers P1** | MDE on servers, but no free data ingestion for Sentinel |
 | **No Defender for Servers** | Full ingestion cost — still recommended for critical servers |
 
@@ -46,40 +46,40 @@ The events to collect depend on your chosen Data Collection Rule (DCR) preset:
 
 #### Authentication Events
 
-| Event ID | Description | Retention Recommendation | Rationale |
-|:---------|:------------|:------------------------|:----------|
-| **4624** | Successful logon | Hot: 90d / Archive: 2y | Core authentication forensics. Identifies who logged on, from where, and using which logon type. MCSB IM-1. Essential for lateral movement tracking (Type 3 = network, Type 10 = RDP). |
-| **4625** | Failed logon | Hot: 90d / Archive: 1y | Brute-force and password spray detection. MCSB IM-1. High volume of failures from a single source indicates an attack. |
-| **4648** | Logon with explicit credentials | Hot: 90d / Archive: 2y | Detects credential-based lateral movement (runas, PsExec). An attacker using stolen credentials on a compromised host generates this event. |
-| **4672** | Special privileges assigned to logon | Hot: 90d / Archive: 2y | Tracks every logon that receives administrative privileges. Critical for monitoring admin activity and detecting privilege abuse. |
-| **4634 / 4647** | Logoff / User-initiated logoff | Hot: 90d / Archive: 6m | Session duration tracking — helps scope attacker activity windows. |
+| Event ID | Description | Retention Recommendation | Rationale | Example Detection |
+|:---------|:------------|:------------------------|:----------|:------------------|
+| **4624** | Successful logon | Analytics: 90d / Lake: 365d | Core authentication forensics. Identifies who logged on, from where, and using which logon type. MCSB IM-1. Essential for lateral movement tracking (Type 3 = network, Type 10 = RDP). | Lateral movement via network logon (Type 3) from unexpected source (T1021) |
+| **4625** | Failed logon | Analytics: 90d / Lake: 365d | Brute-force and password spray detection. MCSB IM-1. High volume of failures from a single source indicates an attack. | RDP brute-force — high volume failed Type 10 logons (T1110) |
+| **4648** | Logon with explicit credentials | Analytics: 90d / Lake: 365d | Detects credential-based lateral movement (runas, PsExec). An attacker using stolen credentials on a compromised host generates this event. | Explicit credential use for lateral movement via PsExec (T1021.002) |
+| **4672** | Special privileges assigned to logon | Analytics: 90d / Lake: 365d | Tracks every logon that receives administrative privileges. Critical for monitoring admin activity and detecting privilege abuse. | Admin logon from unexpected source or at unusual time |
+| **4634 / 4647** | Logoff / User-initiated logoff | Analytics: 90d / Lake: 365d | Session duration tracking — helps scope attacker activity windows. | Session duration analysis during incident response |
 
 #### Account Management Events
 
-| Event ID | Description | Retention Recommendation | Rationale |
-|:---------|:------------|:------------------------|:----------|
-| **4720** | User account created | Hot: 90d / Archive: 2y | Detects persistence via new local accounts. MCSB PA-1. Also relevant for MITRE T1136.001 (Create Account: Local). |
-| **4726** | User account deleted | Hot: 90d / Archive: 1y | May indicate an attacker covering tracks by deleting created accounts. |
-| **4728 / 4732 / 4756** | Member added to security-enabled group | Hot: 90d / Archive: 2y | Privilege escalation via group membership. Tracks additions to local Administrators and other privileged groups. MCSB PA-1. |
-| **4724 / 4723** | Password reset / Password change | Hot: 90d / Archive: 1y | Unauthorized password resets may indicate account takeover. |
+| Event ID | Description | Retention Recommendation | Rationale | Example Detection |
+|:---------|:------------|:------------------------|:----------|:------------------|
+| **4720** | User account created | Analytics: 90d / Lake: 365d | Detects persistence via new local accounts. MCSB PA-1. Also relevant for MITRE T1136.001 (Create Account: Local). | New local account created and added to Administrators (T1136.001) |
+| **4726** | User account deleted | Analytics: 90d / Lake: 365d | May indicate an attacker covering tracks by deleting created accounts. | Account deletion shortly after suspicious activity |
+| **4728 / 4732 / 4756** | Member added to security-enabled group | Analytics: 90d / Lake: 365d | Privilege escalation via group membership. Tracks additions to local Administrators and other privileged groups. MCSB PA-1. | User added to local Administrators or Domain Admins (T1098) |
+| **4724 / 4723** | Password reset / Password change | Analytics: 90d / Lake: 365d | Unauthorized password resets may indicate account takeover. | Password reset on privileged account from unexpected source |
 
 #### Process and Policy Events
 
-| Event ID | Description | Retention Recommendation | Rationale |
-|:---------|:------------|:------------------------|:----------|
-| **4688** | Process creation (with command line) | Hot: 90d / Archive: 2y | **High-value forensic event.** Captures command-line arguments for every process. MCSB LT-3. Covers MITRE Execution, Defence Evasion, Discovery. Requires "Include command line in process creation events" GPO to be enabled. |
-| **4689** | Process exit | Hot: 90d / Archive: 6m | Process lifecycle tracking — useful for long-running malicious processes. |
-| **4698 / 4699 / 4702** | Scheduled task created / deleted / updated | Hot: 90d / Archive: 2y | Persistence detection (MITRE T1053.005). Attackers frequently use scheduled tasks for persistence and execution. |
-| **4697** | Service installed | Hot: 90d / Archive: 2y | Persistence via new services (MITRE T1543.003). Detects malware installing as a Windows service. |
-| **4719** | System audit policy changed | Hot: 90d / Archive: 2y | Anti-forensic detection — attackers disabling audit logging. MCSB LT-3. |
-| **1102** | Audit log cleared | Hot: 90d / Archive: 2y | **Critical anti-forensic indicator.** Event log clearing is a strong signal of attacker activity (MITRE T1070.001). |
+| Event ID | Description | Retention Recommendation | Rationale | Example Detection |
+|:---------|:------------|:------------------------|:----------|:------------------|
+| **4688** | Process creation (with command line) | Analytics: 90d / Lake: 365d | **High-value forensic event.** Captures command-line arguments for every process. MCSB LT-3. Covers MITRE Execution, Defence Evasion, Discovery. Requires "Include command line in process creation events" GPO to be enabled. | Encoded PowerShell command (T1059.001), Download cradle execution |
+| **4689** | Process exit | Analytics: 90d / Lake: 365d | Process lifecycle tracking — useful for long-running malicious processes. | Long-running process correlated with C2 activity |
+| **4698 / 4699 / 4702** | Scheduled task created / deleted / updated | Analytics: 90d / Lake: 365d | Persistence detection (MITRE T1053.005). Attackers frequently use scheduled tasks for persistence and execution. | Scheduled task with suspicious command line (T1053.005) |
+| **4697** | Service installed | Analytics: 90d / Lake: 365d | Persistence via new services (MITRE T1543.003). Detects malware installing as a Windows service. | New service pointing to unusual binary path (T1543.003) |
+| **4719** | System audit policy changed | Analytics: 90d / Lake: 365d | Anti-forensic detection — attackers disabling audit logging. MCSB LT-3. | Audit policy weakened or disabled (T1562.002) |
+| **1102** | Audit log cleared | Analytics: 90d / Lake: 365d | **Critical anti-forensic indicator.** Event log clearing is a strong signal of attacker activity (MITRE T1070.001). | Security event log cleared (T1070.001) |
 
 #### Firewall and Network Events
 
-| Event ID | Description | Retention Recommendation | Rationale |
-|:---------|:------------|:------------------------|:----------|
-| **5156** | Windows Filtering Platform connection allowed | Hot: 90d / Archive: 1y | Network connection tracking at the OS level. Useful when MDE DeviceNetworkEvents isn't available. |
-| **5157** | Windows Filtering Platform connection blocked | Hot: 90d / Archive: 1y | Blocked connection attempts may indicate lateral movement or C2 attempts. |
+| Event ID | Description | Retention Recommendation | Rationale | Example Detection |
+|:---------|:------------|:------------------------|:----------|:------------------|
+| **5156** | Windows Filtering Platform connection allowed | Analytics: 90d / Lake: 365d | Network connection tracking at the OS level. Useful when MDE DeviceNetworkEvents isn't available. | Outbound connection to suspicious IP/port |
+| **5157** | Windows Filtering Platform connection blocked | Analytics: 90d / Lake: 365d | Blocked connection attempts may indicate lateral movement or C2 attempts. | Blocked lateral movement attempt to internal server |
 
 ---
 
@@ -146,5 +146,22 @@ Enable these audit subcategories for Tier 1 coverage:
 - Use the **Common** event set as your DCR baseline, then add specific event IDs as detection engineering matures
 - For **domain controllers**, consider the "All Events" preset or a custom DCR — DCs generate authentication events for the entire domain
 - The WindowsEvent table (normalized) is useful if you want to collect non-security event logs (System, Application, PowerShell Operational) — consider this for Tier 2
+
+### Why Layered Logging Matters for Windows Servers
+
+EDR solutions like Microsoft Defender for Endpoint are powerful but **should not be your only detection source**. Windows Security Events provide an independent, authoritative audit trail that persists even if EDR is tampered with or bypassed. See the following resources:
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| The Evolution of EDR Bypasses | Historical timeline demonstrating how attackers continuously develop EDR bypass techniques — native logs are your fallback | [CovertSwarm](https://www.covertswarm.com/post/the-evolution-of-edr-bypasses-a-historical-timeline) |
+| Cloud Forensics: Forensic Readiness and IR in Azure Virtual Desktop | Demonstrates a layered approach combining EDR and native logging for incident response | [Microsoft Community Hub](https://techcommunity.microsoft.com/blog/microsoftsentinelblog/cloud-forensics-forensic-readiness-and-incident-response-in-azure-virtual-desktop/3835484) |
+| Windows Event Log Analysis: Techniques for Every SOC Analyst | Practical guide on using Windows Security Events for detection alongside EDR | [CyberDefenders Blog](https://blog.cyberdefenders.org/2024/02/windows-event-log-analysis-techniques.html) |
+
+### Useful Workbooks
+
+| Workbook | Purpose | Source |
+|:---------|:--------|:-------|
+| **Workspace Usage Report** | Monitor SecurityEvent/WindowsEvent ingestion volumes per server | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
+| **Defender AMA Coverage** | Validate AMA agent deployment and Windows Security Event collection coverage | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) |
 
 *[Back to overview](../README.md)*

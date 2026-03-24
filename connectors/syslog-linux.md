@@ -19,7 +19,7 @@ Like Windows Security Events, this connector has moved from the legacy Log Analy
 
 | License | What it unlocks |
 |:--------|:----------------|
-| **Defender for Servers P2** | MDE on Linux + 500 MB/day free ingestion per server (shared with SecurityEvent allowance) |
+| **[Defender for Servers P2](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit)** | MDE on Linux + [500 MB/day free ingestion per server](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) (shared with SecurityEvent allowance) |
 | **Defender for Servers P1** | MDE on Linux, but no free data ingestion for Sentinel |
 | **No Defender for Servers** | Full ingestion cost |
 
@@ -36,26 +36,26 @@ The Syslog table ingests messages from Linux syslog facilities. The key faciliti
 
 #### Authentication and Access
 
-| Facility | Severity | Description | Retention Recommendation | Rationale |
-|:---------|:---------|:------------|:------------------------|:----------|
-| **auth** | Info and above | Authentication events (login, su, sudo) | Hot: 90d / Archive: 2y | **Core Linux security logging.** Captures SSH logons, `su` and `sudo` usage, PAM events. MCSB IM-1 (Centralise identity management). Essential for detecting brute-force, credential abuse, and privilege escalation. |
-| **authpriv** | Info and above | Private authentication messages (PAM, SSH) | Hot: 90d / Archive: 2y | Detailed authentication internals — key accepted/rejected, PAM session opened/closed, auth failures. Often contains more detail than `auth` for SSH-based attacks. |
+| Facility | Severity | Description | Retention Recommendation | Rationale | Example Detection |
+|:---------|:---------|:------------|:------------------------|:----------|:------------------|
+| **auth** | Info and above | Authentication events (login, su, sudo) | Analytics: 90d / Lake: 365d | **Core Linux security logging.** Captures SSH logons, `su` and `sudo` usage, PAM events. MCSB IM-1 (Centralise identity management). Essential for detecting brute-force, credential abuse, and privilege escalation. | SSH brute-force (T1110), Unauthorized sudo usage (T1548.003) |
+| **authpriv** | Info and above | Private authentication messages (PAM, SSH) | Analytics: 90d / Lake: 365d | Detailed authentication internals — key accepted/rejected, PAM session opened/closed, auth failures. Often contains more detail than `auth` for SSH-based attacks. | PAM authentication failure, SSH key rejected from unknown source |
 
 #### System and Kernel
 
-| Facility | Severity | Description | Retention Recommendation | Rationale |
-|:---------|:---------|:------------|:------------------------|:----------|
-| **kern** | Warning and above | Kernel messages | Hot: 90d / Archive: 1y | Detects kernel-level attacks (module loading, exploit attempts), hardware issues, and firewall events (iptables/nftables logged via kern). MCSB LT-3. |
-| **daemon** | Info and above | System daemon messages | Hot: 90d / Archive: 1y | Covers services like sshd, cron, systemd, and custom daemons. Service starts/stops, crashes, and configuration changes are logged here. |
-| **cron** | Info and above | Cron job execution | Hot: 90d / Archive: 1y | Persistence detection — cron jobs are a primary Linux persistence mechanism (MITRE T1053.003). Tracks when cron jobs execute and whether they succeed or fail. |
-| **syslog** | Info and above | General system messages | Hot: 90d / Archive: 6m | Catch-all for messages not routed to other facilities. Provides general operational context. |
+| Facility | Severity | Description | Retention Recommendation | Rationale | Example Detection |
+|:---------|:---------|:------------|:------------------------|:----------|:------------------|
+| **kern** | Warning and above | Kernel messages | Analytics: 90d / Lake: 365d | Detects kernel-level attacks (module loading, exploit attempts), hardware issues, and firewall events (iptables/nftables logged via kern). MCSB LT-3. | Unexpected kernel module loaded — rootkit detection (T1547.006) |
+| **daemon** | Info and above | System daemon messages | Analytics: 90d / Lake: 365d | Covers services like sshd, cron, systemd, and custom daemons. Service starts/stops, crashes, and configuration changes are logged here. | New systemd service created and started (T1543.002) |
+| **cron** | Info and above | Cron job execution | Analytics: 90d / Lake: 365d | Persistence detection — cron jobs are a primary Linux persistence mechanism (MITRE T1053.003). Tracks when cron jobs execute and whether they succeed or fail. | New cron entry executing suspicious binary from /tmp (T1053.003) |
+| **syslog** | Info and above | General system messages | Analytics: 90d / Lake: 365d | Catch-all for messages not routed to other facilities. Provides general operational context. | rsyslog service stopped — potential anti-forensic activity (T1562.006) |
 
 #### Application and Network
 
-| Facility | Severity | Description | Retention Recommendation | Rationale |
-|:---------|:---------|:------------|:------------------------|:----------|
-| **local0 – local7** | Varies | Custom application logging | Hot: 90d / Archive: 1y | Many security-relevant applications (firewalls, proxies, network appliances) use local facilities. Configure based on your environment. |
-| **user** | Warning and above | User-level application messages | Hot: 90d / Archive: 6m | Application-specific events. Lower priority but may contain relevant security context. |
+| Facility | Severity | Description | Retention Recommendation | Rationale | Example Detection |
+|:---------|:---------|:------------|:------------------------|:----------|:------------------|
+| **local0 – local7** | Varies | Custom application logging | Analytics: 90d / Lake: 365d | Many security-relevant applications (firewalls, proxies, network appliances) use local facilities. Configure based on your environment. | Firewall deny events from network appliance forwarding via local facility |
+| **user** | Warning and above | User-level application messages | Analytics: 90d / Lake: 365d | Application-specific events. Lower priority but may contain relevant security context. | Application error correlated with suspicious activity |
 
 ---
 
@@ -158,5 +158,21 @@ Ensure the Linux server's rsyslog (or syslog-ng) is configured to generate the r
 - If you use **CEF-formatted logs** from network appliances forwarded via Linux syslog, these go to the `CommonSecurityLog` table — that's a separate connector consideration
 - For high-security environments, consider deploying **auditd** with STIG-compliant rules and forwarding via syslog (Tier 2/3) — this provides process execution, file access, and syscall monitoring comparable to Windows Security Events
 - Volume is typically much lower than Windows Security Events — the 500 MB/day Defender for Servers P2 allowance is usually more than sufficient
+
+### Why Layered Logging Matters for Linux Servers
+
+Just as with Windows, relying solely on EDR for Linux server security leaves gaps. Native syslog provides an independent audit trail that captures authentication, privilege escalation, and persistence events even if MDE is tampered with:
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| The Evolution of EDR Bypasses | EDR bypass techniques are not limited to Windows — Linux EDR evasion is an active research area | [CovertSwarm](https://www.covertswarm.com/post/the-evolution-of-edr-bypasses-a-historical-timeline) |
+| Sentinel Data Connectors: What Actually Matters | Practical guidance on prioritizing Sentinel data connectors including Syslog | [IT Professor](https://www.itprofessor.cloud/sentinel-data-connectors-what-actually-matters/) |
+
+### Useful Workbooks
+
+| Workbook | Purpose | Source |
+|:---------|:--------|:-------|
+| **Workspace Usage Report** | Monitor Syslog ingestion volumes per server and validate the P2 ingestion benefit | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
+| **Defender AMA Coverage** | Validate AMA agent deployment and Syslog collection coverage on Linux servers | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) |
 
 *[Back to overview](../README.md)*

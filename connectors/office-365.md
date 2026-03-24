@@ -22,11 +22,11 @@ The Office 365 connector provides **audit log data for Exchange Online, SharePoi
 
 ## Tables and Rationale
 
-| Table | Workload | Description | Retention Recommendation | Rationale |
-|:------|:---------|:------------|:------------------------|:----------|
-| **OfficeActivity** (Exchange) | Exchange Online | Mailbox activity: login, mail access, send, delegate access, inbox rule creation, mailbox permissions changes | Hot: 90d / Archive: 2y | BEC detection and investigation. Inbox rule creation is a top indicator of compromised mailboxes (MITRE T1564.008). MailItemsAccessed (E5 Audit Premium) enables precise forensic scoping of what data an attacker accessed. MCSB LT-3. |
-| **OfficeActivity** (SharePoint) | SharePoint Online | File access, sharing, download, upload, site collection changes | Hot: 90d / Archive: 2y | Data exfiltration detection (mass downloads, external sharing). Insider threat monitoring. MCSB DP-2 (Protect sensitive data). Tracks who accessed which files and when — essential for data breach scoping. |
-| **OfficeActivity** (Teams) | Microsoft Teams | Teams messaging, meeting, app, and channel events | Hot: 90d / Archive: 1y | Shadow IT detection (unauthorized apps in Teams), data loss via Teams messaging, guest access monitoring. Becoming increasingly important as Teams adoption grows. |
+| Table | Workload | Description | Retention Recommendation | Rationale | Example Detection |
+|:------|:---------|:------------|:------------------------|:----------|:------------------|
+| **OfficeActivity** (Exchange) | Exchange Online | Mailbox activity: login, mail access, send, delegate access, inbox rule creation, mailbox permissions changes | Analytics: 90d / Lake: 365d | BEC detection and investigation. Inbox rule creation is a top indicator of compromised mailboxes (MITRE T1564.008). MailItemsAccessed (E5 Audit Premium) enables precise forensic scoping of what data an attacker accessed. MCSB LT-3. | Suspicious inbox rule forwarding to external domain (T1564.008), Delegate access granted (T1098.002) |
+| **OfficeActivity** (SharePoint) | SharePoint Online | File access, sharing, download, upload, site collection changes | Analytics: 90d / Lake: 365d | Data exfiltration detection (mass downloads, external sharing). Insider threat monitoring. MCSB DP-2 (Protect sensitive data). Tracks who accessed which files and when — essential for data breach scoping. | Mass file download by single user (T1530), Anonymous sharing link created (T1567) |
+| **OfficeActivity** (Teams) | Microsoft Teams | Teams messaging, meeting, app, and channel events | Analytics: 90d / Lake: 365d | Shadow IT detection (unauthorized apps in Teams), data loss via Teams messaging, guest access monitoring. Becoming increasingly important as Teams adoption grows. | Unauthorized third-party app installed (T1195.002), Guest added to sensitive team |
 
 > [!IMPORTANT]
 > Ensure **Unified Audit Log** is enabled in Microsoft 365. Without it, no Office 365 audit events will flow to Sentinel. Check via `Get-AdminAuditLogConfig` or the Microsoft Purview compliance portal.
@@ -98,5 +98,11 @@ The Office 365 connector provides **audit log data for Exchange Online, SharePoi
 - Default M365 audit log retention is **180 days** (E5 Audit with 10-year retention is available but separate from Sentinel)
 - Consider creating **watchlists** for sensitive SharePoint sites to trigger alerts on access to high-value data
 - Inbox rule detections are among the **highest-fidelity BEC indicators** — prioritize these analytics rules
+
+### Useful Workbooks
+
+| Workbook | Purpose | Source |
+|:---------|:--------|:-------|
+| **Workspace Usage Report** | Monitor OfficeActivity ingestion volumes and validate connector health | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 
 *[Back to overview](../README.md)*
