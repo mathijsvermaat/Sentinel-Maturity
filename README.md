@@ -12,6 +12,19 @@ This guide provides a **tiered maturity model** for Microsoft Sentinel data conn
 2. **Why should we keep it?** — What is the security rationale (forensic readiness, detection, compliance)?
 3. **How long should we retain it?** — What retention periods align with regulatory and operational needs?
 
+## Guidance
+
+Before diving into specific connectors and tables, review the strategic guidance that underpins the decisions in this maturity model:
+
+| Topic | Description |
+|:------|:------------|
+| [Risk Considerations](guidance/risk-considerations.md) | Why there is no one-size-fits-all logging configuration and how to apply a risk-based approach |
+| [Input/Output Strategy](guidance/input-output-strategy.md) | Gartner's SIEM input/output strategy — tiering telemetry for cost-effective security operations |
+| [Forensic Readiness](guidance/forensic-readiness.md) | Designing logging and retention for incident investigation from day one |
+| [Layered Detection Approach](guidance/layered-detection.md) | Why EDR alone is not sufficient and how SIEM-based logging provides defence in depth |
+| [Frameworks and Compliance](guidance/frameworks-and-compliance.md) | MCSB, SFI, NIS2, and other regulatory standards that inform logging decisions |
+| [Budget and Cost Planning](guidance/budget-and-cost-planning.md) | SOC budgeting and Microsoft Sentinel cost optimisation strategies |
+
 ## Tier Model
 
 | Tier | Description | Target Audience |
