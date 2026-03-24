@@ -1,5 +1,14 @@
 # Risk Considerations
 
+## Contents
+
+- [Overview](#overview)
+- [Risk Factors That Influence Logging Decisions](#risk-factors-that-influence-logging-decisions)
+- [Assessing Each Data Source](#assessing-each-data-source)
+- [Key Takeaway](#key-takeaway)
+
+---
+
 ## Overview
 
 There is no universally correct logging configuration. What is "sufficient" logging for one organisation may be inadequate or excessive for another. This document assumes a **risk-based approach**, where:

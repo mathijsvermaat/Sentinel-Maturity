@@ -1,5 +1,15 @@
 # Budget and Cost Planning
 
+## Contents
+
+- [Overview](#overview)
+- [Cost Awareness Over Time](#cost-awareness-over-time)
+- [Budget Models](#budget-models)
+- [Microsoft Sentinel Cost Optimisation](#microsoft-sentinel-cost-optimisation)
+- [Key Takeaway](#key-takeaway)
+
+---
+
 ## Overview
 
 As a SOC develops its data collection plan, it must consider how it will pay for the transport and storage of the data. Budget planning is not a one-time exercise — data volumes change over time, and the SOC needs to be involved in early planning when infrastructure changes occur.

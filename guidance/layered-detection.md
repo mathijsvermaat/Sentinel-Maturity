@@ -1,5 +1,15 @@
 # Layered Detection Approach
 
+## Contents
+
+- [Overview](#overview)
+- [Why Layering Matters](#why-layering-matters)
+- [EDR Telemetry Is Not Complete Telemetry](#edr-telemetry-is-not-complete-telemetry)
+- [Real-World EDR Bypass Examples](#real-world-edr-bypass-examples)
+- [Practical Implications](#practical-implications)
+
+---
+
 ## Overview
 
 A defensible security strategy assumes that **no single tool is sufficient**. Microsoft Defender for Endpoint brings visibility into endpoints and servers with its EDR capabilities — but EDRs can be circumvented, disabled, or may simply not be deployed on all systems. Sending logs from high-priority devices to a SIEM provides the necessary redundancy.

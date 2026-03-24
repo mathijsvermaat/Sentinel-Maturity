@@ -4,6 +4,19 @@
 
 ---
 
+## Contents
+
+- [Overview](#overview)
+- [Tables and Rationale](#tables-and-rationale)
+- [Example Detections](#example-detections)
+- [MCSB Control Mapping](#mcsb-control-mapping)
+- [Recommended Configuration](#recommended-configuration)
+- [Notes](#notes)
+  - [Why Layered Logging Matters for Windows Servers](#why-layered-logging-matters-for-windows-servers)
+  - [Tools](#tools)
+
+---
+
 ## Overview
 
 Windows Security Events are the **foundational telemetry for server-side forensics and detection**. They capture authentication events, process execution, privilege use, account management, and security policy changes directly from the Windows event log. For servers that are onboarded to Microsoft Defender for Endpoint (via Defender for Servers P2), these events complement the richer MDE telemetry with the authoritative Windows audit trail.

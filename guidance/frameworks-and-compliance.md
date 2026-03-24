@@ -1,5 +1,16 @@
 # Frameworks and Compliance
 
+## Contents
+
+- [Overview](#overview)
+- [Microsoft Cloud Security Benchmark (MCSB)](#microsoft-cloud-security-benchmark-mcsb)
+- [Microsoft Secure Future Initiative (SFI)](#microsoft-secure-future-initiative-sfi)
+- [Microsoft Compliance Offerings](#microsoft-compliance-offerings)
+- [Regulatory Compliance](#regulatory-compliance)
+- [How This Maps to the Maturity Model](#how-this-maps-to-the-maturity-model)
+
+---
+
 ## Overview
 
 Logging and retention decisions are not made in isolation — they must align with industry security frameworks and regulatory requirements. This page outlines the key frameworks and compliance standards that inform the Sentinel Maturity Model recommendations.

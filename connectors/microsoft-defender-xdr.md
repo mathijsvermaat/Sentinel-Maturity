@@ -4,6 +4,18 @@
 
 ---
 
+## Contents
+
+- [Overview](#overview)
+- [Tables and Rationale](#tables-and-rationale)
+- [Example Detections](#example-detections)
+- [MCSB Control Mapping](#mcsb-control-mapping)
+- [Notes](#notes)
+  - [Estimating Data Lake Retention Cost](#estimating-data-lake-retention-cost)
+  - [Tools](#tools)
+
+---
+
 ## Overview
 
 The Microsoft Defender XDR connector ingests advanced hunting data from Microsoft Defender for Endpoint (MDE), Microsoft Defender for Office 365 (MDO), Microsoft Defender for Identity (MDI), and Microsoft Defender for Cloud Apps (MDA) into Microsoft Sentinel. This is the **single most valuable connector** for organisations with Microsoft 365 E5 or equivalent licensing, as it provides deep endpoint, email, identity, and cloud application telemetry — all at **zero additional ingestion cost** when ingested to the **Analytics tier** via the security data grant.

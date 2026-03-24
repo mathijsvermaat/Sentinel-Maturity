@@ -4,6 +4,20 @@
 
 ---
 
+## Contents
+
+- [Overview](#overview)
+- [Tables and Rationale](#tables-and-rationale)
+- [Key Events to Monitor](#key-events-to-monitor)
+- [Example Detections](#example-detections)
+- [MCSB Control Mapping](#mcsb-control-mapping)
+- [Recommended Configuration](#recommended-configuration)
+- [Notes](#notes)
+  - [Why Layered Logging Matters for Linux Servers](#why-layered-logging-matters-for-linux-servers)
+  - [Tools](#tools)
+
+---
+
 ## Overview
 
 Syslog is the **standard logging mechanism for Linux systems** and provides essential visibility into authentication, system events, and service activity. For Linux servers in Azure or hybrid environments, syslog data ingested into Sentinel provides the foundational audit trail for detecting unauthorized access, privilege escalation, and persistence on Linux workloads.

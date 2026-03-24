@@ -4,6 +4,26 @@
 
 ---
 
+## Contents
+
+- [Azure Activity Logs](#azure-activity-logs)
+  - [Contents](#contents)
+  - [Overview](#overview)
+    - [Licensing Benefits](#licensing-benefits)
+  - [Tables and Rationale](#tables-and-rationale)
+  - [Example Detections](#example-detections)
+    - [Resource-Based](#resource-based)
+    - [Identity / RBAC](#identity--rbac)
+    - [Key Vault](#key-vault)
+  - [MCSB Control Mapping](#mcsb-control-mapping)
+  - [Important Considerations](#important-considerations)
+    - [Log Categories to Enable](#log-categories-to-enable)
+    - [Deployment](#deployment)
+  - [Notes](#notes)
+    - [Tools](#tools)
+
+---
+
 ## Overview
 
 Azure Activity Logs capture **subscription-level events** across all your Azure resources. This includes resource creation and deletion, role assignments, policy changes, service health events, and autoscale operations. It is the **control plane audit trail** for your Azure environment and is indispensable for detecting unauthorized infrastructure changes, privilege escalation via Azure RBAC, and resource abuse (e.g., crypto-mining VMs).

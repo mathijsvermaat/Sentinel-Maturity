@@ -4,6 +4,18 @@
 
 ---
 
+## Contents
+
+- [Overview](#overview)
+- [Tables and Rationale](#tables-and-rationale)
+- [Example Detections](#example-detections)
+- [MCSB Control Mapping](#mcsb-control-mapping)
+- [OfficeActivity vs CloudAppEvents](#officeactivity-vs-cloudappevents)
+- [Notes](#notes)
+  - [Tools](#tools)
+
+---
+
 ## Overview
 
 The Office 365 connector provides **audit log data for Exchange Online, SharePoint Online, and Microsoft Teams**. While there is overlap with Defender XDR's `CloudAppEvents` table, the Office 365 `OfficeActivity` table provides the native Office 365 audit format and is a **free data source** in Sentinel. It captures user and admin activities that are critical for insider threat detection, data exfiltration monitoring, and compliance.

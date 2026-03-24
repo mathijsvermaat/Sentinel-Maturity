@@ -1,5 +1,14 @@
 # Input/Output Strategy
 
+## Contents
+
+- [Overview](#overview)
+- [The Strategy](#the-strategy)
+- [Applying This to Microsoft Sentinel](#applying-this-to-microsoft-sentinel)
+- [Key Takeaway](#key-takeaway)
+
+---
+
 ## Overview
 
 Gartner's SIEM input/output strategy focuses on moving beyond basic log collection to a more strategic, cost-effective approach. The core principle is **tiering telemetry**: sending only high-value data to the SIEM for real-time analysis and routing everything else to cheaper storage.

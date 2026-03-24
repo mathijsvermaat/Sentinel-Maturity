@@ -1,5 +1,15 @@
 # Forensic Readiness
 
+## Contents
+
+- [Overview](#overview)
+- [Forensic Readiness as a Design Requirement](#forensic-readiness-as-a-design-requirement)
+- [Why Centralised Logging Is Critical](#why-centralised-logging-is-critical)
+- [Forensic Value Across Log Sources](#forensic-value-across-log-sources)
+- [Real-World Examples](#real-world-examples)
+
+---
+
 ## Overview
 
 Forensic readiness is a foundational security capability that enables an organisation to effectively investigate and respond to security incidents. It is **not something that can be added after an incident has occurred**; instead, it must be deliberately designed into logging, monitoring, and data retention strategies from the outset.

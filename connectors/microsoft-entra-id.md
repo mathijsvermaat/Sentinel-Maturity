@@ -4,6 +4,17 @@
 
 ---
 
+## Contents
+
+- [Overview](#overview)
+- [Tables and Rationale](#tables-and-rationale)
+- [Example Detections](#example-detections)
+- [MCSB Control Mapping](#mcsb-control-mapping)
+- [Notes](#notes)
+  - [Tools](#tools)
+
+---
+
 ## Overview
 
 The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Sentinel deployment**. Identity is the new perimeter — virtually every attack involves some form of identity abuse, whether it is compromised credentials, token theft, or consent phishing. Entra ID logs provide the primary source of truth for authentication and directory change events across your entire Microsoft cloud estate.
