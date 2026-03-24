@@ -94,11 +94,11 @@
   Include 2-3 blog/article references in a table.
 -->
 
-### Useful Workbooks
+### Tools
 
-| Workbook | Purpose | Source |
-|:---------|:--------|:-------|
-| **Workspace Usage Report** | Monitor ingestion volumes for this connector's tables | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
-| **[Additional workbook]** | [Purpose] | [Source link] |
+| Tool | Type | Purpose | Source |
+|:-----|:-----|:--------|:-------|
+| **Workspace Usage Report** | Workbook | Monitor ingestion volumes for this connector's tables | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
+| **[Additional tool]** | [Workbook / Script / ...] | [Purpose] | [Source link] |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

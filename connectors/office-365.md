@@ -99,10 +99,10 @@ The Office 365 connector provides **audit log data for Exchange Online, SharePoi
 - Consider creating **watchlists** for sensitive SharePoint sites to trigger alerts on access to high-value data
 - Inbox rule detections are among the **highest-fidelity BEC indicators** — prioritize these analytics rules
 
-### Useful Workbooks
+### Tools
 
-| Workbook | Purpose | Source |
-|:---------|:--------|:-------|
-| **Workspace Usage Report** | Monitor OfficeActivity ingestion volumes and validate connector health | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
+| Tool | Type | Purpose | Source |
+|:-----|:-----|:--------|:-------|
+| **Workspace Usage Report** | Workbook | Monitor OfficeActivity ingestion volumes and validate connector health | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

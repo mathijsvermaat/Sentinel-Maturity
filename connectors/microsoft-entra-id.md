@@ -104,10 +104,10 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 - The **NetworkAccessTraffic** table becomes available if you deploy Global Secure Access (Entra Internet/Private Access) — this is a Tier 2+ consideration
 - Entra ID sign-in logs in Entra by default retain for **30 days** (P1/P2) — Sentinel provides the extended retention you need for forensic readiness
 
-### Useful Workbooks
+### Tools
 
-| Workbook | Purpose | Source |
-|:---------|:--------|:-------|
-| **Workspace Usage Report** | Monitor Entra ID table ingestion volumes and retention | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
+| Tool | Type | Purpose | Source |
+|:-----|:-----|:--------|:-------|
+| **Workspace Usage Report** | Workbook | Monitor Entra ID table ingestion volumes and retention | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

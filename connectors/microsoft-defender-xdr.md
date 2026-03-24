@@ -137,10 +137,23 @@ The Microsoft Defender XDR connector ingests advanced hunting data from Microsof
 - The free data grant applies to **advanced hunting tables only** — custom logs or additional enrichment pipelines may incur cost
 - Enable **Incident creation rules** to automatically create Sentinel incidents from Defender XDR alerts
 
-### Useful Workbooks
+### Estimating Data Lake Retention Cost
 
-| Workbook | Purpose | Source |
-|:---------|:--------|:-------|
-| **Workspace Usage Report** | Monitor Defender XDR table ingestion volumes and validate the E5 data grant | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
+To calculate the cost of retaining XDR data in the Sentinel Data Lake (365 days), you need to know the daily ingestion volume per table. There are two scenarios:
+
+**Scenario 1 — Already ingesting to the Analytics tier**
+
+If you are already streaming Defender XDR tables to Sentinel, use the **Workspace Usage Report** workbook (available in [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub)) to review daily ingestion volumes per table. Use the resulting daily GB values with [Sentinel Data Lake pricing](https://learn.microsoft.com/en-us/azure/sentinel/billing?tabs=simplified%2Ccommitment-tiers) to calculate annual retention cost.
+
+**Scenario 2 — Not yet ingesting to Sentinel**
+
+If you have **not** enabled the Defender XDR connector in Sentinel, there is no ingestion data to query. Use the [XDR tables to Sentinel ingestion calculator](https://github.com/mathijsvermaat/DefenderIngestToSentinel) script to estimate volumes directly from the Defender Advanced Hunting API. The script samples actual records from each table, measures their size, and extrapolates daily/monthly ingestion in GB — giving you a data-driven cost estimate before committing.
+
+### Tools
+
+| Tool | Type | Purpose | Source |
+|:-----|:-----|:--------|:-------|
+| **Workspace Usage Report** | Workbook | Monitor Defender XDR table ingestion volumes and validate the E5 data grant | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
+| **XDR tables to Sentinel ingestion calculator** | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector (see [Scenario 2](#estimating-data-lake-retention-cost) above) | [GitHub — mathijsvermaat/DefenderIngestToSentinel](https://github.com/mathijsvermaat/DefenderIngestToSentinel) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

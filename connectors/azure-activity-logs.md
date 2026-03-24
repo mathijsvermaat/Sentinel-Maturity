@@ -115,10 +115,10 @@ This ensures new subscriptions are automatically connected to your Sentinel work
 - Consider combining with **Azure Resource Graph** snapshots for point-in-time infrastructure state during investigations
 - High-value operations to watchlist: role assignments at subscription/management group scope, diagnostic settings changes, policy exemptions
 
-### Useful Workbooks
+### Tools
 
-| Workbook | Purpose | Source |
-|:---------|:--------|:-------|
-| **Workspace Usage Report** | Monitor AzureActivity ingestion volumes and retention | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
+| Tool | Type | Purpose | Source |
+|:-----|:-----|:--------|:-------|
+| **Workspace Usage Report** | Workbook | Monitor AzureActivity ingestion volumes and retention | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

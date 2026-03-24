@@ -168,11 +168,11 @@ Just as with Windows, relying solely on EDR for Linux server security leaves gap
 | The Evolution of EDR Bypasses | EDR bypass techniques are not limited to Windows — Linux EDR evasion is an active research area | [CovertSwarm](https://www.covertswarm.com/post/the-evolution-of-edr-bypasses-a-historical-timeline) |
 | Sentinel Data Connectors: What Actually Matters | Practical guidance on prioritizing Sentinel data connectors including Syslog | [IT Professor](https://www.itprofessor.cloud/sentinel-data-connectors-what-actually-matters/) |
 
-### Useful Workbooks
+### Tools
 
-| Workbook | Purpose | Source |
-|:---------|:--------|:-------|
-| **Workspace Usage Report** | Monitor Syslog ingestion volumes per server and validate the P2 ingestion benefit | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
-| **Defender AMA Coverage** | Validate AMA agent deployment and Syslog collection coverage on Linux servers | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) |
+| Tool | Type | Purpose | Source |
+|:-----|:-----|:--------|:-------|
+| **Workspace Usage Report** | Workbook | Monitor Syslog ingestion volumes per server and validate the P2 ingestion benefit | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
+| **Defender AMA Coverage** | Workbook | Validate AMA agent deployment and Syslog collection coverage on Linux servers | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

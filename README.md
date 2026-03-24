@@ -84,14 +84,15 @@ EDR solutions like Microsoft Defender for Endpoint are essential but **not suffi
 
 ---
 
-## Useful Workbooks
+## Tools
 
-To help identify retention settings, monitor ingestion volumes, and validate data connector coverage, use these workbooks:
+To help identify retention settings, monitor ingestion volumes, estimate costs, and validate data connector coverage:
 
-| Workbook | Purpose | Source |
-|:---------|:--------|:-------|
-| **Workspace Usage Report** | Monitor ingestion volumes per table, identify cost optimization opportunities, and validate data connector health across all connectors | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) (search "Workspace Usage") |
-| **Defender AMA Coverage** | Validate Defender for Endpoint and AMA agent deployment coverage, identify gaps in security event and syslog collection | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) |
+| Tool | Type | Purpose | Source |
+|:-----|:-----|:--------|:-------|
+| **Workspace Usage Report** | Workbook | Monitor ingestion volumes per table, identify cost optimisation opportunities, and validate data connector health across all connectors | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) (search "Workspace Usage") |
+| **Defender AMA Coverage** | Workbook | Validate Defender for Endpoint and AMA agent deployment coverage, identify gaps in security event and syslog collection | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) |
+| **XDR tables to Sentinel ingestion calculator** | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector | [GitHub — mathijsvermaat/DefenderIngestToSentinel](https://github.com/mathijsvermaat/DefenderIngestToSentinel) |
 
 ---
 
