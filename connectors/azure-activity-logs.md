@@ -121,4 +121,4 @@ This ensures new subscriptions are automatically connected to your Sentinel work
 |:---------|:--------|:-------|
 | **Workspace Usage Report** | Monitor AzureActivity ingestion volumes and retention | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 
-*[Back to overview](../README.md)*
+[← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

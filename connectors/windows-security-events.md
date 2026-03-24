@@ -164,4 +164,4 @@ EDR solutions like Microsoft Defender for Endpoint are powerful but **should not
 | **Workspace Usage Report** | Monitor SecurityEvent/WindowsEvent ingestion volumes per server | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 | **Defender AMA Coverage** | Validate AMA agent deployment and Windows Security Event collection coverage | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) |
 
-*[Back to overview](../README.md)*
+[← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

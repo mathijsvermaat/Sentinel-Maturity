@@ -143,4 +143,4 @@ The Microsoft Defender XDR connector ingests advanced hunting data from Microsof
 |:---------|:--------|:-------|
 | **Workspace Usage Report** | Monitor Defender XDR table ingestion volumes and validate the E5 data grant | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 
-*[Back to overview](../README.md)*
+[← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

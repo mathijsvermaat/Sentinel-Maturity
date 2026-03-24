@@ -175,4 +175,4 @@ Just as with Windows, relying solely on EDR for Linux server security leaves gap
 | **Workspace Usage Report** | Monitor Syslog ingestion volumes per server and validate the P2 ingestion benefit | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 | **Defender AMA Coverage** | Validate AMA agent deployment and Syslog collection coverage on Linux servers | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) |
 
-*[Back to overview](../README.md)*
+[← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

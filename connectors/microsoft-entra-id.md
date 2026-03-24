@@ -110,4 +110,4 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 |:---------|:--------|:-------|
 | **Workspace Usage Report** | Monitor Entra ID table ingestion volumes and retention | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 
-*[Back to overview](../README.md)*
+[← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

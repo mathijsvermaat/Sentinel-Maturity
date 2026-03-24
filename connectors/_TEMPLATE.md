@@ -101,4 +101,4 @@
 | **Workspace Usage Report** | Monitor ingestion volumes for this connector's tables | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 | **[Additional workbook]** | [Purpose] | [Source link] |
 
-*[Back to overview](../README.md)*
+[← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

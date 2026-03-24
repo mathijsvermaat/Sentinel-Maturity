@@ -105,4 +105,4 @@ The Office 365 connector provides **audit log data for Exchange Online, SharePoi
 |:---------|:--------|:-------|
 | **Workspace Usage Report** | Monitor OfficeActivity ingestion volumes and validate connector health | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) |
 
-*[Back to overview](../README.md)*
+[← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)
