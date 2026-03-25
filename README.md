@@ -4,6 +4,21 @@ A structured approach to Microsoft Sentinel data connector onboarding, retention
 
 ---
 
+## Contents
+
+- [Purpose](#purpose)
+- [Guidance](#guidance)
+- [Procedures](#procedures)
+- [Tier Model](#tier-model)
+- [Tier 1 Connectors (Bare Minimum)](#tier-1-connectors-bare-minimum)
+- [Retention Philosophy](#retention-philosophy)
+- [Why a Layered Approach?](#why-a-layered-approach)
+- [Tools](#tools)
+- [Assessment Checklist](#assessment-checklist)
+- [References](#references)
+
+---
+
 ## Purpose
 
 This guide provides a **tiered maturity model** for Microsoft Sentinel data connectors. It helps teams answer three questions:
@@ -56,7 +71,7 @@ Step-by-step guides for the operational tools used alongside this maturity model
 
 ## Retention Philosophy
 
-Our retention recommendations are informed by:
+For a deeper dive into retention strategy and investigation readiness, see [Forensic Readiness](guidance/forensic-readiness.md). Our retention recommendations are informed by:
 
 - **[Microsoft Cloud Security Benchmark (MCSB)](https://learn.microsoft.com/en-us/security/benchmark/azure/overview)** — Specifically controls LT-1 through LT-6 and IR-4/IR-5
 - **Forensic readiness** — The ability to investigate incidents that may have started weeks or months before detection (average dwell time in 2024: ~10 days for ransomware, but APTs can persist for months)
@@ -77,7 +92,7 @@ Our retention recommendations are informed by:
 
 ## Why a Layered Approach?
 
-EDR solutions like Microsoft Defender for Endpoint are essential but **not sufficient on their own**. A layered approach combining EDR with native OS logging (Windows Security Events, Syslog) provides defence in depth:
+For the full rationale, see [Layered Detection Approach](guidance/layered-detection.md). EDR solutions like Microsoft Defender for Endpoint are essential but **not sufficient on their own**. A layered approach combining EDR with native OS logging (Windows Security Events, Syslog) provides defence in depth:
 
 - **EDR can be bypassed** — attackers continuously develop techniques to evade endpoint detection. Native OS logs provide an independent audit trail that persists even if EDR is tampered with.
 - **Forensic readiness** — native logs provide authoritative evidence admissible in investigations, complementing EDR telemetry.
@@ -103,6 +118,14 @@ To help identify retention settings, monitor ingestion volumes, estimate costs, 
 | **Workspace Usage Report** | Workbook | Monitor ingestion volumes per table, identify cost optimisation opportunities, and validate data connector health across all connectors | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) (search "Workspace Usage") | [Walkthrough](procedures/workspace-usage-report.md) |
 | **Defender AMA Coverage** | Workbook | Validate Defender for Endpoint and AMA agent deployment coverage, identify gaps in security event and syslog collection | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](procedures/defender-ama-coverage.md) |
 | **XDR tables to Sentinel ingestion calculator** | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector | [GitHub — mathijsvermaat/DefenderIngestToSentinel](https://github.com/mathijsvermaat/DefenderIngestToSentinel) | [Walkthrough](procedures/xdr-ingestion-calculator.md) |
+
+---
+
+## Assessment Checklist
+
+Use the interactive [Sentinel Maturity Assessment Checklist](https://mathijsvermaat.github.io/sentinel-maturity-assessment.html) to track progress during a connector onboarding engagement. The checklist covers every Tier 1 connector with per-table checks, retention validation, and configuration items. Each section has a comment field for rationale and notes.
+
+Features: save/load progress (JSON), export to PDF, export to Excel.
 
 ---
 
