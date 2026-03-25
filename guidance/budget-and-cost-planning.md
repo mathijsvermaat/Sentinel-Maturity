@@ -81,7 +81,7 @@ Microsoft Sentinel provides several mechanisms to control and optimise costs:
 
 ### Monitoring and Reporting
 
-Use the **Workspace Usage Report** workbook (available in [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub)) to:
+Use the **Workspace Usage Report** workbook (available in [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) — [walkthrough](../procedures/workspace-usage-report.md)) to:
 
 - Monitor ingestion volumes per table
 - Identify cost optimisation opportunities
