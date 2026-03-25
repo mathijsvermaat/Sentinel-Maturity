@@ -50,26 +50,26 @@ The Syslog table ingests messages from Linux syslog facilities. The key faciliti
 
 #### Authentication and Access
 
-| Facility | Severity | Description | Retention Recommendation | Rationale | Example Detection |
-|:---------|:---------|:------------|:------------------------|:----------|:------------------|
-| **auth** | Info and above | Authentication events (login, su, sudo) | Analytics: 90d / Lake: 365d | **Core Linux security logging.** Captures SSH logons, `su` and `sudo` usage, PAM events. MCSB IM-1 (Centralise identity management). Essential for detecting brute-force, credential abuse, and privilege escalation. | SSH brute-force (T1110), Unauthorized sudo usage (T1548.003) |
-| **authpriv** | Info and above | Private authentication messages (PAM, SSH) | Analytics: 90d / Lake: 365d | Detailed authentication internals — key accepted/rejected, PAM session opened/closed, auth failures. Often contains more detail than `auth` for SSH-based attacks. | PAM authentication failure, SSH key rejected from unknown source |
+| Facility | Severity | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
+|:---------|:---------|:------------|:------------------------|:----------|:---------------|:------------------|
+| **auth** | Info and above | Authentication events (login, su, sudo) | Analytics: 90d / Lake: 365d | **Core Linux security logging.** Captures SSH logons, `su` and `sudo` usage, PAM events. MCSB IM-1 (Centralise identity management). Essential for detecting brute-force, credential abuse, and privilege escalation. | Full authentication timeline on Linux hosts — proves who logged in, when, from where, and which privilege escalation commands were used | SSH brute-force (T1110), Unauthorized sudo usage (T1548.003) |
+| **authpriv** | Info and above | Private authentication messages (PAM, SSH) | Analytics: 90d / Lake: 365d | Detailed authentication internals — key accepted/rejected, PAM session opened/closed, auth failures. Often contains more detail than `auth` for SSH-based attacks. | Granular SSH forensics — proves which SSH keys were used or rejected and exact PAM session lifecycle | PAM authentication failure, SSH key rejected from unknown source |
 
 #### System and Kernel
 
-| Facility | Severity | Description | Retention Recommendation | Rationale | Example Detection |
-|:---------|:---------|:------------|:------------------------|:----------|:------------------|
-| **kern** | Warning and above | Kernel messages | Analytics: 90d / Lake: 365d | Detects kernel-level attacks (module loading, exploit attempts), hardware issues, and firewall events (iptables/nftables logged via kern). MCSB LT-3. | Unexpected kernel module loaded — rootkit detection (T1547.006) |
-| **daemon** | Info and above | System daemon messages | Analytics: 90d / Lake: 365d | Covers services like sshd, cron, systemd, and custom daemons. Service starts/stops, crashes, and configuration changes are logged here. | New systemd service created and started (T1543.002) |
-| **cron** | Info and above | Cron job execution | Analytics: 90d / Lake: 365d | Persistence detection — cron jobs are a primary Linux persistence mechanism (MITRE T1053.003). Tracks when cron jobs execute and whether they succeed or fail. | New cron entry executing suspicious binary from /tmp (T1053.003) |
-| **syslog** | Info and above | General system messages | Analytics: 90d / Lake: 365d | Catch-all for messages not routed to other facilities. Provides general operational context. | rsyslog service stopped — potential anti-forensic activity (T1562.006) |
+| Facility | Severity | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
+|:---------|:---------|:------------|:------------------------|:----------|:---------------|:------------------|
+| **kern** | Warning and above | Kernel messages | Analytics: 90d / Lake: 365d | Detects kernel-level attacks (module loading, exploit attempts), hardware issues, and firewall events (iptables/nftables logged via kern). MCSB LT-3. | Evidence of kernel-level compromise — proves rootkit module loading and kernel exploit attempts that no user-space tool can reliably detect | Unexpected kernel module loaded — rootkit detection (T1547.006) |
+| **daemon** | Info and above | System daemon messages | Analytics: 90d / Lake: 365d | Covers services like sshd, cron, systemd, and custom daemons. Service starts/stops, crashes, and configuration changes are logged here. | Trace service-level persistence — proves when services were created, started, or modified by an attacker | New systemd service created and started (T1543.002) |
+| **cron** | Info and above | Cron job execution | Analytics: 90d / Lake: 365d | Persistence detection — cron jobs are a primary Linux persistence mechanism (MITRE T1053.003). Tracks when cron jobs execute and whether they succeed or fail. | Prove cron-based persistence — shows exactly when cron jobs were added and executed, linking persistence to attack timeline | New cron entry executing suspicious binary from /tmp (T1053.003) |
+| **syslog** | Info and above | General system messages | Analytics: 90d / Lake: 365d | Catch-all for messages not routed to other facilities. Provides general operational context. | General operational evidence — captures logging service state changes that indicate anti-forensic activity | rsyslog service stopped — potential anti-forensic activity (T1562.006) |
 
 #### Application and Network
 
-| Facility | Severity | Description | Retention Recommendation | Rationale | Example Detection |
-|:---------|:---------|:------------|:------------------------|:----------|:------------------|
-| **local0 – local7** | Varies | Custom application logging | Analytics: 90d / Lake: 365d | Many security-relevant applications (firewalls, proxies, network appliances) use local facilities. Configure based on your environment. | Firewall deny events from network appliance forwarding via local facility |
-| **user** | Warning and above | User-level application messages | Analytics: 90d / Lake: 365d | Application-specific events. Lower priority but may contain relevant security context. | Application error correlated with suspicious activity |
+| Facility | Severity | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
+|:---------|:---------|:------------|:------------------------|:----------|:---------------|:------------------|
+| **local0 – local7** | Varies | Custom application logging | Analytics: 90d / Lake: 365d | Many security-relevant applications (firewalls, proxies, network appliances) use local facilities. Configure based on your environment. | Environment-specific forensic data — network appliance and application logs that provide additional context during investigations | Firewall deny events from network appliance forwarding via local facility |
+| **user** | Warning and above | User-level application messages | Analytics: 90d / Lake: 365d | Application-specific events. Lower priority but may contain relevant security context. | Supplementary application context — may correlate with suspicious activity observed in other telemetry sources | Application error correlated with suspicious activity |
 
 ---
 

@@ -71,90 +71,90 @@ The tables below highlight **key events per category** and indicate which collec
 
 ##### Authentication Events
 
-| Event ID | Description | Minimal | Common | MDE Gap | Rationale | Example Detection |
-|:---------|:------------|:-------:|:------:|:--------|:----------|:------------------|
-| **4624** | Successful logon | ✅ | ✅ | ⚠️ Partial — MDE has logon telemetry but DCs require SecurityEvent | Core authentication forensics — who, from where, which logon type (3=network, 10=RDP). MCSB IM-1. | Lateral movement via network logon from unexpected source (T1021) |
-| **4625** | Failed logon | ✅ | ✅ | ⚠️ Partial — better correlation in Sentinel | Brute-force and password spray detection. MCSB IM-1. | RDP brute-force — high volume failed Type 10 logons (T1110) |
-| **4634** | Logoff | ❌ | ✅ | ⚠️ Gap | Session duration tracking — scopes attacker activity windows during IR | Session duration analysis during incident response |
-| **4648** | Logon with explicit credentials | ❌ | ✅ | ⚠️ Gap — MDE often lacks explicit-cred context | Detects runas, PsExec, and credential-based lateral movement | Explicit credential use for lateral movement (T1078) |
-| **4672** | Special privileges assigned at logon | ❌ | ✅ | ⚠️ Gap — DC-level signal | Every logon receiving admin privileges — critical for monitoring admin activity | Admin logon from unexpected source or at unusual time |
-| **4740** | Account locked out | ✅ | ✅ | ⚠️ Partial | Brute-force indicator — lockout storm across accounts | Account lockout storm indicating password spray (T1110) |
-| **4768** | Kerberos TGT requested | ❌ | ✅ | ⚠️ Major gap — MDE weak on Kerberos | Kerberoasting and pass-the-ticket detection. DC-only event. | High TGT volume with weak encryption type (T1558.003) |
-| **4769** | Kerberos service ticket requested | ❌ | ✅ | ⚠️ Major gap | Service ticket abuse detection — abnormal SPN access patterns | Kerberoasting — unusual service ticket requests (T1558) |
-| **4771** | Kerberos pre-authentication failed | ❌ | ✅ | ⚠️ Gap | Password spray against Kerberos (pre-auth failure) | Spray across user accounts via Kerberos (T1110) |
-| **4776** | NTLM authentication attempt | ❌ | ✅ | ⚠️ Gap | Legacy authentication abuse — NTLM from unexpected hosts | NTLM auth from non-legacy host indicating relay attack (T1110) |
+| Event ID | Description | Minimal | Common | MDE Gap | Rationale | Forensic Value | Example Detection |
+|:---------|:------------|:-------:|:------:|:--------|:----------|:---------------|:------------------|
+| **4624** | Successful logon | ✅ | ✅ | ⚠️ Partial — MDE has logon telemetry but DCs require SecurityEvent | Core authentication forensics — who, from where, which logon type (3=network, 10=RDP). MCSB IM-1. | Reconstruct full authentication timeline — proves when and how access was gained, the logon type, source IP, and account used | Lateral movement via network logon from unexpected source (T1021) |
+| **4625** | Failed logon | ✅ | ✅ | ⚠️ Partial — better correlation in Sentinel | Brute-force and password spray detection. MCSB IM-1. | Quantify attack intensity and duration — proves volume, timing, and source of brute-force or spray attempts across accounts | RDP brute-force — high volume failed Type 10 logons (T1110) |
+| **4634** | Logoff | ❌ | ✅ | ⚠️ Gap | Session duration tracking — scopes attacker activity windows during IR | Determine exact session duration — pairing with 4624 proves how long an attacker was active on each system | Session duration analysis during incident response |
+| **4648** | Logon with explicit credentials | ❌ | ✅ | ⚠️ Gap — MDE often lacks explicit-cred context | Detects runas, PsExec, and credential-based lateral movement | Proves credential reuse and lateral movement — shows when an attacker used stolen credentials on a compromised host | Explicit credential use for lateral movement (T1078) |
+| **4672** | Special privileges assigned at logon | ❌ | ✅ | ⚠️ Gap — DC-level signal | Every logon receiving admin privileges — critical for monitoring admin activity | Identify every administrative access event — proves which sessions had elevated privileges, essential for scoping admin-level compromise | Admin logon from unexpected source or at unusual time |
+| **4740** | Account locked out | ✅ | ✅ | ⚠️ Partial | Brute-force indicator — lockout storm across accounts | Correlate lockout events with attack timing — proves the impact of a brute-force campaign on account availability | Account lockout storm indicating password spray (T1110) |
+| **4768** | Kerberos TGT requested | ❌ | ✅ | ⚠️ Major gap — MDE weak on Kerberos | Kerberoasting and pass-the-ticket detection. DC-only event. | Detect Kerberos-based attacks at source — proves TGT request patterns, encryption types, and anomalous ticket requests on DCs | High TGT volume with weak encryption type (T1558.003) |
+| **4769** | Kerberos service ticket requested | ❌ | ✅ | ⚠️ Major gap | Service ticket abuse detection — abnormal SPN access patterns | Trace service ticket requests to identify Kerberoasting — proves which SPNs were targeted and from which account | Kerberoasting — unusual service ticket requests (T1558) |
+| **4771** | Kerberos pre-authentication failed | ❌ | ✅ | ⚠️ Gap | Password spray against Kerberos (pre-auth failure) | Evidence of pre-authentication brute-force — proves spray activity at the Kerberos level that may not appear in standard logon events | Spray across user accounts via Kerberos (T1110) |
+| **4776** | NTLM authentication attempt | ❌ | ✅ | ⚠️ Gap | Legacy authentication abuse — NTLM from unexpected hosts | Track NTLM relay and pass-the-hash — proves legacy auth usage patterns and identifies hosts still using NTLM | NTLM auth from non-legacy host indicating relay attack (T1110) |
 
 ##### Account and Group Management Events
 
-| Event ID | Description | Minimal | Common | MDE Gap | Rationale | Example Detection |
-|:---------|:------------|:-------:|:------:|:--------|:----------|:------------------|
-| **4720** | User account created | ✅ | ✅ | ⚠️ Gap — Sentinel required for account lifecycle | Persistence via new local accounts. MCSB PA-1. MITRE T1136.001. | New local account created and added to Administrators |
-| **4722** | User account enabled | ✅ | ✅ | ⚠️ Gap | Reactivation of dormant/backdoor accounts | Dormant account re-enabled outside business hours (T1098) |
-| **4724** | Password reset attempt | ✅ | ✅ | ⚠️ Gap | Unauthorized password resets — account takeover | Password reset on admin account by non-helpdesk user (T1098.004) |
-| **4726** | User account deleted | ✅ | ✅ | ⚠️ Gap | Covering tracks by deleting created accounts | Account deletion shortly after suspicious activity (T1070) |
-| **4728** | Member added to global security group | ✅ | ✅ | ⚠️ Gap — critical DC signal | Privilege escalation: additions to Domain Admins. MCSB PA-1. | User added to Domain Admins (T1098) |
-| **4732** | Member added to local security group | ✅ | ✅ | ⚠️ Partial — MDE may miss DC context | Local admin escalation via group membership | User added to local Administrators group (T1098) |
-| **4756** | Member added to universal security group | ✅ | ✅ | ⚠️ Gap | High-impact: Enterprise Admin and other forest-wide groups | User added to Enterprise Admins (T1098) |
-| **4731** | Local security group created | ❌ | ✅ | ⚠️ Gap | Privilege staging — new admin-like groups | New local administrative group created (T1136) |
-| **4741** | Computer account created | ❌ | ✅ | ⚠️ Gap — MDE blind spot | Rogue machine join or resource-based constrained delegation abuse | Computer account created outside provisioning (T1136.002) |
-| **4742** | Computer account changed | ❌ | ✅ | ⚠️ Gap | SPN or delegation property modification — delegation abuse | SPN modified on computer object (T1098) |
+| Event ID | Description | Minimal | Common | MDE Gap | Rationale | Forensic Value | Example Detection |
+|:---------|:------------|:-------:|:------:|:--------|:----------|:---------------|:------------------|
+| **4720** | User account created | ✅ | ✅ | ⚠️ Gap — Sentinel required for account lifecycle | Persistence via new local accounts. MCSB PA-1. MITRE T1136.001. | Prove account creation as persistence — shows exactly when and by whom a backdoor account was created | New local account created and added to Administrators |
+| **4722** | User account enabled | ✅ | ✅ | ⚠️ Gap | Reactivation of dormant/backdoor accounts | Detect reactivated accounts — proves when a disabled account was re-enabled and by which identity | Dormant account re-enabled outside business hours (T1098) |
+| **4724** | Password reset attempt | ✅ | ✅ | ⚠️ Gap | Unauthorized password resets — account takeover | Trace credential manipulation — proves who reset which password and when, critical for account takeover investigations | Password reset on admin account by non-helpdesk user (T1098.004) |
+| **4726** | User account deleted | ✅ | ✅ | ⚠️ Gap | Covering tracks by deleting created accounts | Evidence of anti-forensic activity — proves attacker cleaned up backdoor accounts post-exploitation | Account deletion shortly after suspicious activity (T1070) |
+| **4728** | Member added to global security group | ✅ | ✅ | ⚠️ Gap — critical DC signal | Privilege escalation: additions to Domain Admins. MCSB PA-1. | Prove privilege escalation path — authoritative record of group membership changes on DCs | User added to Domain Admins (T1098) |
+| **4732** | Member added to local security group | ✅ | ✅ | ⚠️ Partial — MDE may miss DC context | Local admin escalation via group membership | Trace local privilege escalation — proves when and by whom a user was added to local Administrators | User added to local Administrators group (T1098) |
+| **4756** | Member added to universal security group | ✅ | ✅ | ⚠️ Gap | High-impact: Enterprise Admin and other forest-wide groups | Prove forest-wide privilege escalation — authoritative evidence of Enterprise Admin group modifications | User added to Enterprise Admins (T1098) |
+| **4731** | Local security group created | ❌ | ✅ | ⚠️ Gap | Privilege staging — new admin-like groups | Detect privilege staging — proves creation of new local groups that may have been used to grant access | New local administrative group created (T1136) |
+| **4741** | Computer account created | ❌ | ✅ | ⚠️ Gap — MDE blind spot | Rogue machine join or resource-based constrained delegation abuse | Detect rogue domain joins — proves unauthorized machine accounts that may enable delegation attacks | Computer account created outside provisioning (T1136.002) |
+| **4742** | Computer account changed | ❌ | ✅ | ⚠️ Gap | SPN or delegation property modification — delegation abuse | Trace delegation abuse setup — proves SPN or delegation attribute changes on computer objects | SPN modified on computer object (T1098) |
 
 ##### Process, Persistence, and Policy Events
 
-| Event ID | Description | Minimal | Common | MDE Gap | Rationale | Example Detection |
-|:---------|:------------|:-------:|:------:|:--------|:----------|:------------------|
-| **4688** | Process created (with command line) | ✅ | ✅ | ❌ Mostly covered by MDE (use for correlation/fallback) | **High-value forensic event.** Requires GPO "Include command line in process creation events." MCSB LT-3. | Encoded PowerShell (T1059.001), LOLBin execution |
-| **4698** | Scheduled task created | ✅ | ✅ | ⚠️ Gap — critical persistence telemetry | Persistence detection. MITRE T1053.005. | Task created to run from AppData or temp (T1053.005) |
-| **4699** | Scheduled task deleted | ❌ | ✅ | ⚠️ Gap | Defence evasion — task deleted after execution | Task deleted immediately after single execution (T1070) |
-| **4697** | Service installed | ✅ | ✅ | ⚠️ Partial — MDE sees some installs | Service-based persistence. MITRE T1543.003. | Service installed from user-writable path (T1543.003) |
-| **4702** | Scheduled task updated | ✅ | ✅ | ⚠️ Partial — MDE sometimes misses task edits | Modified tasks may indicate hijacked persistence | Task path changed to suspicious location (T1053.005) |
-| **4719** | Audit policy changed | ✅ | ✅ | ⚠️ Gap — critical control-plane signal | Anti-forensic: attacker disabling audit logging. MCSB LT-3. | Audit policy disabled after admin logon (T1562.002) |
-| **1102** | Audit log cleared | ✅ | ✅ | ⚠️ Gap — SecurityEvent is authoritative | **Critical anti-forensic indicator.** MITRE T1070.001. | Security log cleared by non-admin account (T1070.001) |
-| **4739** | Domain policy changed | ✅ | ✅ | ⚠️ Major gap — Sentinel required | Domain-wide GPO changes weakening security | GPO modified to relax password policy (T1484.001) |
+| Event ID | Description | Minimal | Common | MDE Gap | Rationale | Forensic Value | Example Detection |
+|:---------|:------------|:-------:|:------:|:--------|:----------|:---------------|:------------------|
+| **4688** | Process created (with command line) | ✅ | ✅ | ❌ Mostly covered by MDE (use for correlation/fallback) | **High-value forensic event.** Requires GPO "Include command line in process creation events." MCSB LT-3. | Independent execution audit trail — authoritative process creation record that persists even if MDE is bypassed or tampered with | Encoded PowerShell (T1059.001), LOLBin execution |
+| **4698** | Scheduled task created | ✅ | ✅ | ⚠️ Gap — critical persistence telemetry | Persistence detection. MITRE T1053.005. | Prove persistence installation — exact time, task name, command, and creating account | Task created to run from AppData or temp (T1053.005) |
+| **4699** | Scheduled task deleted | ❌ | ✅ | ⚠️ Gap | Defence evasion — task deleted after execution | Evidence of anti-forensic cleanup — proves attacker removed persistence artifacts | Task deleted immediately after single execution (T1070) |
+| **4697** | Service installed | ✅ | ✅ | ⚠️ Partial — MDE sees some installs | Service-based persistence. MITRE T1543.003. | Identify service-based persistence — proves which binary was registered as a service and when | Service installed from user-writable path (T1543.003) |
+| **4702** | Scheduled task updated | ✅ | ✅ | ⚠️ Partial — MDE sometimes misses task edits | Modified tasks may indicate hijacked persistence | Detect persistence hijacking — proves when a legitimate task was modified to execute malicious code | Task path changed to suspicious location (T1053.005) |
+| **4719** | Audit policy changed | ✅ | ✅ | ⚠️ Gap — critical control-plane signal | Anti-forensic: attacker disabling audit logging. MCSB LT-3. | Prove logging was tampered with — authoritative evidence that audit policy was weakened by the attacker | Audit policy disabled after admin logon (T1562.002) |
+| **1102** | Audit log cleared | ✅ | ✅ | ⚠️ Gap — SecurityEvent is authoritative | **Critical anti-forensic indicator.** MITRE T1070.001. | The last event before log destruction — proves the log was cleared and by whom. If this event exists in Sentinel, the centralised copy is the only surviving evidence. | Security log cleared by non-admin account (T1070.001) |
+| **4739** | Domain policy changed | ✅ | ✅ | ⚠️ Major gap — Sentinel required | Domain-wide GPO changes weakening security | Prove domain-level security weakening — authoritative evidence of GPO modifications that relaxed security controls | GPO modified to relax password policy (T1484.001) |
 
 ##### Network and Firewall Events
 
-| Event ID | Description | Minimal | Common | MDE Gap | Rationale | Example Detection |
-|:---------|:------------|:-------:|:------:|:--------|:----------|:------------------|
-| **5140** | Network share accessed | ❌ | ✅ | ⚠️ Partial | Lateral movement via admin shares (C$, ADMIN$). MITRE T1021.002. | Access to C$/ADMIN$ from unexpected source |
-| **5145** | Network share object checked | ❌ | ✅ | ⚠️ Gap | Data staging and write attempts to admin shares | Write attempt to admin share indicating staging (T1021.002) |
-| **5156** | WFP connection allowed | ❌ | ✅ | ⚠️ Partial | OS-level network connection tracking when MDE DeviceNetworkEvents unavailable | Outbound connection to rare destination (T1071) |
-| **4946** | Firewall rule added | ✅ | ✅ | ⚠️ Gap | Network exposure — new inbound allow rules | New allow rule for suspicious port (T1562.004) |
-| **4948** | Firewall rule modified | ✅ | ✅ | ⚠️ Gap | C2 enablement via rule modification | Rule changed + outbound traffic spike (T1562.004) |
-| **4956** | Firewall profile changed | ✅ | ✅ | ⚠️ Gap | Defence evasion — profile change | Public → Private profile change (T1562.004) |
+| Event ID | Description | Minimal | Common | MDE Gap | Rationale | Forensic Value | Example Detection |
+|:---------|:------------|:-------:|:------:|:--------|:----------|:---------------|:------------------|
+| **5140** | Network share accessed | ❌ | ✅ | ⚠️ Partial | Lateral movement via admin shares (C$, ADMIN$). MITRE T1021.002. | Map lateral movement paths — proves which shares were accessed, from where, and by whom during an attack | Access to C$/ADMIN$ from unexpected source |
+| **5145** | Network share object checked | ❌ | ✅ | ⚠️ Gap | Data staging and write attempts to admin shares | Trace data exfiltration and staging — proves file-level write operations to network shares | Write attempt to admin share indicating staging (T1021.002) |
+| **5156** | WFP connection allowed | ❌ | ✅ | ⚠️ Partial | OS-level network connection tracking when MDE DeviceNetworkEvents unavailable | Independent network telemetry — proves outbound connections even if MDE was disabled or tampered with | Outbound connection to rare destination (T1071) |
+| **4946** | Firewall rule added | ✅ | ✅ | ⚠️ Gap | Network exposure — new inbound allow rules | Prove defence evasion — shows exactly when firewall rules were created to allow C2 or lateral movement | New allow rule for suspicious port (T1562.004) |
+| **4948** | Firewall rule modified | ✅ | ✅ | ⚠️ Gap | C2 enablement via rule modification | Track security control changes — proves which rules were weakened and when | Rule changed + outbound traffic spike (T1562.004) |
+| **4956** | Firewall profile changed | ✅ | ✅ | ⚠️ Gap | Defence evasion — profile change | Evidence of network profile manipulation — proves profile changes that weaken firewall protection | Public → Private profile change (T1562.004) |
 
 ##### AppLocker / WDAC Events (Minimal tier only)
 
-| Event ID | Description | Minimal | Common | MDE Gap | Rationale | Example Detection |
-|:---------|:------------|:-------:|:------:|:--------|:----------|:------------------|
-| **8001** | AppLocker policy applied | ✅ | ✅ | ⚠️ Gap | Control enforcement validation | Unexpected policy application (T1484.002) |
-| **8003** | AppLocker blocked execution | ✅ | ✅ | ⚠️ Partial | Blocked malware/LOLBin attempts | Repeated block attempts from same source (T1059) |
-| **8222** | WDAC enforcement event | ✅ | ✅ | ⚠️ Gap | Application control policy violation | WDAC policy violation on critical server (T1484.002) |
+| Event ID | Description | Minimal | Common | MDE Gap | Rationale | Forensic Value | Example Detection |
+|:---------|:------------|:-------:|:------:|:--------|:----------|:---------------|:------------------|
+| **8001** | AppLocker policy applied | ✅ | ✅ | ⚠️ Gap | Control enforcement validation | Prove application control state — confirms whether AppLocker policy was active at the time of an incident | Unexpected policy application (T1484.002) |
+| **8003** | AppLocker blocked execution | ✅ | ✅ | ⚠️ Partial | Blocked malware/LOLBin attempts | Evidence of blocked attack attempts — proves malware or LOLBin execution was attempted even though it was blocked | Repeated block attempts from same source (T1059) |
+| **8222** | WDAC enforcement event | ✅ | ✅ | ⚠️ Gap | Application control policy violation | Prove policy violation attempts — evidence of application control bypass efforts on critical systems | WDAC policy violation on critical server (T1484.002) |
 
 ##### Credential Access Events (Common tier only)
 
-| Event ID | Description | Minimal | Common | MDE Gap | Rationale | Example Detection |
-|:---------|:------------|:-------:|:------:|:--------|:----------|:------------------|
-| **5379** | Credential Manager credentials read | ❌ | ✅ | ⚠️ Gap | Credential dumping precursor — reading stored credentials | Cred read by non-browser process (T1555) |
+| Event ID | Description | Minimal | Common | MDE Gap | Rationale | Forensic Value | Example Detection |
+|:---------|:------------|:-------:|:------:|:--------|:----------|:---------------|:------------------|
+| **5379** | Credential Manager credentials read | ❌ | ✅ | ⚠️ Gap | Credential dumping precursor — reading stored credentials | Detect credential harvesting — proves which process accessed Credential Manager and when, identifying pre-exfiltration activity | Cred read by non-browser process (T1555) |
 
 ##### Full (All Events) Only — Additional Forensic and Audit Events
 
 The following events are **only available in the All Events preset** (or via a Custom DCR). These provide deeper forensic granularity — particularly valuable for domain controllers, file servers, and compliance-driven environments.
 
-| Event ID | Description | Minimal | Common | Full | MDE Gap | Rationale | Example Detection |
-|:---------|:------------|:-------:|:------:|:----:|:--------|:----------|:------------------|
-| **4663** | Object access attempt | ❌ | ❌ | ✅ | ⚠️ Gap — requires SACLs; MDE limited | Sensitive file/registry object access auditing. Detects access to credential files, SAM database, and sensitive data. Requires SACL configuration on target objects. | Access to credential files or SAM database (T1005) |
-| **4656** | Handle to object requested | ❌ | ❌ | ✅ | ⚠️ Gap | Detailed object access — tracks which process requested access to a specific object and with what permissions | Handle request to LSASS process memory (T1003.001) |
-| **4670** | Permissions on object changed | ❌ | ❌ | ✅ | ⚠️ Gap | Detects permission changes on files, registry, or AD objects — key for detecting attackers weakening ACLs | DACL modified on sensitive file or registry key (T1222) |
-| **4907** | Auditing settings on object changed | ❌ | ❌ | ✅ | ⚠️ Gap | Anti-forensic: attacker removing SACLs to stop generating audit events for sensitive objects | SACL removed from sensitive directory (T1562) |
-| **4703** | Token right adjusted | ❌ | ❌ | ✅ | ⚠️ Gap | Privilege token manipulation — SeDebugPrivilege enables LSASS access; SeImpersonatePrivilege enables potato-style attacks | SeDebugPrivilege enabled on non-admin process (T1134) |
-| **4706** | New trust created to domain | ❌ | ❌ | ✅ | ⚠️ Major gap | Domain trust creation — highly sensitive change that could enable cross-domain lateral movement | New domain trust created (T1484.002) |
-| **4713** | Kerberos policy changed | ❌ | ❌ | ✅ | ⚠️ Gap | Changes to Kerberos ticket lifetime or renewal settings — can indicate Golden Ticket preparation | Kerberos ticket lifetime extended (T1558.001) |
-| **4770** | Kerberos TGT renewed | ❌ | ❌ | ✅ | ⚠️ Major gap | TGT renewal tracking — abnormal renewal patterns may indicate pass-the-ticket or Golden Ticket use | TGT renewed from unexpected host (T1550.003) |
-| **4985** | State of a transaction changed | ❌ | ❌ | ✅ | ⚠️ Gap | Transactional NTFS operations — can indicate advanced file system manipulation | Transactional file operation on sensitive path |
-| **5136** | Directory service object modified | ❌ | ❌ | ✅ | ⚠️ Gap — critical for DC forensics | AD object attribute changes — tracks modifications to user, group, and computer objects at the attribute level | AdminSDHolder modification, SPN added to user (T1134) |
-| **5137** | Directory service object created | ❌ | ❌ | ✅ | ⚠️ Gap | New AD objects — detects creation of GPOs, OUs, or other AD objects outside change management | New GPO created outside change window (T1484.001) |
-| **5141** | Directory service object deleted | ❌ | ❌ | ✅ | ⚠️ Gap | AD object deletion — covering tracks or disrupting services | OU or GPO deleted unexpectedly (T1070) |
+| Event ID | Description | Minimal | Common | Full | MDE Gap | Rationale | Forensic Value | Example Detection |
+|:---------|:------------|:-------:|:------:|:----:|:--------|:----------|:---------------|:------------------|
+| **4663** | Object access attempt | ❌ | ❌ | ✅ | ⚠️ Gap — requires SACLs; MDE limited | Sensitive file/registry object access auditing. Detects access to credential files, SAM database, and sensitive data. Requires SACL configuration on target objects. | Prove exactly which files/objects were accessed — authoritative evidence of data access patterns during exfiltration or credential theft | Access to credential files or SAM database (T1005) |
+| **4656** | Handle to object requested | ❌ | ❌ | ✅ | ⚠️ Gap | Detailed object access — tracks which process requested access to a specific object and with what permissions | Trace process-to-object access chains — proves exactly which process opened handles to LSASS or sensitive objects | Handle request to LSASS process memory (T1003.001) |
+| **4670** | Permissions on object changed | ❌ | ❌ | ✅ | ⚠️ Gap | Detects permission changes on files, registry, or AD objects — key for detecting attackers weakening ACLs | Evidence of ACL manipulation — proves when and how access controls were weakened on sensitive resources | DACL modified on sensitive file or registry key (T1222) |
+| **4907** | Auditing settings on object changed | ❌ | ❌ | ✅ | ⚠️ Gap | Anti-forensic: attacker removing SACLs to stop generating audit events for sensitive objects | Prove audit evasion — evidence that SACLs were removed to suppress future audit events, indicating sophisticated attacker activity | SACL removed from sensitive directory (T1562) |
+| **4703** | Token right adjusted | ❌ | ❌ | ✅ | ⚠️ Gap | Privilege token manipulation — SeDebugPrivilege enables LSASS access; SeImpersonatePrivilege enables potato-style attacks | Prove privilege escalation technique — shows exactly when dangerous privileges were enabled on a process | SeDebugPrivilege enabled on non-admin process (T1134) |
+| **4706** | New trust created to domain | ❌ | ❌ | ✅ | ⚠️ Major gap | Domain trust creation — highly sensitive change that could enable cross-domain lateral movement | Authoritative evidence of trust manipulation — proves new trust relationships that may enable cross-forest attacks | New domain trust created (T1484.002) |
+| **4713** | Kerberos policy changed | ❌ | ❌ | ✅ | ⚠️ Gap | Changes to Kerberos ticket lifetime or renewal settings — can indicate Golden Ticket preparation | Prove Kerberos configuration tampering — evidence of ticket lifetime changes that may indicate Golden Ticket setup | Kerberos ticket lifetime extended (T1558.001) |
+| **4770** | Kerberos TGT renewed | ❌ | ❌ | ✅ | ⚠️ Major gap | TGT renewal tracking — abnormal renewal patterns may indicate pass-the-ticket or Golden Ticket use | Detect ticket abuse patterns — proves abnormal TGT renewal activity that indicates pass-the-ticket or Golden Ticket usage | TGT renewed from unexpected host (T1550.003) |
+| **4985** | State of a transaction changed | ❌ | ❌ | ✅ | ⚠️ Gap | Transactional NTFS operations — can indicate advanced file system manipulation | Evidence of TxF abuse — proves transactional file system operations used for covert file manipulation | Transactional file operation on sensitive path |
+| **5136** | Directory service object modified | ❌ | ❌ | ✅ | ⚠️ Gap — critical for DC forensics | AD object attribute changes — tracks modifications to user, group, and computer objects at the attribute level | The most granular AD forensic event — proves exactly which AD attribute was changed, from what value, to what value, and by whom | AdminSDHolder modification, SPN added to user (T1134) |
+| **5137** | Directory service object created | ❌ | ❌ | ✅ | ⚠️ Gap | New AD objects — detects creation of GPOs, OUs, or other AD objects outside change management | Prove unauthorized AD changes — authoritative record of new AD objects created during an attack | New GPO created outside change window (T1484.001) |
+| **5141** | Directory service object deleted | ❌ | ❌ | ✅ | ⚠️ Gap | AD object deletion — covering tracks or disrupting services | Evidence of AD-level destruction — proves when and by whom AD objects were deleted for anti-forensic or disruptive purposes | OU or GPO deleted unexpectedly (T1070) |
 
 > [!TIP]
 > The Full tier is especially valuable on **domain controllers** where events like 5136 (AD object modification), 4770 (Kerberos TGT renewal), and 4706 (trust creation) provide critical visibility that is unavailable from any other source — including MDE.

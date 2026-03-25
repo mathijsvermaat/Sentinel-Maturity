@@ -32,10 +32,10 @@
 
 ### [Table Category Name] (optional grouping)
 
-| Table | Description | Retention Recommendation | Rationale | Example Detection |
-|:------|:------------|:------------------------|:----------|:------------------|
-| **[TableName]** | [What data this table contains] | Analytics: 90d / Lake: 365d | [Why this data matters — reference MCSB controls, forensic readiness, MITRE ATT&CK coverage] | [Specific detection example with MITRE technique ID] |
-| **[TableName]** | [What data this table contains] | Analytics: 90d / Lake: 365d | [Rationale] | [Detection example] |
+| Table | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
+|:------|:------------|:------------------------|:----------|:---------------|:------------------|
+| **[TableName]** | [What data this table contains] | Analytics: 90d / Lake: 365d | [Why this data matters — reference MCSB controls, forensic readiness, MITRE ATT&CK coverage] | [What this data proves during an investigation — describe how it supports incident response and forensic analysis] | [Specific detection example with MITRE technique ID] |
+| **[TableName]** | [What data this table contains] | Analytics: 90d / Lake: 365d | [Rationale] | [Forensic value] | [Detection example] |
 
 ---
 
