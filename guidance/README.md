@@ -14,6 +14,7 @@ This section provides the strategic rationale and design principles behind the S
 | [Layered Detection Approach](layered-detection.md) | Why EDR alone is not sufficient and how combining EDR with SIEM-based logging provides defence in depth |
 | [Frameworks and Compliance](frameworks-and-compliance.md) | Relevant security frameworks (MCSB, SFI) and regulatory requirements (NIS2) that inform logging decisions |
 | [Budget and Cost Planning](budget-and-cost-planning.md) | How to plan and sustain SOC data collection budgets, including Microsoft Sentinel pricing considerations |
+| [Retention](retention.md) | Industry best practices for log retention periods — MCSB, NIST, CIS, NIS2, and GDPR mapped to Microsoft Sentinel storage tiers |
 
 ---
 

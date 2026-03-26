@@ -6,16 +6,20 @@ A structured approach to Microsoft Sentinel data connector onboarding, retention
 
 ## Contents
 
-- [Purpose](#purpose)
-- [Guidance](#guidance)
-- [Procedures](#procedures)
-- [Tier Model](#tier-model)
-- [Tier 1 Connectors (Bare Minimum)](#tier-1-connectors-bare-minimum)
-- [Retention Philosophy](#retention-philosophy)
-- [Why a Layered Approach?](#why-a-layered-approach)
-- [Tools](#tools)
-- [Assessment Checklist](#assessment-checklist)
-- [References](#references)
+- [Sentinel Maturity Model — Data Connector Guidance](#sentinel-maturity-model--data-connector-guidance)
+  - [Contents](#contents)
+  - [Purpose](#purpose)
+  - [Guidance](#guidance)
+  - [Procedures](#procedures)
+  - [Tier Model](#tier-model)
+  - [Tier 1 Connectors (Bare Minimum)](#tier-1-connectors-bare-minimum)
+  - [Retention Philosophy](#retention-philosophy)
+    - [Recommended Retention Tiers](#recommended-retention-tiers)
+  - [Why a Layered Approach?](#why-a-layered-approach)
+    - [Recommended Reading](#recommended-reading)
+  - [Tools](#tools)
+  - [Assessment Checklist](#assessment-checklist)
+  - [References](#references)
 
 ---
 
@@ -39,6 +43,7 @@ Before diving into specific connectors and tables, review the strategic guidance
 | [Layered Detection Approach](guidance/layered-detection.md) | Why EDR alone is not sufficient and how SIEM-based logging provides defence in depth |
 | [Frameworks and Compliance](guidance/frameworks-and-compliance.md) | MCSB, SFI, NIS2, and other regulatory standards that inform logging decisions |
 | [Budget and Cost Planning](guidance/budget-and-cost-planning.md) | SOC budgeting and Microsoft Sentinel cost optimisation strategies |
+| [Retention](guidance/retention.md) | Industry best practices for log retention — MCSB, NIST, CIS, NIS2, and GDPR mapped to Sentinel storage tiers |
 
 ## Procedures
 
@@ -71,7 +76,7 @@ Step-by-step guides for the operational tools used alongside this maturity model
 
 ## Retention Philosophy
 
-For a deeper dive into retention strategy and investigation readiness, see [Forensic Readiness](guidance/forensic-readiness.md). Our retention recommendations are informed by:
+For the full retention framework analysis including specific requirements from MCSB, NIST, CIS, NIS2, and GDPR, see [Retention](guidance/retention.md). For investigation readiness considerations, see [Forensic Readiness](guidance/forensic-readiness.md). Our retention recommendations are informed by:
 
 - **[Microsoft Cloud Security Benchmark (MCSB)](https://learn.microsoft.com/en-us/security/benchmark/azure/overview)** — Specifically controls LT-1 through LT-6 and IR-4/IR-5
 - **Forensic readiness** — The ability to investigate incidents that may have started weeks or months before detection (average dwell time in 2024: ~10 days for ransomware, but APTs can persist for months)
@@ -118,6 +123,7 @@ To help identify retention settings, monitor ingestion volumes, estimate costs, 
 | **Workspace Usage Report** | Workbook | Monitor ingestion volumes per table, identify cost optimisation opportunities, and validate data connector health across all connectors | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) (search "Workspace Usage") | [Walkthrough](procedures/workspace-usage-report.md) |
 | **Defender AMA Coverage** | Workbook | Validate Defender for Endpoint and AMA agent deployment coverage, identify gaps in security event and syslog collection | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](procedures/defender-ama-coverage.md) |
 | **XDR tables to Sentinel ingestion calculator** | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector | [GitHub — mathijsvermaat/DefenderIngestToSentinel](https://github.com/mathijsvermaat/DefenderIngestToSentinel) | [Walkthrough](procedures/xdr-ingestion-calculator.md) |
+| **Retention Insights** | Workbook | Review table-level retention and archiving settings, evaluate Basic Logs candidates, and estimate cost impact of plan changes | Included in this repository ([RetentionInsights.json](RetentionInsights.json)) | [Walkthrough](procedures/retention-insights.md) |
 
 ---
 
