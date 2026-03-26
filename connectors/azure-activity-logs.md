@@ -96,6 +96,9 @@ Azure Activity Logs capture **subscription-level events** across all your Azure 
 | **GS-3** Align roles and responsibilities | Policy events track security governance compliance |
 | **IR-4** Detection and analysis | Activity logs are critical for investigating Azure-based incidents |
 
+> [!NOTE]
+> **Other framework alignment:** This data supports NIST SP 800-53 AU-2 (audit events) and AC-6 (least privilege), CIS Controls v8 8.2 (collect audit logs), and ASD ACSC cloud logging priority #4 (administrative configuration changes) and #7 (cloud service logs).
+
 ---
 
 ## Important Considerations

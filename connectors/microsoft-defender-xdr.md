@@ -141,12 +141,15 @@ The Microsoft Defender XDR connector ingests advanced hunting data from Microsof
 | **IM-1** Centralise identity management | IdentityLogonEvents bridges on-premises AD and cloud identity |
 | **PA-1** Protect privileged users | IdentityDirectoryEvents tracks changes to privileged groups |
 
+> [!NOTE]
+> **Other framework alignment:** This data supports NIST SP 800-53 SI-4 (system monitoring) and IR-4 (incident handling), CIS Controls v8 8.2 and 13.1 (security event alerting), and ASD ACSC enterprise network logging priority #1 (critical systems) and #10 (user computers).
+
 ---
 
 ## Notes
 
 - The free data grant applies to ingestion into the **Analytics tier only** — ingesting directly to the Sentinel Data Lake (Lake) is not covered by the E5 grant
-- Consider using **Basic Logs** for high-volume tables like `DeviceNetworkEvents` and `DeviceFileEvents` if cost becomes a concern beyond the free grant
+- Consider using the **Data Lake** tier for high-volume tables like `DeviceNetworkEvents` and `DeviceFileEvents` if cost becomes a concern beyond the free grant
 - The free data grant applies to **advanced hunting tables only** — custom logs or additional enrichment pipelines may incur cost
 - Enable **Incident creation rules** to automatically create Sentinel incidents from Defender XDR alerts
 

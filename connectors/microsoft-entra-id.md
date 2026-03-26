@@ -31,6 +31,9 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 > [!NOTE]
 > Entra ID sign-in and audit logs are **free data sources** in Microsoft Sentinel. There is no reason not to enable this connector.
 
+> [!TIP]
+> If your organisation uses **Global Secure Access** (Entra Internet Access / Entra Private Access), see the dedicated [Global Secure Access](global-secure-access.md) Tier 2 connector page for network traffic logging via `NetworkAccessTraffic`. This page covers **authentication events**; the GSA page covers **what users accessed after authenticating**.
+
 ---
 
 ## Tables and Rationale
@@ -105,6 +108,9 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 | **LT-3** Enable logging for security investigation | Sign-in and audit logs are the foundation of identity forensics |
 | **LT-6** Configure log storage retention | Extended retention supports investigation of long-running identity attacks |
 | **IR-4** Detection and analysis | Sign-in logs are used in virtually every incident investigation |
+
+> [!NOTE]
+> **Other framework alignment:** This data supports NIST SP 800-53 AC-2 (account management) and IA-2 (identification and authentication), CIS Controls v8 6.1/6.2 (access control logging), and ASD ACSC enterprise network logging priority #3 (authentication and directory services).
 
 ---
 

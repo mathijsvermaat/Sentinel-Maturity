@@ -194,6 +194,9 @@ All events above follow the same retention recommendation: **Analytics: 90d / La
 | **LT-6** Configure log storage retention | Extended retention ensures forensic coverage beyond native Windows limits |
 | **IR-4** Detection and analysis | Security events are the primary evidence source for server-side investigations |
 
+> [!NOTE]
+> **Other framework alignment:** This data supports NIST SP 800-53 AU-2 (audit events) and AU-12 (audit generation), CIS Controls v8 8.5 (collect detailed audit logs) and 8.8 (command-line audit logs), and ASD ACSC enterprise network logging priority #10 (user computers) and #11 (servers and domain controllers).
+
 ---
 
 ## Recommended Configuration

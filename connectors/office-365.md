@@ -87,6 +87,9 @@ The Office 365 connector provides **audit log data for Exchange Online, SharePoi
 | **DP-3** Encrypt sensitive data in transit | Audit logs can detect sharing of unprotected sensitive data |
 | **IR-4** Detection and analysis | OfficeActivity is a primary data source for M365-based incident investigation |
 
+> [!NOTE]
+> **Other framework alignment:** This data supports NIST SP 800-53 AU-2 (audit events) and AU-12 (audit generation), CIS Controls v8 8.2 (collect audit logs), and ASD ACSC enterprise network logging priority #8 (data repositories) and cloud priority #1 (critical data holdings).
+
 ---
 
 ## OfficeActivity vs CloudAppEvents

@@ -13,6 +13,7 @@ A structured approach to Microsoft Sentinel data connector onboarding, retention
   - [Procedures](#procedures)
   - [Tier Model](#tier-model)
   - [Tier 1 Connectors (Bare Minimum)](#tier-1-connectors-bare-minimum)
+  - [Tier 2 Connectors (Extended Visibility)](#tier-2-connectors-extended-visibility)
   - [Retention Philosophy](#retention-philosophy)
     - [Recommended Retention Tiers](#recommended-retention-tiers)
   - [Why a Layered Approach?](#why-a-layered-approach)
@@ -59,9 +60,9 @@ Step-by-step guides for the operational tools used alongside this maturity model
 
 | Tier | Description | Target Audience |
 |:-----|:------------|:----------------|
-| **Tier 1** | **Bare minimum** — Essential connectors that every Sentinel deployment should have. Covers identity, endpoint, email, cloud activity, and server logs. | All customers |
-| Tier 2 | Extended visibility — Additional connectors for customers with higher maturity requirements. | *Coming soon* |
-| Tier 3 | Advanced — Full-spectrum monitoring including network, OT/IoT, and third-party integrations. | *Coming soon* |
+| **[Tier 1](#tier-1-connectors-bare-minimum)** | **Bare minimum** — Essential connectors that every Sentinel deployment should have. Covers identity, endpoint, email, cloud activity, and server logs. | All customers |
+| **[Tier 2](#tier-2-connectors-extended-visibility)** | **Extended visibility** — Network security, cloud posture, data protection, multi-cloud, endpoint compliance, and threat intelligence. Aligned with [ASD ACSC logging best practices](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection). | Customers with higher maturity requirements |
+| Tier 3 | Advanced — Full-spectrum monitoring including OT/IoT, CI/CD, SAP, and specialised integrations. | *Coming soon* |
 
 ## Tier 1 Connectors (Bare Minimum)
 
@@ -73,6 +74,27 @@ Step-by-step guides for the operational tools used alongside this maturity model
 | [Azure Activity Logs](connectors/azure-activity-logs.md) | AzureActivity | Any Azure subscription | Yes — free data connector |
 | [Windows Security Events](connectors/windows-security-events.md) | SecurityEvent / WindowsEvent | [Defender for Servers P2](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) | [500 MB/day per server](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) via Defender for Servers P2 |
 | [Syslog for Linux](connectors/syslog-linux.md) | Syslog | None | None |
+
+## Tier 2 Connectors (Extended Visibility)
+
+Tier 2 extends monitoring into network security, cloud posture, data protection, multi-cloud, endpoint compliance, and threat intelligence. These connectors are aligned with the [ASD ACSC Best Practices for Event Logging and Threat Detection](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection). Connectors marked *conditional* only apply when the relevant product or cloud is in use.
+
+| Connector | Category | Key Tables | Free Ingestion |
+|:----------|:---------|:-----------|:---------------|
+| [Microsoft Defender for Cloud](connectors/microsoft-defender-for-cloud.md) | Cloud security posture | SecurityAlert, SecurityRecommendation | Yes — SecurityAlert is free |
+| [Azure Firewall](connectors/azure-firewall.md) | Network visibility | AZFWNetworkRule, AZFWApplicationRule, AZFWDnsQuery, AZFWThreatIntel | No |
+| [Azure WAF](connectors/azure-waf.md) | Network visibility | ApplicationGatewayFirewallLog, FrontDoorWebApplicationFirewallLog | No |
+| [NSG Flow Logs & Traffic Analytics](connectors/nsg-flow-logs.md) | Network visibility | AzureNetworkAnalytics_CL | No |
+| [Microsoft Global Secure Access](connectors/global-secure-access.md) | Network / SASE | NetworkAccessTraffic | No — *conditional* |
+| [DNS Security Logs](connectors/dns-security-logs.md) | Network visibility | DnsEvents, DnsInventory | No |
+| [Third-Party Network & Proxy Appliances](connectors/third-party-network-appliances.md) | Network visibility | CommonSecurityLog | 500 MB/day via DfS P2 — *conditional* |
+| [Microsoft Purview](connectors/microsoft-purview.md) | Data protection | MicrosoftPurviewInformationProtection | No — *conditional* |
+| [Azure Key Vault](connectors/azure-key-vault.md) | Privileged systems | AKVAuditLogs | No |
+| [Microsoft Intune](connectors/microsoft-intune.md) | Endpoint compliance | IntuneAuditLogs, IntuneOperationalLogs, IntuneDevices | Partial — audit/operational free |
+| [Threat Intelligence Platforms](connectors/threat-intelligence.md) | Detection enrichment | ThreatIntelligenceIndicator | Yes — free |
+| [Microsoft Copilot / AI Governance](connectors/copilot-ai-governance.md) | AI governance | OfficeActivity (Copilot), AzureDiagnostics (OpenAI) | No — *conditional* |
+| [Amazon Web Services (AWS)](connectors/amazon-web-services.md) | Multi-cloud | AWSCloudTrail, AWSGuardDuty, AWSVPCFlow | No — *conditional* |
+| [Google Cloud Platform (GCP)](connectors/google-cloud-platform.md) | Multi-cloud | GCPAuditLogs | No — *conditional* |
 
 ## Retention Philosophy
 
@@ -138,6 +160,7 @@ Features: save/load progress (JSON), export to PDF, export to Excel.
 ## References
 
 - [Microsoft Cloud Security Benchmark (MCSB)](https://learn.microsoft.com/en-us/security/benchmark/azure/overview)
+- [ASD ACSC Best Practices for Event Logging and Threat Detection](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection)
 - [Microsoft Sentinel pricing and free data sources](https://learn.microsoft.com/en-us/azure/sentinel/billing?tabs=simplified%2Ccommitment-tiers#free-data-sources)
 - [Microsoft Sentinel benefit for Microsoft 365 E5 customers](https://azure.microsoft.com/en-us/pricing/offers/sentinel-microsoft-365-offer)
 - [Defender for Cloud data ingestion benefit](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit)

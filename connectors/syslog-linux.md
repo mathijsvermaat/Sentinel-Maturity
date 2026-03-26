@@ -136,6 +136,9 @@ The Syslog table ingests messages from Linux syslog facilities. The key faciliti
 | **ES-1** Use endpoint detection and response | Complements MDE on Linux with native OS-level telemetry |
 | **IR-4** Detection and analysis | Auth logs are the primary evidence source for Linux investigations |
 
+> [!NOTE]
+> **Other framework alignment:** This data supports NIST SP 800-53 AU-2 (audit events) and AU-12 (audit generation), CIS Controls v8 8.2 (collect audit logs), and ASD ACSC enterprise network logging priority #11 (servers) and #14 (database servers).
+
 ---
 
 ## Recommended Configuration
