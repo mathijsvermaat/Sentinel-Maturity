@@ -14,6 +14,12 @@ A structured approach to Microsoft Sentinel data connector onboarding, retention
   - [Tier Model](#tier-model)
   - [Tier 1 Connectors (Bare Minimum)](#tier-1-connectors-bare-minimum)
   - [Tier 2 Connectors (Extended Visibility)](#tier-2-connectors-extended-visibility)
+    - [Cloud Security Posture](#cloud-security-posture)
+    - [Network Visibility](#network-visibility)
+    - [Data Protection \& Governance](#data-protection--governance)
+    - [Endpoint Compliance](#endpoint-compliance)
+    - [Detection Enrichment](#detection-enrichment)
+    - [Multi-Cloud](#multi-cloud)
   - [Retention Philosophy](#retention-philosophy)
     - [Recommended Retention Tiers](#recommended-retention-tiers)
   - [Why a Layered Approach?](#why-a-layered-approach)
@@ -77,24 +83,51 @@ Step-by-step guides for the operational tools used alongside this maturity model
 
 ## Tier 2 Connectors (Extended Visibility)
 
-Tier 2 extends monitoring into network security, cloud posture, data protection, multi-cloud, endpoint compliance, and threat intelligence. These connectors are aligned with the frameworks like MCSB, NIST, CIS and more. Connectors marked *conditional* only apply when the relevant product or cloud is in use.
+Tier 2 extends monitoring into network security, cloud posture, data protection, multi-cloud, endpoint compliance, and threat intelligence. These connectors are aligned with frameworks like MCSB, NIST, CIS and more. Connectors marked *conditional* only apply when the relevant product or cloud is in use. Tier 2 is aligned with the [ASD ACSC Best Practices for Event Logging and Threat Detection](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) logging priorities.
 
-| Connector | Category | Key Tables | Free Ingestion |
-|:----------|:---------|:-----------|:---------------|
-| [Microsoft Defender for Cloud](connectors/microsoft-defender-for-cloud.md) | Cloud security posture | SecurityAlert, SecurityRecommendation | Yes — SecurityAlert is free |
-| [Azure Firewall](connectors/azure-firewall.md) | Network visibility | AZFWNetworkRule, AZFWApplicationRule, AZFWDnsQuery, AZFWThreatIntel | No |
-| [Azure WAF](connectors/azure-waf.md) | Network visibility | ApplicationGatewayFirewallLog, FrontDoorWebApplicationFirewallLog | No |
-| [NSG Flow Logs & Traffic Analytics](connectors/nsg-flow-logs.md) | Network visibility | AzureNetworkAnalytics_CL | No |
-| [Microsoft Global Secure Access](connectors/global-secure-access.md) | Network / SASE | NetworkAccessTraffic | No — *conditional* |
-| [DNS Security Logs](connectors/dns-security-logs.md) | Network visibility | DnsEvents, DnsInventory | No |
-| [Third-Party Network & Proxy Appliances](connectors/third-party-network-appliances.md) | Network visibility | CommonSecurityLog | 500 MB/day via DfS P2 — *conditional* |
-| [Microsoft Purview](connectors/microsoft-purview.md) | Data protection | MicrosoftPurviewInformationProtection | No — *conditional* |
-| [Azure Key Vault](connectors/azure-key-vault.md) | Privileged systems | AKVAuditLogs | No |
-| [Microsoft Intune](connectors/microsoft-intune.md) | Endpoint compliance | IntuneAuditLogs, IntuneOperationalLogs, IntuneDevices | Partial — audit/operational free |
-| [Threat Intelligence Platforms](connectors/threat-intelligence.md) | Detection enrichment | ThreatIntelligenceIndicator | Yes — free |
-| [Microsoft Copilot / AI Governance](connectors/copilot-ai-governance.md) | AI governance | OfficeActivity (Copilot), AzureDiagnostics (OpenAI) | No — *conditional* |
-| [Amazon Web Services (AWS)](connectors/amazon-web-services.md) | Multi-cloud | AWSCloudTrail, AWSGuardDuty, AWSVPCFlow | No — *conditional* |
-| [Google Cloud Platform (GCP)](connectors/google-cloud-platform.md) | Multi-cloud | GCPAuditLogs | No — *conditional* |
+### Cloud Security Posture
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Microsoft Defender for Cloud](connectors/microsoft-defender-for-cloud.md) | SecurityAlert, SecurityRecommendation | Yes — SecurityAlert is free |
+
+### Network Visibility
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Azure Firewall](connectors/azure-firewall.md) | AZFWNetworkRule, AZFWApplicationRule, AZFWDnsQuery, AZFWThreatIntel | No |
+| [Azure WAF (Application Gateway / Front Door)](connectors/azure-waf.md) | ApplicationGatewayFirewallLog, FrontDoorWebApplicationFirewallLog | No |
+| [NSG Flow Logs & Traffic Analytics](connectors/nsg-flow-logs.md) | AzureNetworkAnalytics_CL | No |
+| [Microsoft Global Secure Access](connectors/global-secure-access.md) | NetworkAccessTraffic | No — *conditional* |
+| [DNS Security Logs](connectors/dns-security-logs.md) | DnsEvents, DnsInventory | No |
+| [Third-Party Network & Proxy Appliances (CEF/Syslog)](connectors/third-party-network-appliances.md) | CommonSecurityLog | 500 MB/day via DfS P2 — *conditional* |
+
+### Data Protection & Governance
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Microsoft Purview (Information Protection & DLP)](connectors/microsoft-purview.md) | MicrosoftPurviewInformationProtection | No — *conditional* |
+| [Azure Key Vault](connectors/azure-key-vault.md) | AKVAuditLogs | No |
+| [Microsoft Copilot / AI Governance](connectors/copilot-ai-governance.md) | OfficeActivity (Copilot), AzureDiagnostics (OpenAI) | No — *conditional* |
+
+### Endpoint Compliance
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Microsoft Intune (Endpoint Management)](connectors/microsoft-intune.md) | IntuneAuditLogs, IntuneOperationalLogs, IntuneDevices | Partial — audit/operational logs free |
+
+### Detection Enrichment
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Threat Intelligence Platforms](connectors/threat-intelligence.md) | ThreatIntelligenceIndicator | Yes — free data source |
+
+### Multi-Cloud
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Amazon Web Services (AWS)](connectors/amazon-web-services.md) | AWSCloudTrail, AWSGuardDuty, AWSVPCFlow | No — *conditional* |
+| [Google Cloud Platform (GCP)](connectors/google-cloud-platform.md) | GCPAuditLogs | No — *conditional* |
 
 ## Retention Philosophy
 
@@ -145,7 +178,7 @@ To help identify retention settings, monitor ingestion volumes, estimate costs, 
 | **Workspace Usage Report** | Workbook | Monitor ingestion volumes per table, identify cost optimisation opportunities, and validate data connector health across all connectors | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) (search "Workspace Usage") | [Walkthrough](procedures/workspace-usage-report.md) |
 | **Defender AMA Coverage** | Workbook | Validate Defender for Endpoint and AMA agent deployment coverage, identify gaps in security event and syslog collection | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](procedures/defender-ama-coverage.md) |
 | **XDR tables to Sentinel ingestion calculator** | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector | [GitHub — mathijsvermaat/DefenderIngestToSentinel](https://github.com/mathijsvermaat/DefenderIngestToSentinel) | [Walkthrough](procedures/xdr-ingestion-calculator.md) |
-| **Retention Insights** | Workbook | Review table-level retention and archiving settings, evaluate Basic Logs candidates, and estimate cost impact of plan changes | Included in this repository ([RetentionInsights.json](RetentionInsights.json)) | [Walkthrough](procedures/retention-insights.md) |
+| **Retention Insights** | Workbook | Review table-level retention and archiving settings, evaluate Data Lake candidates, and estimate cost impact of plan changes | Included in this repository ([RetentionInsights.json](RetentionInsights.json)) | [Walkthrough](procedures/retention-insights.md) |
 
 ---
 
