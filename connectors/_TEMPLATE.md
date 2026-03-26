@@ -101,4 +101,19 @@
 | **Workspace Usage Report** | Workbook | Monitor ingestion volumes for this connector's tables | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
 | **[Additional tool]** | [Workbook / Script / ...] | [Purpose] | [Source link] | [Walkthrough](../procedures/[guide].md) |
 
+---
+
+## References
+
+Community and third-party resources that support the guidance on this page.
+
+<!--
+  Add community blog posts, third-party articles, and other external resources
+  that underpin the advice on this page. Use the table format below.
+-->
+
+| Title | Author | Description | Link |
+|:------|:-------|:------------|:-----|
+| [Blog/article title] | [Author name] | [Brief description of relevance to this connector] | [Source](https://example.com) |
+
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

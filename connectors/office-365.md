@@ -13,6 +13,7 @@
 - [OfficeActivity vs CloudAppEvents](#officeactivity-vs-cloudappevents)
 - [Notes](#notes)
   - [Tools](#tools)
+- [References](#references)
 
 ---
 
@@ -116,5 +117,13 @@ The Office 365 connector provides **audit log data for Exchange Online, SharePoi
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
 | **Workspace Usage Report** | Workbook | Monitor OfficeActivity ingestion volumes and validate connector health | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+
+---
+
+## References
+
+Community and third-party resources that support the guidance on this page.
+
+*No community references yet — contributions welcome.*
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

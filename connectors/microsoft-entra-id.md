@@ -12,6 +12,7 @@
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Notes](#notes)
   - [Tools](#tools)
+- [References](#references)
 
 ---
 
@@ -120,5 +121,13 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
 | **Workspace Usage Report** | Workbook | Monitor Entra ID table ingestion volumes and retention | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+
+---
+
+## References
+
+Community and third-party resources that support the guidance on this page.
+
+*No community references yet — contributions welcome.*
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

@@ -7,6 +7,7 @@
 - [EDR Telemetry Is Not Complete Telemetry](#edr-telemetry-is-not-complete-telemetry)
 - [Real-World EDR Bypass Examples](#real-world-edr-bypass-examples)
 - [Practical Implications](#practical-implications)
+- [References](#references)
 
 ---
 
@@ -79,6 +80,12 @@ For the connectors covered in this maturity model, layered detection means:
 
 > [!TIP]
 > For Windows and Linux servers specifically, see the layered logging sections in the [Windows Security Events](../connectors/windows-security-events.md) and [Syslog for Linux](../connectors/syslog-linux.md) connector pages.
+
+---
+
+## References
+
+*No community references yet — contributions welcome.*
 
 ---
 

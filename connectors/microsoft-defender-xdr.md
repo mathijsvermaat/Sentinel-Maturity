@@ -13,6 +13,7 @@
 - [Notes](#notes)
   - [Estimating Data Lake Retention Cost](#estimating-data-lake-retention-cost)
   - [Tools](#tools)
+- [References](#references)
 
 ---
 
@@ -167,5 +168,15 @@ If you have **not** enabled the Defender XDR connector in Sentinel, there is no 
 |:-----|:-----|:--------|:-------|:------|
 | **Workspace Usage Report** | Workbook | Monitor Defender XDR table ingestion volumes and validate the E5 data grant | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
 | **XDR tables to Sentinel ingestion calculator** | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector (see [Scenario 2](#estimating-data-lake-retention-cost) above) | [GitHub — mathijsvermaat/DefenderIngestToSentinel](https://github.com/mathijsvermaat/DefenderIngestToSentinel) | [Walkthrough](../procedures/xdr-ingestion-calculator.md) |
+
+---
+
+## References
+
+Community and third-party resources that support the guidance on this page.
+
+| Title | Author | Description | Link |
+|:------|:-------|:------------|:-----|
+| How to natively archive Defender XDR logs for up to 12 years | Jeffrey Appel | Explains how to use the Sentinel Data Lake tier for long-term retention of Defender XDR advanced hunting tables — directly relevant to the Data Lake retention cost discussion on this page | [jeffreyappel.nl](https://jeffreyappel.nl/how-to-archive-defender-logs-natively-in-defender-xdr-up-to-12-years/) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

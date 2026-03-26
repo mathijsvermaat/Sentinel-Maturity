@@ -17,6 +17,7 @@
   - [Staying Within the Defender for Servers P2 Ingestion Benefit](#staying-within-the-defender-for-servers-p2-ingestion-benefit)
   - [Why Layered Logging Matters for Windows Servers](#why-layered-logging-matters-for-windows-servers)
   - [Tools](#tools)
+- [References](#references)
 
 ---
 
@@ -274,5 +275,13 @@ EDR solutions like Microsoft Defender for Endpoint are powerful but **should not
 |:-----|:-----|:--------|:-------|:------|
 | **Workspace Usage Report** | Workbook | Monitor SecurityEvent/WindowsEvent ingestion volumes per server | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
 | **Defender AMA Coverage** | Workbook | Validate AMA agent deployment and Windows Security Event collection coverage | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](../procedures/defender-ama-coverage.md) |
+
+---
+
+## References
+
+Community and third-party resources that support the guidance on this page.
+
+*No community references yet — contributions welcome.*
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

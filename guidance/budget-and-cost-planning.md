@@ -7,6 +7,7 @@
 - [Budget Models](#budget-models)
 - [Microsoft Sentinel Cost Optimisation](#microsoft-sentinel-cost-optimisation)
 - [Key Takeaway](#key-takeaway)
+- [References](#references)
 
 ---
 
@@ -98,7 +99,7 @@ Use the **Workspace Usage Report** workbook (available in [Sentinel Content Hub]
 
 ---
 
-### References
+## References
 
 - [Plan costs and understand pricing and billing — Microsoft Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/billing?tabs=simplified%2Ccommitment-tiers)
 - [Microsoft Sentinel benefit for Microsoft 365 E5 customers](https://azure.microsoft.com/en-us/pricing/offers/sentinel-microsoft-365-offer)

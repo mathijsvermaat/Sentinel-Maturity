@@ -15,6 +15,7 @@
 - [Notes](#notes)
   - [Why Layered Logging Matters for Linux Servers](#why-layered-logging-matters-for-linux-servers)
   - [Tools](#tools)
+- [References](#references)
 
 ---
 
@@ -188,5 +189,13 @@ Just as with Windows, relying solely on EDR for Linux server security leaves gap
 |:-----|:-----|:--------|:-------|:------|
 | **Workspace Usage Report** | Workbook | Monitor Syslog ingestion volumes per server and validate the P2 ingestion benefit | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
 | **Defender AMA Coverage** | Workbook | Validate AMA agent deployment and Syslog collection coverage on Linux servers | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](../procedures/defender-ama-coverage.md) |
+
+---
+
+## References
+
+Community and third-party resources that support the guidance on this page.
+
+*No community references yet — contributions welcome.*
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

@@ -7,6 +7,7 @@
 - [Why Centralised Logging Is Critical](#why-centralised-logging-is-critical)
 - [Forensic Value Across Log Sources](#forensic-value-across-log-sources)
 - [Real-World Examples](#real-world-examples)
+- [References](#references)
 
 ---
 
@@ -121,6 +122,12 @@ Network telemetry is often the key to validating whether suspicious endpoint act
 | Title | Description | Link |
 |:------|:------------|:-----|
 | Cloud Forensics: Forensic Readiness and IR in Azure Virtual Desktop | Demonstrates a layered approach combining EDR and native logging for incident response in cloud environments | [Microsoft Community Hub](https://techcommunity.microsoft.com/blog/microsoftsentinelblog/cloud-forensics-forensic-readiness-and-incident-response-in-azure-virtual-desktop/3835484) |
+
+---
+
+## References
+
+*No community references yet — contributions welcome.*
 
 ---
 

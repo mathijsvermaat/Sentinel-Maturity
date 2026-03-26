@@ -6,6 +6,7 @@
 - [The Strategy](#the-strategy)
 - [Applying This to Microsoft Sentinel](#applying-this-to-microsoft-sentinel)
 - [Key Takeaway](#key-takeaway)
+- [References](#references)
 
 ---
 
@@ -66,7 +67,7 @@ Microsoft Sentinel's architecture maps well to this tiered approach:
 
 ---
 
-### References
+## References
 
 - [Plan costs and understand pricing and billing — Microsoft Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/billing?tabs=simplified%2Ccommitment-tiers)
 - [Data Collection Rules in Azure Monitor](https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-rule-overview)

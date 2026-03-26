@@ -8,6 +8,7 @@
 - [Microsoft Compliance Offerings](#microsoft-compliance-offerings)
 - [Regulatory Compliance](#regulatory-compliance)
 - [How This Maps to the Maturity Model](#how-this-maps-to-the-maturity-model)
+- [References](#references)
 
 ---
 
@@ -99,7 +100,7 @@ Depending on your industry and geography, additional regulations may apply:
 
 ---
 
-### References
+## References
 
 - [Microsoft Cloud Security Benchmark (MCSB)](https://learn.microsoft.com/en-us/security/benchmark/azure/overview)
 - [Microsoft Secure Future Initiative](https://learn.microsoft.com/en-us/security/engineering/secure-future-initiative)
