@@ -1,6 +1,6 @@
 # Retention Insights — Walkthrough
 
-**Tool type:** Workbook · **Source:** Included in this repository ([RetentionInsights.json](../RetentionInsights.json)) · **Template origin:** `sentinel-ArchivingBasicLogsRetention` (Sentinel Content Hub)
+**Tool type:** Workbook · **Source:** Azure Sentinel Github ([ArchivingBasicLogsRetention.json](https://github.com/Azure/Azure-Sentinel/blob/master/Workbooks/ArchivingBasicLogsRetention.json)) · **Template origin:** `sentinel-ArchivingBasicLogsRetention` (Sentinel Content Hub)
 
 This guide walks you through using the Retention Insights workbook to review table-level retention settings, understand archiving options, evaluate Basic Logs candidates, and estimate the cost impact of changing data plans across your Sentinel workspace.
 
