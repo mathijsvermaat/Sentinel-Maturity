@@ -98,7 +98,7 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 | [Azure Firewall](connectors/azure-firewall.md) | AZFWNetworkRule, AZFWApplicationRule, AZFWDnsQuery, AZFWThreatIntel | No |
 | [Azure WAF (Application Gateway / Front Door)](connectors/azure-waf.md) | ApplicationGatewayFirewallLog, FrontDoorWebApplicationFirewallLog | No |
 | [NSG Flow Logs & Traffic Analytics](connectors/nsg-flow-logs.md) | AzureNetworkAnalytics_CL | No |
-| [Microsoft Global Secure Access](connectors/global-secure-access.md) | NetworkAccessTraffic | No — *conditional* |
+| [Microsoft Global Secure Access](connectors/global-secure-access.md) | NetworkAccessTraffic | No |
 | [DNS Security Logs](connectors/dns-security-logs.md) | DnsEvents, DnsInventory | No |
 | [Third-Party Network & Proxy Appliances (CEF/Syslog)](connectors/third-party-network-appliances.md) | CommonSecurityLog | 500 MB/day via DfS P2 — *conditional* |
 
@@ -106,9 +106,9 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
-| [Microsoft Purview (Information Protection & DLP)](connectors/microsoft-purview.md) | MicrosoftPurviewInformationProtection | No — *conditional* |
+| [Microsoft Purview (Information Protection & DLP)](connectors/microsoft-purview.md) | MicrosoftPurviewInformationProtection | No |
 | [Azure Key Vault](connectors/azure-key-vault.md) | AKVAuditLogs | No |
-| [Microsoft Copilot / AI Governance](connectors/copilot-ai-governance.md) | OfficeActivity (Copilot), AzureDiagnostics (OpenAI) | No — *conditional* |
+| [Microsoft Copilot / AI Governance](connectors/copilot-ai-governance.md) | OfficeActivity (Copilot), AzureDiagnostics (OpenAI) | No |
 
 ### Endpoint Compliance
 
