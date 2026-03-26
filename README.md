@@ -126,8 +126,8 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
-| [Amazon Web Services (AWS)](connectors/amazon-web-services.md) | AWSCloudTrail, AWSGuardDuty, AWSVPCFlow | No — *conditional* |
-| [Google Cloud Platform (GCP)](connectors/google-cloud-platform.md) | GCPAuditLogs | No — *conditional* |
+| [Amazon Web Services (AWS)](connectors/amazon-web-services.md) | AWSCloudTrail, AWSGuardDuty, AWSVPCFlow | No |
+| [Google Cloud Platform (GCP)](connectors/google-cloud-platform.md) | GCPAuditLogs | No |
 
 ## Retention Philosophy
 
