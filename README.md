@@ -77,7 +77,7 @@ Step-by-step guides for the operational tools used alongside this maturity model
 
 ## Tier 2 Connectors (Extended Visibility)
 
-Tier 2 extends monitoring into network security, cloud posture, data protection, multi-cloud, endpoint compliance, and threat intelligence. These connectors are aligned with the [ASD ACSC Best Practices for Event Logging and Threat Detection](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection). Connectors marked *conditional* only apply when the relevant product or cloud is in use.
+Tier 2 extends monitoring into network security, cloud posture, data protection, multi-cloud, endpoint compliance, and threat intelligence. These connectors are aligned with the frameworks like MCSB, NIST, CIS and more. Connectors marked *conditional* only apply when the relevant product or cloud is in use.
 
 | Connector | Category | Key Tables | Free Ingestion |
 |:----------|:---------|:-----------|:---------------|
