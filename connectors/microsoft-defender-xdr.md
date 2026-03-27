@@ -82,7 +82,14 @@ The Microsoft Defender XDR connector ingests advanced hunting data from Microsof
 | Table | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
 |:------|:------------|:------------------------|:----------|:---------------|:------------------|
 | **CloudAppEvents** | Activities in cloud applications (Office 365, third-party SaaS) | Analytics: 90d / Lake: 365d | Shadow IT detection, impossible travel, mass download/sharing detection. MCSB LT-3. Provides visibility into SaaS application usage beyond Office 365. | Reconstruct cloud application activity during a compromise — proves which SaaS applications were accessed, what data was downloaded, and from which locations | Impossible travel to cloud app (T1078), mass file download from SharePoint (T1530) |
+### Incident and Alert Sync Tables
 
+These tables are automatically populated when you enable the **"Connect incidents & alerts"** toggle on the Defender XDR connector. They are not individually configurable — they flow as part of incident synchronisation between Defender XDR and Sentinel.
+
+| Table | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
+|:------|:------------|:------------------------|:----------|:---------------|:-------------------|
+| **SecurityAlert** | Alerts from all Defender workloads (MDE, MDO, MDI, MDCA) synchronised to Sentinel | Analytics: 90d / Lake: 365d | Centralises all Defender alerts in Sentinel for cross-source correlation and SOAR automation. MCSB IR-4. | Historical alert timeline — enables post-incident review of which detections fired and correlation with non-Microsoft data sources in Sentinel | Cross-workload alert correlation — endpoint alert + identity alert on same entity |
+| **SecurityIncident** | Defender XDR incidents (groups of related alerts) synchronised to Sentinel | Analytics: 90d / Lake: 365d | Enables unified incident management across Sentinel and Defender XDR. Incidents remain synchronised bi-directionally. | Unified incident timeline — proves when incidents were created, triaged, and resolved across both platforms | Incident severity escalation — automated triage based on incident metadata |
 ### Other Tables
 
 | Table | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |

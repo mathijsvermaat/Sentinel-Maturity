@@ -6,13 +6,19 @@
 
 ## Contents
 
-- [Overview](#overview)
-- [Tables and Rationale](#tables-and-rationale)
-- [Example Detections](#example-detections)
-- [MCSB Control Mapping](#mcsb-control-mapping)
-- [Notes](#notes)
-  - [Tools](#tools)
-- [References](#references)
+- [Microsoft Copilot / AI Governance](#microsoft-copilot--ai-governance)
+  - [Contents](#contents)
+  - [Overview](#overview)
+    - [Current AI Log Sources](#current-ai-log-sources)
+    - [Licensing Benefits](#licensing-benefits)
+  - [Tables and Rationale](#tables-and-rationale)
+  - [Example Detections](#example-detections)
+    - [M365 Copilot](#m365-copilot)
+    - [Azure OpenAI](#azure-openai)
+  - [MCSB Control Mapping](#mcsb-control-mapping)
+  - [Notes](#notes)
+    - [Tools](#tools)
+  - [References](#references)
 
 ---
 
@@ -26,7 +32,7 @@ The Copilot/AI governance logging story in Sentinel is evolving rapidly. This pa
 
 | Product | Log Source | Sentinel Table |
 |:--------|:----------|:---------------|
-| **Microsoft 365 Copilot** | Purview Audit → OfficeActivity | `OfficeActivity` (CopilotInteraction events) |
+| **Microsoft 365 Copilot** | Purview Audit | `CopilotActivity` |
 | **Microsoft Security Copilot** | Diagnostic settings | Audit logs via Azure diagnostic settings |
 | **Azure OpenAI Service** | Azure diagnostic settings | `AzureDiagnostics` (Cognitive Services) |
 
@@ -47,7 +53,7 @@ The Copilot/AI governance logging story in Sentinel is evolving rapidly. This pa
 
 | Table | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
 |:------|:------------|:------------------------|:----------|:---------------|:------------------|
-| **OfficeActivity** (CopilotInteraction) | M365 Copilot interactions — user, application (Word, Teams, Excel), query metadata | Analytics: 90d / Lake: 365d | Tracks AI usage patterns — detects data oversharing via Copilot, unusual query patterns, and policy violations. | Proves which users interacted with Copilot, in which application, and whether the interaction surfaced sensitive content. Essential for investigating data leakage via AI. | User Copilot query surfacing confidential documents the user shouldn't access |
+| **CopilotActivity** | M365 Copilot interactions — user, application (Word, Teams, Excel), query metadata | Analytics: 90d / Lake: 365d | Tracks AI usage patterns — detects data oversharing via Copilot, unusual query patterns, and policy violations. | Proves which users interacted with Copilot, in which application, and whether the interaction surfaced sensitive content. Essential for investigating data leakage via AI. | User Copilot query surfacing confidential documents the user shouldn't access |
 | **AzureDiagnostics** (Cognitive Services) | Azure OpenAI API calls — model, token count, caller identity, HTTP status | Analytics: 90d / Lake: 365d | Tracks Azure OpenAI usage — detects prompt injection, excessive token usage, and unauthorized API access. MCSB LT-3. | Audit trail of all Azure OpenAI API calls — proves who called the API, with which model, and consumption patterns. | Unusual Azure OpenAI API usage pattern — potential prompt injection or data extraction (T1059) |
 
 ---

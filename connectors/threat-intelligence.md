@@ -6,14 +6,23 @@
 
 ## Contents
 
-- [Overview](#overview)
-- [Tables and Rationale](#tables-and-rationale)
-- [Example Detections](#example-detections)
-- [MCSB Control Mapping](#mcsb-control-mapping)
-- [Important Considerations](#important-considerations)
-- [Notes](#notes)
-  - [Tools](#tools)
-- [References](#references)
+- [Threat Intelligence Platforms](#threat-intelligence-platforms)
+  - [Contents](#contents)
+  - [Overview](#overview)
+    - [Threat Intelligence Sources in Sentinel](#threat-intelligence-sources-in-sentinel)
+    - [Licensing Benefits](#licensing-benefits)
+  - [Tables and Rationale](#tables-and-rationale)
+  - [Example Detections](#example-detections)
+    - [IOC Matching](#ioc-matching)
+    - [TI Quality and Lifecycle](#ti-quality-and-lifecycle)
+  - [MCSB Control Mapping](#mcsb-control-mapping)
+  - [Important Considerations](#important-considerations)
+    - [Sentinel Analytics Rules for TI](#sentinel-analytics-rules-for-ti)
+    - [Feed Quality](#feed-quality)
+    - [IOC Expiry](#ioc-expiry)
+  - [Notes](#notes)
+    - [Tools](#tools)
+  - [References](#references)
 
 ---
 
@@ -49,6 +58,8 @@ Without TI, your detections rely entirely on behavioural analytics and custom ru
 | Table | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
 |:------|:------------|:------------------------|:----------|:---------------|:------------------|
 | **ThreatIntelligenceIndicator** | IOCs from all connected TI sources — IPs, domains, URLs, file hashes, email addresses, with confidence scores and expiry dates | Analytics: 90d / Lake: 365d | **Detection force multiplier.** Automated matching of known malicious indicators against all ingested logs. MCSB LT-1. | Proves that a specific IP, domain, URL, or file hash seen in your environment matches known threat intelligence — strong evidence of compromise when correlated with behavioural signals | Network connection to known C2 IP (T1071), DNS resolution of known malicious domain (T1071.004), file hash match on known malware (T1204) |
+| **ThreatIntelIndicators** | Next-generation TI table (STIX-based schema) — structured IOCs with full STIX object representation | Analytics: 90d / Lake: 365d | Modern TI schema with richer context — supports STIX patterns, confidence levels, and object relationships. Replaces `ThreatIntelligenceIndicator` for new integrations. | Same forensic value with richer context — structured STIX objects enable more precise IOC matching and attribution | Same detection coverage with improved STIX-based correlation |
+| **ThreatIntelObjects** | Threat intelligence objects — threat actors, campaigns, attack patterns linked to IOCs | Analytics: 90d / Lake: 365d | Enrichment layer that links IOCs to threat actors and campaigns. Enables attribution and strategic threat context. | Links indicators to named threat actors and campaigns — provides the "who" and "why" behind an IOC match | IOC match attributed to known threat actor campaign |
 
 ---
 

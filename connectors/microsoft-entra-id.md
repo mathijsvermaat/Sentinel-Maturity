@@ -6,13 +6,22 @@
 
 ## Contents
 
-- [Overview](#overview)
-- [Tables and Rationale](#tables-and-rationale)
-- [Example Detections](#example-detections)
-- [MCSB Control Mapping](#mcsb-control-mapping)
-- [Notes](#notes)
-  - [Tools](#tools)
-- [References](#references)
+- [Microsoft Entra ID](#microsoft-entra-id)
+  - [Contents](#contents)
+  - [Overview](#overview)
+    - [Licensing Benefits](#licensing-benefits)
+  - [Tables and Rationale](#tables-and-rationale)
+    - [Authentication Tables](#authentication-tables)
+    - [Directory and Audit Tables](#directory-and-audit-tables)
+    - [Risk Tables (Entra ID P2)](#risk-tables-entra-id-p2)
+  - [Example Detections](#example-detections)
+    - [Authentication-Based](#authentication-based)
+    - [Directory-Based](#directory-based)
+    - [Risk-Based](#risk-based)
+  - [MCSB Control Mapping](#mcsb-control-mapping)
+  - [Notes](#notes)
+    - [Tools](#tools)
+  - [References](#references)
 
 ---
 
@@ -61,6 +70,8 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 |:------|:------------|:------------------------|:----------|:---------------|:------------------|
 | **AADRiskyUsers** | Users flagged as risky by Entra ID Protection | Analytics: 90d / Lake: 365d | Provides a risk-scored view of users. Enables automated response (e.g., require password change, block access). MCSB IM-1. Critical input for risk-based Conditional Access policies monitored via Sentinel. | Historical risk profile — shows when a user was first flagged, at what risk level, and whether remediation occurred or was delayed. Supports post-incident review of risk-based policy effectiveness. | High-risk user sign-in correlated with suspicious inbox rule |
 | **AADUserRiskEvents** | Individual risk detections (leaked credentials, anonymous IP, malware-linked IP, etc.) | Analytics: 90d / Lake: 365d | Detailed risk event telemetry. Enables correlation of risk signals with sign-in activity. Supports investigation of why a user was flagged and the specific indicators involved. | Granular risk detection evidence — proves exactly which risk signal triggered (leaked credentials, anomalous token, etc.) and when, enabling root cause analysis of identity compromise | Leaked credentials detection (T1078), Anomalous token usage (T1550.001) |
+| **AADRiskyServicePrincipals** | Service principals flagged as risky by Entra ID Protection | Analytics: 90d / Lake: 365d | Identifies compromised or anomalous application identities. Service principals can have broad tenant access — risk detection is critical for supply chain and OAuth abuse scenarios. | Proves when a service principal was flagged and the associated risk signals — essential for investigating compromised applications | Risky service principal with unusual API access pattern |
+| **AADServicePrincipalRiskEvents** | Individual risk detections for service principals | Analytics: 90d / Lake: 365d | Granular risk signals for application identities — anomalous credential usage, suspicious activity patterns. MCSB IM-4. | Detailed evidence of why a service principal was flagged — enables root cause analysis of compromised app registrations and managed identities | Anomalous service principal credential usage from unexpected geography |
 
 ---
 

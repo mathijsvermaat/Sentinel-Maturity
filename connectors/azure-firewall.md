@@ -61,6 +61,14 @@ For organisations using Azure Firewall as their central egress point (hub-spoke 
 |:------|:------------|:------------------------|:----------|:---------------|:------------------|
 | **AZFWIdpsSignature** | Intrusion detection and prevention signature matches (Premium only) | Analytics: 90d / Lake: 365d | Network-level intrusion detection — identifies known exploit signatures, malware communications, and protocol anomalies. | Evidence of network-level attack signatures — proves that specific exploit attempts or malware communications were detected at the perimeter | Known exploit signature detected in network traffic (T1190) |
 
+### Diagnostic Tables
+
+| Table | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
+|:------|:------------|:------------------------|:----------|:---------------|:-------------------|
+| **AZFWFatFlow** | Top flows by bandwidth consumption | Analytics: 90d / Lake: 365d | Identifies high-bandwidth flows that may indicate data exfiltration or resource abuse. | Proves which flows consumed the most bandwidth — useful for scoping exfiltration volume | Abnormally large outbound flow to unexpected destination |
+| **AZFWFlowTrace** | Flow-level tracing across firewall rule processing pipeline | Analytics: 90d / Lake: 365d | Detailed flow path information for troubleshooting and forensic analysis of how a connection was processed. | Traces exactly how the firewall evaluated a connection — which rules matched, in which order | Flow allowed by unexpected rule — firewall rule audit |
+| **AZFWInternalFqdnResolutionFailure** | FQDN resolution failures for internal DNS lookups | Analytics: 90d / Lake: 365d | Detects DNS resolution issues that may indicate DNS infrastructure problems or DNS-based attacks. | Evidence of failed internal DNS resolution — can indicate DNS poisoning or infrastructure compromise | Spike in internal FQDN resolution failures — potential DNS tampering |
+
 ---
 
 ## Example Detections

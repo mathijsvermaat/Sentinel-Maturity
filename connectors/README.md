@@ -35,7 +35,7 @@ Additional connectors for customers with higher maturity requirements. Connector
 |:----------|:----------|:---------------|
 | [Azure Firewall](azure-firewall.md) | Perimeter firewall rules, threat intelligence, DNS proxy | No |
 | [Azure WAF (Application Gateway / Front Door)](azure-waf.md) | Layer 7 web application attack detection (OWASP Top 10) | No |
-| [NSG Flow Logs & Traffic Analytics](nsg-flow-logs.md) | East-west network traffic metadata, lateral movement detection | No |
+| [VNet Flow Logs & Traffic Analytics](nsg-flow-logs.md) | East-west network traffic metadata, lateral movement detection | No |
 | [Microsoft Global Secure Access](global-secure-access.md) | Cloud-delivered web proxy and ZTNA (Entra Internet/Private Access) | No — *conditional* |
 | [DNS Security Logs](dns-security-logs.md) | Endpoint and infrastructure DNS query logging for C2 and tunnelling detection | No |
 | [Third-Party Network & Proxy Appliances (CEF/Syslog)](third-party-network-appliances.md) | Non-Microsoft firewalls, proxies, IDS/IPS — Palo Alto, Fortinet, Zscaler, etc. | 500 MB/day via DfS P2 — *conditional* |
