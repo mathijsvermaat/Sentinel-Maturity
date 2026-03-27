@@ -21,7 +21,7 @@
     - [Management Events vs. Data Events](#management-events-vs-data-events)
     - [Federated Access (Entra ID → AWS)](#federated-access-entra-id--aws)
   - [Notes](#notes)
-    - [Tools](#tools)
+  - [Tools](#tools)
   - [References](#references)
 
 ---
@@ -139,20 +139,31 @@ If users authenticate to AWS via Entra ID federation (SSO), the authentication a
 - For **Defender for Cloud multi-cloud CSPM**, AWS security alerts already flow through `SecurityAlert` — see [Defender for Cloud](microsoft-defender-for-cloud.md)
 - The [Microsoft Sentinel AWS connector](https://learn.microsoft.com/en-us/azure/sentinel/connect-aws) documentation provides step-by-step setup instructions
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor AWS table ingestion volumes | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor AWS table ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Amazon Web Services** | Solution | Provides the AWS CloudTrail and S3 connectors plus detection content for multi-cloud visibility | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Connect AWS CloudTrail to Microsoft Sentinel | Connector setup guide — SQS-based CloudTrail log ingestion | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/amazon-web-services) |
+| Connect AWS S3 to Microsoft Sentinel | S3-based connector for GuardDuty, VPC Flow Logs, and CloudTrail | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/amazon-web-services-s3) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Sentinel Ninja — AWS connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/aws.md) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance — cloud logging priorities apply equally to all cloud providers including AWS | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 | Manage Cloud Logs for Effective Threat Hunting | NSA | NSA guidance on cloud log management including AWS CloudTrail best practices | [defense.gov (PDF)](https://media.defense.gov/2024/Mar/07/2003407864/-1/-1/0/CSI_CloudTop10-Logs-for-Effective-Threat-Hunting.PDF) |
 

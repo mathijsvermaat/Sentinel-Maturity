@@ -12,7 +12,7 @@
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Important Considerations](#important-considerations)
 - [Notes](#notes)
-  - [Tools](#tools)
+- [Tools](#tools)
 - [References](#references)
 
 ---
@@ -109,20 +109,31 @@ Ensure your WAF policy uses **CRS 3.2** or later. Older CRS versions generate mo
 - WAF logs complement Azure Firewall logs — the firewall handles L3/L4 traffic; WAF handles L7 application-layer attacks
 - If you have no internet-facing web applications behind Application Gateway or Front Door, this connector may not apply to your environment
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor WAF log ingestion volumes | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor WAF log ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Network Session Essentials** | Solution | 2 workbooks, 10 analytic rules, 6 hunting queries — ASIM-based network session analytics; WAF logs can feed ASIM-normalised detections | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Connect Azure WAF to Microsoft Sentinel | Connector setup guide — Application Gateway and Front Door diagnostic settings | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/azure-web-application-firewall) |
+| Azure WAF monitoring and logging | Diagnostic logs, metrics, and best practices for Azure WAF | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/application-gateway-waf-metrics) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Sentinel Ninja — Azure WAF connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/waf.md) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance — internet-facing services are Enterprise Networks priority #2 | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

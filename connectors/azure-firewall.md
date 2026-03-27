@@ -12,7 +12,7 @@
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Important Considerations](#important-considerations)
 - [Notes](#notes)
-  - [Tools](#tools)
+- [Tools](#tools)
 - [References](#references)
 
 ---
@@ -144,20 +144,31 @@ Microsoft.Insights/diagnosticSettings — deployIfNotExists
 - For Azure Firewall Premium customers, `AZFWIdpsSignature` adds network IDS capability similar to on-premises Snort/Suricata
 - Consider the [Azure Firewall Workbook](https://learn.microsoft.com/en-us/azure/firewall/firewall-workbook) for operational monitoring alongside Sentinel detections
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor Azure Firewall table ingestion volumes | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor Azure Firewall table ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Azure Firewall** | Solution | 2 workbooks (Classic and Structured Logs), 6 analytic rules, 5 hunting queries, 5 playbooks — covers firewall rule monitoring, threat intelligence hits, and automated blocking | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Connect Azure Firewall to Microsoft Sentinel | Connector setup guide — resource-specific diagnostic settings for structured logs | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/azure-firewall) |
+| Azure Firewall structured logs | Schema reference for all resource-specific log tables | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/firewall/firewall-structured-logs) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Sentinel Ninja — Azure Firewall connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/azurefirewall.md) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance on logging priorities — firewalls are listed as Enterprise Networks priority #5 | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

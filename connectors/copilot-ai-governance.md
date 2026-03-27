@@ -17,7 +17,7 @@
     - [Azure OpenAI](#azure-openai)
   - [MCSB Control Mapping](#mcsb-control-mapping)
   - [Notes](#notes)
-    - [Tools](#tools)
+  - [Tools](#tools)
   - [References](#references)
 
 ---
@@ -99,18 +99,29 @@ The Copilot/AI governance logging story in Sentinel is evolving rapidly. This pa
 - For Azure OpenAI, enable **diagnostic settings** on the Cognitive Services resource to capture API call logs
 - Consider deploying Purview **Copilot governance policies** alongside Sentinel monitoring for preventive + detective controls
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor AI-related log ingestion | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor AI-related log ingestion | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Microsoft Copilot** | Solution | Provides the Microsoft Copilot connector for ingesting CopilotActivity logs | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
 
-*No community references yet — this is an emerging topic. Contributions welcome.*
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Microsoft Copilot data connector for Microsoft Sentinel | Connector setup guide — CopilotActivity table via Purview audit pipeline | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/microsoft-copilot) |
+
+### Community & Third-Party Resources
+
+| Title | Author | Description | Link |
+|:------|:-------|:------------|:-----|
+| Sentinel Ninja — Microsoft Copilot connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/microsoftcopilot.md) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

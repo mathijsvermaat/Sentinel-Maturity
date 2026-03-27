@@ -14,7 +14,7 @@
 - [Recommended Configuration](#recommended-configuration)
 - [Notes](#notes)
   - [Why Layered Logging Matters for Linux Servers](#why-layered-logging-matters-for-linux-servers)
-  - [Tools](#tools)
+- [Tools](#tools)
 - [References](#references)
 
 ---
@@ -186,19 +186,30 @@ Just as with Windows, relying solely on EDR for Linux server security leaves gap
 | The Evolution of EDR Bypasses | EDR bypass techniques are not limited to Windows — Linux EDR evasion is an active research area | [CovertSwarm](https://www.covertswarm.com/post/the-evolution-of-edr-bypasses-a-historical-timeline) |
 | Sentinel Data Connectors: What Actually Matters | Practical guidance on prioritizing Sentinel data connectors including Syslog | [IT Professor](https://www.itprofessor.cloud/sentinel-data-connectors-what-actually-matters/) |
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor Syslog ingestion volumes per server and validate the P2 ingestion benefit | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor Syslog ingestion volumes per server and validate the P2 ingestion benefit | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
 | **Defender AMA Coverage** | Workbook | Validate AMA agent deployment and Syslog collection coverage on Linux servers | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](../procedures/defender-ama-coverage.md) |
+| **SOC Handbook** | Solution | Identity & Access workbook, Investigation Insights workbook, MITRE ATT&CK workbook — Syslog authentication events feed identity-based detections | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
 
-*No community references yet — contributions welcome.*
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Ingest syslog and CEF messages to Microsoft Sentinel with the Azure Monitor Agent | Connector setup guide — Syslog via AMA with DCR-based filtering | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/connect-cef-syslog-ama) |
+
+### Community & Third-Party Resources
+
+| Title | Author | Description | Link |
+|:------|:-------|:------------|:-----|
+| Sentinel Ninja — Syslog via AMA connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/syslogama.md) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

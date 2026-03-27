@@ -12,7 +12,7 @@
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Notes](#notes)
   - [Estimating Data Lake Retention Cost](#estimating-data-lake-retention-cost)
-  - [Tools](#tools)
+- [Tools](#tools)
 - [References](#references)
 
 ---
@@ -172,21 +172,32 @@ If you are already streaming Defender XDR tables to Sentinel, use the **Workspac
 
 If you have **not** enabled the Defender XDR connector in Sentinel, there is no ingestion data to query. Use the [XDR tables to Sentinel ingestion calculator](https://github.com/mathijsvermaat/DefenderIngestToSentinel) script to estimate volumes directly from the Defender Advanced Hunting API. The script samples actual records from each table, measures their size, and extrapolates daily/monthly ingestion in GB — giving you a data-driven cost estimate before committing. See the [XDR Ingestion Calculator walkthrough](../procedures/xdr-ingestion-calculator.md) for setup and usage instructions.
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor Defender XDR table ingestion volumes and validate the E5 data grant | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor Defender XDR table ingestion volumes and validate the E5 data grant | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
 | **XDR tables to Sentinel ingestion calculator** | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector (see [Scenario 2](#estimating-data-lake-retention-cost) above) | [GitHub — mathijsvermaat/DefenderIngestToSentinel](https://github.com/mathijsvermaat/DefenderIngestToSentinel) | [Walkthrough](../procedures/xdr-ingestion-calculator.md) |
+| **Microsoft Defender XDR** | Solution | 3 workbooks, 40 analytic rules, 330 hunting queries, 1 playbook — covers incident correlation, advanced hunting, and identity threat detection | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Connect Microsoft Defender XDR to Microsoft Sentinel | Connector setup guide — incidents & alerts, UEBA entities, and advanced hunting tables | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/connect-microsoft-365-defender) |
+| Microsoft Defender XDR integration with Microsoft Sentinel | Architecture overview of the XDR-Sentinel integration | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/microsoft-365-defender-sentinel-integration) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Sentinel Ninja — Microsoft Defender XDR connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/microsoftthreatprotection.md) |
 | How to natively archive Defender XDR logs for up to 12 years | Jeffrey Appel | Explains how to use the Sentinel Data Lake tier for long-term retention of Defender XDR advanced hunting tables — directly relevant to the Data Lake retention cost discussion on this page | [jeffreyappel.nl](https://jeffreyappel.nl/how-to-archive-defender-logs-natively-in-defender-xdr-up-to-12-years/) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

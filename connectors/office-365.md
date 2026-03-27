@@ -12,7 +12,7 @@
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [OfficeActivity vs CloudAppEvents](#officeactivity-vs-cloudappevents)
 - [Notes](#notes)
-  - [Tools](#tools)
+- [Tools](#tools)
 - [References](#references)
 
 ---
@@ -115,18 +115,29 @@ The Office 365 connector provides **audit log data for Exchange Online, SharePoi
 - Consider creating **watchlists** for sensitive SharePoint sites to trigger alerts on access to high-value data
 - Inbox rule detections are among the **highest-fidelity BEC indicators** — prioritize these analytics rules
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor OfficeActivity ingestion volumes and validate connector health | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor OfficeActivity ingestion volumes and validate connector health | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Microsoft 365** | Solution | 3 workbooks (Office 365, Exchange Online, SharePoint & OneDrive), 16 analytic rules, 21 hunting queries — covers suspicious mail forwarding, mass downloads, and Teams/SharePoint anomalies | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
 
-*No community references yet — contributions welcome.*
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Connect Office 365 Logs to Microsoft Sentinel | Connector setup guide — Exchange, SharePoint, and Teams activity logs | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/microsoft-365) |
+
+### Community & Third-Party Resources
+
+| Title | Author | Description | Link |
+|:------|:-------|:------------|:-----|
+| Sentinel Ninja — Microsoft 365 connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/office365.md) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

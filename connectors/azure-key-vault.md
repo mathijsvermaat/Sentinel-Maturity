@@ -12,7 +12,7 @@
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Important Considerations](#important-considerations)
 - [Notes](#notes)
-  - [Tools](#tools)
+- [Tools](#tools)
 - [References](#references)
 
 ---
@@ -111,20 +111,31 @@ If you have Defender for Key Vault enabled, anomalous access alerts (unusual IP,
 - For HSM-backed keys, `AzureDiagnostics` may include additional Managed HSM operations
 - Key Vault is frequently targeted in cloud-native attacks — after compromising an identity, attackers enumerate accessible Key Vaults for connection strings and API keys
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor Key Vault table ingestion volumes | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor Key Vault table ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Azure Key Vault** | Solution | Provides the Azure Key Vault connector and diagnostic settings for monitoring secret, key, and certificate operations | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Connect Azure Key Vault to Microsoft Sentinel | Connector setup guide — diagnostic settings for key, secret, and certificate audit events | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/azure-key-vault) |
+| Azure Key Vault logging | Overview of Key Vault diagnostic logging and log categories | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/key-vault/general/logging) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Sentinel Ninja — Azure Key Vault connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/azurekeyvault.md) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance — secret and privilege management is Enterprise Networks priority #7 | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

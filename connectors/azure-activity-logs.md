@@ -20,7 +20,7 @@
     - [Log Categories to Enable](#log-categories-to-enable)
     - [Deployment](#deployment)
   - [Notes](#notes)
-    - [Tools](#tools)
+  - [Tools](#tools)
   - [References](#references)
 
 ---
@@ -139,18 +139,30 @@ This ensures new subscriptions are automatically connected to your Sentinel work
 - Consider combining with **Azure Resource Graph** snapshots for point-in-time infrastructure state during investigations
 - High-value operations to watchlist: role assignments at subscription/management group scope, diagnostic settings changes, policy exemptions
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor AzureActivity ingestion volumes and retention | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor AzureActivity ingestion volumes and retention | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Azure Activity** | Solution | 2 workbooks (Azure Activity, Azure Service Health), 14 analytic rules, 15 hunting queries — covers suspicious resource deployments, role assignments, and service health events | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
 
-*No community references yet — contributions welcome.*
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Connect Azure Activity to Microsoft Sentinel | Connector setup guide — diagnostic settings for Azure management plane events | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/azure-activity) |
+| Azure Activity log event schema | Schema reference for all Azure Activity log categories | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema) |
+
+### Community & Third-Party Resources
+
+| Title | Author | Description | Link |
+|:------|:-------|:------------|:-----|
+| Sentinel Ninja — Azure Activity connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/azureactivity.md) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

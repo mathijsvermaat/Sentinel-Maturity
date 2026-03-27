@@ -11,7 +11,7 @@
 - [Example Detections](#example-detections)
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Notes](#notes)
-  - [Tools](#tools)
+- [Tools](#tools)
 - [References](#references)
 
 ---
@@ -87,20 +87,30 @@ This connector addresses the question: *"Was sensitive data involved in this inc
 - The highest detection value comes from **correlating** Purview events with identity and endpoint tables — label downgrade + mass download + unusual sign-in = strong insider threat signal
 - Ensure your organisation has a deployed **sensitivity label taxonomy** before enabling this connector — without labels applied, the tables will be sparse
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor Purview table ingestion volumes | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor Purview table ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Microsoft Purview Information Protection** | Solution | Provides the Purview Information Protection connector for DLP and sensitivity label events | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Connect Microsoft Purview Information Protection to Microsoft Sentinel | Connector setup guide — DLP alerts, sensitivity labels, and data governance events | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/microsoft-purview-information-protection) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Sentinel Ninja — Microsoft Purview Information Protection connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/microsoftpurviewinformationprotection.md) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance — data repositories are Enterprise Networks priority #8 | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

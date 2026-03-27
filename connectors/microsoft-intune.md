@@ -11,7 +11,7 @@
 - [Example Detections](#example-detections)
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Notes](#notes)
-  - [Tools](#tools)
+- [Tools](#tools)
 - [References](#references)
 
 ---
@@ -79,20 +79,30 @@ This connector bridges endpoint **management** (Intune) with endpoint **detectio
 - For mobile device (iOS/Android) visibility, Intune logs are the primary source — Defender XDR endpoint tables primarily cover Windows/macOS
 - Consider creating **compliance-based watchlists** from `IntuneDevices` to flag non-compliant devices in other detection rules
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor Intune table ingestion volumes | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor Intune table ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Microsoft Entra ID** | Solution | 3 workbooks, 73 analytic rules — Intune audit events flow via the Entra ID diagnostic pipeline; the Entra ID solution provides relevant detections | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Monitor Intune audit logs with Microsoft Sentinel | Setup guide for routing Intune audit and operational logs via Entra ID diagnostics | [learn.microsoft.com](https://learn.microsoft.com/en-us/mem/intune/fundamentals/review-logs-using-azure-monitor) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Sentinel Ninja — Solutions Docs | Ofer Shezaf (Microsoft) | Comprehensive auto-generated reference for all Sentinel solutions, connectors, and tables | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/README.md) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance — MDM/MAM events are Enterprise Mobility priority #7 | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

@@ -21,7 +21,7 @@
     - [Feed Quality](#feed-quality)
     - [IOC Expiry](#ioc-expiry)
   - [Notes](#notes)
-    - [Tools](#tools)
+  - [Tools](#tools)
   - [References](#references)
 
 ---
@@ -129,20 +129,31 @@ Ensure IOCs have appropriate expiry dates. Stale IOCs generate false positives a
 - Consider creating a **TI matching dashboard** workbook to track match rates by source and confidence level
 - MDTI requires a separate license — evaluate whether the premium IOC quality justifies the cost for your threat landscape
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor TI indicator ingestion and match rates | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor TI indicator ingestion and match rates | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Threat Intelligence** | Solution | 1 workbook, 52 analytic rules (TI map IP/Domain/Email/URL/Hash to 27+ tables), 5 hunting queries — cross-correlates threat indicators with all major log sources | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Threat intelligence integration in Microsoft Sentinel | Overview of TI connector options — MDTI, TAXII, Upload API, and platform connectors | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/threat-intelligence-integration) |
+| Connect threat intelligence platforms to Microsoft Sentinel | Step-by-step setup guide for all TI connector types | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/connect-threat-intelligence-tip) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Sentinel Ninja — Threat Intelligence connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/threatintelligence.md) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance — recommends leveraging threat intelligence and machine learning for detection | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

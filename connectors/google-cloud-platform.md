@@ -6,14 +6,25 @@
 
 ## Contents
 
-- [Overview](#overview)
-- [Tables and Rationale](#tables-and-rationale)
-- [Example Detections](#example-detections)
-- [MCSB Control Mapping](#mcsb-control-mapping)
-- [Important Considerations](#important-considerations)
-- [Notes](#notes)
+- [Google Cloud Platform (GCP)](#google-cloud-platform-gcp)
+  - [Contents](#contents)
+  - [Overview](#overview)
+    - [Licensing Benefits](#licensing-benefits)
+  - [Tables and Rationale](#tables-and-rationale)
+  - [Example Detections](#example-detections)
+    - [IAM and Access](#iam-and-access)
+    - [Resource Security](#resource-security)
+    - [Data Access](#data-access)
+  - [MCSB Control Mapping](#mcsb-control-mapping)
+  - [Important Considerations](#important-considerations)
+    - [Connector Architecture](#connector-architecture)
+    - [Admin Activity vs. Data Access Logs](#admin-activity-vs-data-access-logs)
+    - [Federated Access (Entra ID → GCP)](#federated-access-entra-id--gcp)
+  - [Notes](#notes)
   - [Tools](#tools)
-- [References](#references)
+  - [References](#references)
+    - [Official Documentation](#official-documentation)
+    - [Community \& Third-Party Resources](#community--third-party-resources)
 
 ---
 
@@ -127,20 +138,30 @@ If users authenticate to GCP via Entra ID federation (Cloud Identity / Workspace
 - For **Defender for Cloud multi-cloud CSPM**, GCP security findings already flow through `SecurityAlert` — see [Defender for Cloud](microsoft-defender-for-cloud.md)
 - The [Microsoft Sentinel GCP connector](https://learn.microsoft.com/en-us/azure/sentinel/connect-google-cloud-platform) documentation provides step-by-step setup instructions
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor GCPAuditLogs ingestion volumes | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor GCPAuditLogs ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Google Cloud Platform** | Solution | Provides the GCP Pub/Sub connector and specialised CCP-based connectors for multi-cloud visibility | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Connect GCP Pub/Sub Audit Logs to Microsoft Sentinel | Connector setup guide — GCP audit log ingestion via Pub/Sub | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/gcp-pub-sub-audit-logs) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Sentinel Ninja — GCP Pub/Sub Audit Logs connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/gcppub-subauditlogs.md) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance — cloud logging priorities apply equally to all cloud providers including GCP | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 | Manage Cloud Logs for Effective Threat Hunting | NSA | NSA guidance on cloud log management including GCP audit logging best practices | [defense.gov (PDF)](https://media.defense.gov/2024/Mar/07/2003407864/-1/-1/0/CSI_CloudTop10-Logs-for-Effective-Threat-Hunting.PDF) |
 

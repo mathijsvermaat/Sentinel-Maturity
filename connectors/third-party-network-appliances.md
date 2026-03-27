@@ -13,7 +13,7 @@
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Important Considerations](#important-considerations)
 - [Notes](#notes)
-  - [Tools](#tools)
+- [Tools](#tools)
 - [References](#references)
 
 ---
@@ -132,20 +132,31 @@ Configure DCRs to filter out noise — many network devices send informational a
 - For Zscaler users who are also migrating to Microsoft Global Secure Access, evaluate whether both proxy log sources are needed or whether GSA will replace Zscaler — see the [Global Secure Access](global-secure-access.md) page
 - ASIM (Advanced Security Information Model) normalisation parsers can unify `CommonSecurityLog`, `AZFWNetworkRule`, and `NetworkAccessTraffic` into a single normalised schema for cross-source detections
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor CommonSecurityLog and Syslog ingestion volumes | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor CommonSecurityLog and Syslog ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Network Session Essentials** | Solution | 2 workbooks, 10 analytic rules, 6 hunting queries — ASIM-based network session analytics; CEF/Syslog network appliance logs can feed ASIM-normalised detections | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| CEF via AMA — configure specific appliance or device | Setup guide for CEF-based third-party appliance connectors via AMA | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/unified-connector-cef-device) |
+| Syslog via AMA — configure specific appliance or device | Setup guide for Syslog-based third-party appliance connectors via AMA | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/unified-connector-syslog-device) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Sentinel Ninja — CEF via AMA connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/cefama.md) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance — edge devices/firewalls are Enterprise Networks priority #5, web proxies are priority #12 | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

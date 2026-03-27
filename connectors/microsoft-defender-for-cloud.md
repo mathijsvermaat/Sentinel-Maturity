@@ -12,7 +12,7 @@
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Important Considerations](#important-considerations)
 - [Notes](#notes)
-  - [Tools](#tools)
+- [Tools](#tools)
 - [References](#references)
 
 ---
@@ -113,21 +113,31 @@ Defender for Cloud can generate significant alert volumes, particularly from Def
 - If you use **Defender CSPM** (premium), additional tables like `SecurityAttackPath` may become available — these are high-value for proactive hunting
 - For Defender for Servers P2 VM-level alerts, ensure that AMA deployment is complete — see the [Defender AMA Coverage](../procedures/defender-ama-coverage.md) procedure
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor SecurityAlert and recommendation ingestion volumes | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
-| **Defender AMA Coverage** | Workbook | Validate AMA deployment for Defender for Servers | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/defender-ama-coverage.md) |
+| **Workspace Usage Report** | Workbook | Monitor SecurityAlert and recommendation ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Defender AMA Coverage** | Workbook | Validate AMA deployment for Defender for Servers | Sentinel Content Hub | [Walkthrough](../procedures/defender-ama-coverage.md) |
+| **Microsoft Defender for Cloud** | Solution | 1 analytic rule — provides the tenant-based and subscription-based connectors plus detection content | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Connect Microsoft Defender for Cloud alerts to Microsoft Sentinel | Connector setup guide — tenant-based vs subscription-based, bi-directional sync | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/connect-defender-for-cloud) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Sentinel Ninja — Microsoft Defender for Cloud connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/microsoftdefenderforcloudtenantbased.md) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance on logging priorities for enterprise networks and cloud — informs the ACSC alignment on this page | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

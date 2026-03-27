@@ -12,7 +12,7 @@
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Important Considerations](#important-considerations)
 - [Notes](#notes)
-  - [Tools](#tools)
+- [Tools](#tools)
 - [References](#references)
 
 ---
@@ -119,20 +119,30 @@ They are complementary, not redundant. GSA logs have identity context; Azure Fir
 - Consider the [Entra ID page](microsoft-entra-id.md) for the authentication side of the same user journey
 - GSA logs are high-value for **insider threat** detection — the identity-enriched proxy log enables user-level behaviour analytics without SIEM-side join operations
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor NetworkAccessTraffic ingestion volumes | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor NetworkAccessTraffic ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Network Session Essentials** | Solution | 2 workbooks, 10 analytic rules, 6 hunting queries — ASIM-based network session analytics; GSA traffic logs can be normalised via ASIM | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Global Secure Access enriched Microsoft 365 logs | How Entra Internet/Private Access enriches M365 traffic logs for Sentinel | [learn.microsoft.com](https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-view-enriched-logs) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Sentinel Ninja — Solutions Docs | Ofer Shezaf (Microsoft) | Comprehensive auto-generated reference for all Sentinel solutions, connectors, and tables | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/README.md) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance — web proxies are Enterprise Networks priority #12 and Enterprise Mobility priority #1 | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

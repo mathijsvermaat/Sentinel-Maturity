@@ -16,7 +16,7 @@
 - [Notes](#notes)
   - [Staying Within the Defender for Servers P2 Ingestion Benefit](#staying-within-the-defender-for-servers-p2-ingestion-benefit)
   - [Why Layered Logging Matters for Windows Servers](#why-layered-logging-matters-for-windows-servers)
-  - [Tools](#tools)
+- [Tools](#tools)
 - [References](#references)
 
 ---
@@ -272,19 +272,31 @@ EDR solutions like Microsoft Defender for Endpoint are powerful but **should not
 | Cloud Forensics: Forensic Readiness and IR in Azure Virtual Desktop | Demonstrates a layered approach combining EDR and native logging for incident response | [Microsoft Community Hub](https://techcommunity.microsoft.com/blog/microsoftsentinelblog/cloud-forensics-forensic-readiness-and-incident-response-in-azure-virtual-desktop/3835484) |
 | Windows Event Log Analysis: Techniques for Every SOC Analyst | Practical guide on using Windows Security Events for detection alongside EDR | [CyberDefenders Blog](https://blog.cyberdefenders.org/2024/02/windows-event-log-analysis-techniques.html) |
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor SecurityEvent/WindowsEvent ingestion volumes per server | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor SecurityEvent/WindowsEvent ingestion volumes per server | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
 | **Defender AMA Coverage** | Workbook | Validate AMA agent deployment and Windows Security Event collection coverage | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](../procedures/defender-ama-coverage.md) |
+| **Windows Security Events** | Solution | Event Analyzer workbook — explore, audit, and speed up Windows Event Log analysis with all event details and attributes | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
 
-*No community references yet — contributions welcome.*
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Connect Windows Security Events via AMA to Microsoft Sentinel | Connector setup guide — AMA-based Windows Security Events with DCR filtering | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/windows-security-events-via-ama) |
+| Windows Security Event ID reference | List of event IDs collected per preset (Minimal, Common, All) | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/windows-security-event-id-reference) |
+
+### Community & Third-Party Resources
+
+| Title | Author | Description | Link |
+|:------|:-------|:------------|:-----|
+| Sentinel Ninja — Windows Security Events connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/windowssecurityevents.md) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

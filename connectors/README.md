@@ -69,6 +69,16 @@ Additional connectors for customers with higher maturity requirements. Connector
 
 ---
 
+## Community Reference
+
+For a comprehensive auto-generated reference covering all 495+ Sentinel solutions, 536 data connectors, 2,000+ tables, and 6,000+ content items (workbooks, analytic rules, hunting queries, playbooks), see:
+
+> **[Sentinel Ninja — Solutions Docs](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/README.md)** by [Ofer Shezaf](https://github.com/oshezaf) (Principal Product Manager, Microsoft Sentinel)
+
+Each connector page in this maturity model includes a per-connector link to the relevant Sentinel Ninja reference in its **References** section.
+
+---
+
 ## Template
 
 Use the [connector template](_TEMPLATE.md) when creating pages for new connectors (Tier 1, Tier 2, Tier 3).

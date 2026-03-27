@@ -20,8 +20,10 @@
     - [Risk-Based](#risk-based)
   - [MCSB Control Mapping](#mcsb-control-mapping)
   - [Notes](#notes)
-    - [Tools](#tools)
+  - [Tools](#tools)
   - [References](#references)
+    - [Official Documentation](#official-documentation)
+    - [Community \& Third-Party Resources](#community--third-party-resources)
 
 ---
 
@@ -133,18 +135,30 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 - The **NetworkAccessTraffic** table becomes available if you deploy Global Secure Access (Entra Internet/Private Access) — this is a Tier 2+ consideration
 - Entra ID sign-in logs in Entra by default retain for **30 days** (P1/P2) — Sentinel provides the extended retention you need for forensic readiness
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor Entra ID table ingestion volumes and retention | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor Entra ID table ingestion volumes and retention | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Microsoft Entra ID** | Solution | 3 workbooks (Audit Logs, Sign-in Logs, Provisioning), 73 analytic rules, 11 playbooks — covers identity threat detection, sign-in anomalies, and automated response | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
 
-*No community references yet — contributions welcome.*
+| Title | Description | Link |
+|:------|:------------|:-----|
+| Connect Microsoft Entra ID to Microsoft Sentinel | Connector setup guide — diagnostic settings for sign-in, audit, and risk logs | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/connect-azure-active-directory) |
+| Microsoft Entra audit log reference | Schema reference for all Entra ID audit log categories | [learn.microsoft.com](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/reference-audit-activities) |
+
+### Community & Third-Party Resources
+
+| Title | Author | Description | Link |
+|:------|:-------|:------------|:-----|
+| Sentinel Ninja — Microsoft Entra ID connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/azureactivedirectory.md) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

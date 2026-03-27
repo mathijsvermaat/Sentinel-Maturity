@@ -21,7 +21,7 @@
     - [Coverage](#coverage)
     - [Volume](#volume)
   - [Notes](#notes)
-    - [Tools](#tools)
+  - [Tools](#tools)
   - [References](#references)
 
 ---
@@ -131,21 +131,31 @@ VNet Flow Logs capture traffic at the VNet level including gateway traffic, whic
 - For organisations with Azure Firewall in forced-tunnel mode, most internet-bound traffic will appear in firewall logs, not VNet flows — VNet flows capture the internal segment
 - High-volume environments should consider the **Data Lake** tier for flow data or aggressive filtering via Traffic Analytics
 
-### Tools
+---
+
+## Tools
 
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
-| **Workspace Usage Report** | Workbook | Monitor flow log ingestion volumes | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Workspace Usage Report** | Workbook | Monitor flow log ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
+| **Network Session Essentials** | Solution | 2 workbooks, 10 analytic rules, 6 hunting queries, 1 playbook — ASIM-based network session analytics covering port scans, beaconing, brute force, and SMB anomalies | Sentinel Content Hub | — |
 
 ---
 
 ## References
 
-Community and third-party resources that support the guidance on this page.
+### Official Documentation
+
+| Title | Description | Link |
+|:------|:------------|:-----|
+| VNet flow logs overview | GA successor to NSG flow logs — setup, pricing, VNet vs NSG comparison | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/network-watcher/vnet-flow-logs-overview) |
+| Traffic Analytics overview | How Traffic Analytics processes flow logs into NTANetAnalytics for Sentinel | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/network-watcher/traffic-analytics) |
+
+### Community & Third-Party Resources
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
-| VNet flow logs overview | Microsoft | Official documentation for VNet flow logs — GA successor to NSG flow logs | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/network-watcher/vnet-flow-logs-overview) |
+| Sentinel Ninja — Network Security Groups connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/azurensg.md) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance — network metadata is listed as a logging priority | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)
