@@ -80,6 +80,7 @@ Step-by-step guides for the operational tools used alongside this maturity model
 | [Azure Activity Logs](connectors/azure-activity-logs.md) | AzureActivity | Any Azure subscription | Yes — free data connector |
 | [Windows Security Events](connectors/windows-security-events.md) | SecurityEvent / WindowsEvent | [Defender for Servers P2](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) | [500 MB/day per server](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) via Defender for Servers P2 |
 | [Syslog for Linux](connectors/syslog-linux.md) | Syslog | None | None |
+| [Sentinel Health & Audit Diagnostics](connectors/sentinel-health.md) | SentinelHealth, SentinelAudit | Any Sentinel workspace | Yes — SentinelHealth is not billable |
 
 ## Tier 2 Connectors (Extended Visibility)
 

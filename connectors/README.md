@@ -16,6 +16,7 @@ Every Microsoft Sentinel deployment should have these connectors enabled.
 | [Azure Activity Logs](azure-activity-logs.md) | Azure control plane operations across all subscriptions | Yes — free data source |
 | [Windows Security Events](windows-security-events.md) | Windows server authentication, process, and account management events | 500 MB/day/server via Defender for Servers P2 |
 | [Syslog for Linux](syslog-linux.md) | Linux server authentication and system logging | 500 MB/day/server via Defender for Servers P2 |
+| [Sentinel Health & Audit Diagnostics](sentinel-health.md) | Data connector health, analytics rule execution, automation monitoring, rule change auditing | Yes — SentinelHealth is not billable |
 
 ---
 
