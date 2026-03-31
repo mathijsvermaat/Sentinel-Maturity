@@ -15,11 +15,11 @@ A structured approach to Microsoft Sentinel data connector onboarding, retention
   - [Tier 1 Connectors (Bare Minimum)](#tier-1-connectors-bare-minimum)
   - [Tier 2 Connectors (Extended Visibility)](#tier-2-connectors-extended-visibility)
     - [Cloud Security Posture](#cloud-security-posture)
-    - [Network Visibility](#network-visibility)
     - [Data Protection \& Governance](#data-protection--governance)
-    - [Endpoint Compliance](#endpoint-compliance)
     - [Detection Enrichment](#detection-enrichment)
+    - [Endpoint Compliance](#endpoint-compliance)
     - [Multi-Cloud](#multi-cloud)
+    - [Network Visibility](#network-visibility)
   - [Retention Philosophy](#retention-philosophy)
     - [Recommended Retention Tiers](#recommended-retention-tiers)
   - [Why a Layered Approach?](#why-a-layered-approach)
@@ -68,7 +68,7 @@ Step-by-step guides for the operational tools used alongside this maturity model
 |:-----|:------------|:----------------|
 | **[Tier 1](#tier-1-connectors-bare-minimum)** | **Bare minimum** — Essential connectors that every Sentinel deployment should have. Covers identity, endpoint, email, cloud activity, and server logs. | All customers |
 | **[Tier 2](#tier-2-connectors-extended-visibility)** | **Extended visibility** — Network security, cloud posture, data protection, multi-cloud, endpoint compliance, and threat intelligence. Aligned with [ASD ACSC logging best practices](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection). | Customers with higher maturity requirements |
-| Tier 3 | Advanced — Full-spectrum monitoring including OT/IoT, CI/CD, SAP, and specialised integrations. | *Coming soon* |
+| Tier 3 | Advanced — Full-spectrum monitoring including OT/IoT, CI/CD, SAP, databases, custom applications, and specialised integrations. | [See below](#tier-3-connectors-advanced--specialised) |
 
 ## Tier 1 Connectors (Bare Minimum)
 
@@ -92,30 +92,13 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 |:----------|:-----------|:---------------|
 | [Microsoft Defender for Cloud](connectors/microsoft-defender-for-cloud.md) | SecurityAlert, SecurityRecommendation | Yes — SecurityAlert is free |
 
-### Network Visibility
-
-| Connector | Key Tables | Free Ingestion |
-|:----------|:-----------|:---------------|
-| [Azure Firewall](connectors/azure-firewall.md) | AZFWNetworkRule, AZFWApplicationRule, AZFWDnsQuery, AZFWThreatIntel | No |
-| [Azure WAF (Application Gateway / Front Door)](connectors/azure-waf.md) | ApplicationGatewayFirewallLog, FrontDoorWebApplicationFirewallLog | No |
-| [VNet Flow Logs & Traffic Analytics](connectors/nsg-flow-logs.md) | NTANetAnalytics, NTAIpDetails | No |
-| [Microsoft Global Secure Access](connectors/global-secure-access.md) | NetworkAccessTraffic | No |
-| [DNS Security Logs](connectors/dns-security-logs.md) | DnsEvents, DnsInventory | No |
-| [Third-Party Network & Proxy Appliances (CEF/Syslog)](connectors/third-party-network-appliances.md) | CommonSecurityLog | 500 MB/day via DfS P2 — *conditional* |
-
 ### Data Protection & Governance
 
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
-| [Microsoft Purview (Information Protection & DLP)](connectors/microsoft-purview.md) | MicrosoftPurviewInformationProtection | No |
 | [Azure Key Vault](connectors/azure-key-vault.md) | AKVAuditLogs | No |
 | [Microsoft Copilot / AI Governance](connectors/copilot-ai-governance.md) | OfficeActivity (Copilot), AzureDiagnostics (OpenAI) | No |
-
-### Endpoint Compliance
-
-| Connector | Key Tables | Free Ingestion |
-|:----------|:-----------|:---------------|
-| [Microsoft Intune (Endpoint Management)](connectors/microsoft-intune.md) | IntuneAuditLogs, IntuneOperationalLogs, IntuneDevices | Partial — audit/operational logs free |
+| [Microsoft Purview (Information Protection & DLP)](connectors/microsoft-purview.md) | MicrosoftPurviewInformationProtection | No |
 
 ### Detection Enrichment
 
@@ -123,12 +106,87 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 |:----------|:-----------|:---------------|
 | [Threat Intelligence Platforms](connectors/threat-intelligence.md) | ThreatIntelligenceIndicator | Yes — free data source |
 
+### Endpoint Compliance
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Microsoft Intune (Endpoint Management)](connectors/microsoft-intune.md) | IntuneAuditLogs, IntuneOperationalLogs, IntuneDevices | Partial — audit/operational logs free |
+
+### Identity & Access (Extended)
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Microsoft Entra ID Protection (Extended Risk Events)](connectors/microsoft-entra-id-protection.md) | AADRiskyUsers, AADUserRiskEvents, AADRiskyServicePrincipals | Yes — free data source |
+| Third-Party Identity (Okta, CyberArk, Ping Identity, BeyondTrust) | Vendor-specific tables via API or CEF/Syslog | No — *conditional* |
+
 ### Multi-Cloud
 
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
 | [Amazon Web Services (AWS)](connectors/amazon-web-services.md) | AWSCloudTrail, AWSGuardDuty, AWSVPCFlow | No |
 | [Google Cloud Platform (GCP)](connectors/google-cloud-platform.md) | GCPAuditLogs | No |
+
+### Network Visibility
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Azure Firewall](connectors/azure-firewall.md) | AZFWNetworkRule, AZFWApplicationRule, AZFWDnsQuery, AZFWThreatIntel | No |
+| [Azure WAF (Application Gateway / Front Door)](connectors/azure-waf.md) | ApplicationGatewayFirewallLog, FrontDoorWebApplicationFirewallLog | No |
+| [DNS Security Logs](connectors/dns-security-logs.md) | DnsEvents, DnsInventory | No |
+| [Microsoft Global Secure Access](connectors/global-secure-access.md) | NetworkAccessTraffic | No |
+| [VNet Flow Logs & Traffic Analytics](connectors/nsg-flow-logs.md) | NTANetAnalytics, NTAIpDetails | No |
+| [Third-Party Network & Proxy Appliances (CEF/Syslog)](connectors/third-party-network-appliances.md) | CommonSecurityLog | 500 MB/day via DfS P2 — *conditional* |
+
+## Tier 3 Connectors (Advanced / Specialised)
+
+Tier 3 provides full-spectrum monitoring for mature organisations that have completed Tier 1 and Tier 2. These connectors cover OT/IoT, DevOps supply chain, databases, custom business applications, and advanced infrastructure telemetry.
+
+### Application & Workload Security
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [IIS / Web Server Logs](connectors/iis-web-server-logs.md) | W3CIISLog | No (500 MB/day via DfS P2) |
+| [Microsoft Defender for Cloud Apps (Standalone)](connectors/microsoft-defender-cloud-apps.md) | McasShadowItReporting | No |
+| [SAP](connectors/sap.md) | SAPAuditLog, ABAPAuditLog, SAPChangeDocuments | No — separately licensed |
+| [SQL / Database Audit Logs](connectors/sql-database-audit.md) | SQLSecurityAuditEvents, CDBDataPlaneRequests | No |
+| Third-Party Applications (ServiceNow, Salesforce, Workday) | Vendor-specific tables via API or CEF/Syslog | No — *conditional* |
+
+### Collaboration & Communication
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Microsoft Teams (Advanced)](connectors/microsoft-teams-advanced.md) | OfficeActivity (Teams), CloudAppEvents (Teams) | Yes — via Office 365 connector |
+| Third-Party Collaboration (Slack, Zoom, Cisco Webex) | Vendor-specific tables via API or webhook | No — *conditional* |
+
+### Custom Applications (Crown Jewels)
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Custom Applications](connectors/custom-applications.md) | {AppName}_CL (custom tables) | No |
+
+### DevOps & CI/CD Security
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Azure DevOps](connectors/azure-devops.md) | AzureDevOpsAuditing | No |
+| [GitHub Enterprise](connectors/github-enterprise.md) | GitHubAuditLogPolling | No |
+| Third-Party DevOps (GitLab, Jenkins, Bitbucket) | Vendor-specific tables via API or webhook | No — *conditional* |
+
+### Infrastructure & Platform
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Azure Kubernetes Service (AKS) Audit](connectors/azure-kubernetes-service.md) | AKSAudit, AKSAuditAdmin | No |
+| [Azure Storage Analytics](connectors/azure-storage-analytics.md) | StorageBlobLogs, StorageFileLogs | No |
+| [Microsoft Defender for DNS (Azure DNS)](connectors/microsoft-defender-for-dns.md) | AzureDiagnostics (DNS), DNSQueryLogs | No |
+| [Windows Forwarded Events (Advanced)](connectors/windows-forwarded-events.md) | WindowsEvent (PowerShell, Sysmon, AppLocker) | No (500 MB/day via DfS P2) |
+
+### OT / IoT Security
+
+| Connector | Key Tables | Free Ingestion |
+|:----------|:-----------|:---------------|
+| [Microsoft Defender for IoT](connectors/microsoft-defender-for-iot.md) | SecurityAlert (IoT) | Yes — SecurityAlert is free |
+| Third-Party OT / IoT (Claroty, Nozomi Networks, Armis) | Vendor-specific tables via CEF/Syslog | No — *conditional* |
 
 ## Retention Philosophy
 
