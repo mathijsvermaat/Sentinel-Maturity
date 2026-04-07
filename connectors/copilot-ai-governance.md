@@ -116,7 +116,7 @@ The Copilot/AI governance logging story in Sentinel is evolving rapidly. This pa
 
 | Title | Description | Link |
 |:------|:------------|:-----|
-| Microsoft Copilot data connector for Microsoft Sentinel | Connector setup guide — CopilotActivity table via Purview audit pipeline | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/microsoft-copilot) |
+| Microsoft Copilot data connector for Microsoft Sentinel | Connector setup guide — CopilotActivity table via Purview audit pipeline | [techcommunity.microsoft.com](https://techcommunity.microsoft.com/blog/microsoftsentinelblog/the-microsoft-copilot-data-connector-for-microsoft-sentinel-is-now-in-public-pre/4491986) |
 
 ### Community & Third-Party Resources
 
