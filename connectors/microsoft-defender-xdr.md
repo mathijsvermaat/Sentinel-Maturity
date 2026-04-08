@@ -199,5 +199,6 @@ If you have **not** enabled the Defender XDR connector in Sentinel, there is no 
 |:------|:-------|:------------|:-----|
 | Sentinel Ninja — Microsoft Defender XDR connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/microsoftthreatprotection.md) |
 | How to natively archive Defender XDR logs for up to 12 years | Jeffrey Appel | Explains how to use the Sentinel Data Lake tier for long-term retention of Defender XDR advanced hunting tables — directly relevant to the Data Lake retention cost discussion on this page | [jeffreyappel.nl](https://jeffreyappel.nl/how-to-archive-defender-logs-natively-in-defender-xdr-up-to-12-years/) |
+| Data lake tier ingestion for Microsoft Defender Advanced Hunting tables is now GA | Microsoft Sentinel Blog | Announcement of GA for ingesting Defender XDR advanced hunting tables into the Sentinel data lake tier | [techcommunity.microsoft.com](https://techcommunity.microsoft.com/blog/microsoftsentinelblog/data-lake-tier-ingestion-for-microsoft-defender-advanced-hunting-tables-is-now-g/4494206) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

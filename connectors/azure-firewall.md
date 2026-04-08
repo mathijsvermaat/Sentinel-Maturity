@@ -169,6 +169,7 @@ Microsoft.Insights/diagnosticSettings — deployIfNotExists
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
 | Sentinel Ninja — Azure Firewall connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/azurefirewall.md) |
+| Detect, correlate, contain: New Azure Firewall IDPS detections in Microsoft Sentinel and XDR | Azure Network Security (Microsoft) | How new Azure Firewall IDPS detections integrate with Sentinel analytics rules and XDR correlation | [techcommunity.microsoft.com](https://techcommunity.microsoft.com/blog/azurenetworksecurityblog/detect-correlate-contain-new-azure-firewall-idps-detections-in-microsoft-sentine/4502128) |
 | Best practices for event logging and threat detection | ASD ACSC | International joint guidance on logging priorities — firewalls are listed as Enterprise Networks priority #5 | [cyber.gov.au](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)
