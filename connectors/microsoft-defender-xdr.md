@@ -180,6 +180,7 @@ If you have **not** enabled the Defender XDR connector in Sentinel, there is no 
 |:-----|:-----|:--------|:-------|:------|
 | **Workspace Usage Report** | Workbook | Monitor Defender XDR table ingestion volumes and validate the E5 data grant | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
 | **XDR tables to Sentinel ingestion calculator** | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector (see [Scenario 2](#estimating-data-lake-retention-cost) above) | [GitHub — mathijsvermaat/DefenderIngestToSentinel](https://github.com/mathijsvermaat/DefenderIngestToSentinel) | [Walkthrough](../procedures/xdr-ingestion-calculator.md) |
+| **M365 Tables Size — Table Sizes by Product** | KQL Query | Show all (E5 benefit-eligible) XDR tables with size in GB, event count, daily average, and estimated cost if billable | Run in Advanced Hunting | [Walkthrough](../procedures/xdr-e5-benefit-table-sizes.md) |
 | **Microsoft Defender XDR** | Solution | 3 workbooks, 40 analytic rules, 330 hunting queries, 1 playbook — covers incident correlation, advanced hunting, and identity threat detection | Sentinel Content Hub | — |
 
 ---
