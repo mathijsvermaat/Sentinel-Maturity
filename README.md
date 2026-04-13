@@ -68,7 +68,7 @@ Step-by-step guides for the operational tools used alongside this maturity model
 |:----------|:----------|:------------|
 | [Workspace Usage Report](procedures/workspace-usage-report.md) | Workbook | Check free data connectors, ingestion benefit coverage, connector volumes, and retention settings |
 | [XDR Ingestion Calculator](procedures/xdr-ingestion-calculator.md) | Script | Estimate Defender XDR ingestion volumes before enabling the Sentinel connector |
-| [M365 E5 Benefit — Table Sizes by Product](procedures/xdr-e5-benefit-table-sizes.md) | KQL Query | Quantify the value of the E5 security data grant by showing all benefit-eligible tables with size, event count, and estimated cost |
+| [XDR Data Volume Insights](procedures/xdr-data-volume-insights.md) | KQL Query | Measure Defender XDR and Entra ID table sizes, daily averages, and event counts to inform Analytics vs Data Lake tier decisions |
 | [Defender AMA Coverage](procedures/defender-ama-coverage.md) | Workbook | Validate AMA deployment coverage and identify gaps in security event and syslog collection |
 | [Retention Insights](procedures/retention-insights.md) | Workbook | Review table-level retention and archiving settings, evaluate Data Lake candidates, and estimate cost impact of plan changes |
 
@@ -248,7 +248,7 @@ To help identify retention settings, monitor ingestion volumes, estimate costs, 
 | **Workspace Usage Report** | Workbook | Monitor ingestion volumes per table, identify cost optimisation opportunities, and validate data connector health across all connectors | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) (search "Workspace Usage") | [Walkthrough](procedures/workspace-usage-report.md) |
 | **Defender AMA Coverage** | Workbook | Validate Defender for Endpoint and AMA agent deployment coverage, identify gaps in security event and syslog collection | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](procedures/defender-ama-coverage.md) |
 | **XDR tables to Sentinel ingestion calculator** | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector | [GitHub — mathijsvermaat/DefenderIngestToSentinel](https://github.com/mathijsvermaat/DefenderIngestToSentinel) | [Walkthrough](procedures/xdr-ingestion-calculator.md) |
-| **M365 E5 Benefit — Table Sizes by Product** | KQL Query | Quantify the value of the E5 security data grant by showing all benefit-eligible tables with size, event count, and estimated cost | Run in Sentinel Logs | [Walkthrough](procedures/xdr-e5-benefit-table-sizes.md) |
+| **XDR Data Volume Insights** | KQL Query | Measure Defender XDR and Entra ID table sizes, daily averages, and event counts to inform Analytics vs Data Lake tier decisions | Run in Sentinel Logs | [Walkthrough](procedures/xdr-data-volume-insights.md) |
 | **Retention Insights** | Workbook | Review table-level retention and archiving settings, evaluate Data Lake candidates, and estimate cost impact of plan changes | [Github — Azure-Sentinel/Workbooks](https://github.com/Azure/Azure-Sentinel/blob/master/Workbooks/ArchivingBasicLogsRetention.json) | [Walkthrough](procedures/retention-insights.md) |
 
 ---

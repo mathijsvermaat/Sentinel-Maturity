@@ -1,4 +1,4 @@
-# M365 XDR tables (with E5 ingestion benefit) — Table Sizes by Product — Walkthrough
+# XDR Data Volume Insights — Walkthrough
 
 **Tool type:** KQL Query · **Source:** Run directly in Sentinel Log Analytics
 
@@ -8,7 +8,7 @@ This KQL query shows all M365 XDR tables (Defender XDR + Entra ID) with their si
 
 ## Contents
 
-- [M365 XDR tables (with E5 ingestion benefit) — Table Sizes by Product — Walkthrough](#m365-xdr-tables-with-e5-ingestion-benefit--table-sizes-by-product--walkthrough)
+- [XDR Data Volume Insights — Walkthrough](#xdr-data-volume-insights--walkthrough)
   - [Contents](#contents)
   - [When to Use This Query](#when-to-use-this-query)
   - [Prerequisites](#prerequisites)
