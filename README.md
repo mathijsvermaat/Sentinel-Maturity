@@ -18,8 +18,16 @@ A structured approach to Microsoft Sentinel data connector onboarding, retention
     - [Data Protection \& Governance](#data-protection--governance)
     - [Detection Enrichment](#detection-enrichment)
     - [Endpoint Compliance](#endpoint-compliance)
+    - [Identity \& Access (Extended)](#identity--access-extended)
     - [Multi-Cloud](#multi-cloud)
     - [Network Visibility](#network-visibility)
+  - [Tier 3 Connectors (Advanced / Specialised)](#tier-3-connectors-advanced--specialised)
+    - [Application \& Workload Security](#application--workload-security)
+    - [Collaboration \& Communication](#collaboration--communication)
+    - [Custom Applications (Crown Jewels)](#custom-applications-crown-jewels)
+    - [DevOps \& CI/CD Security](#devops--cicd-security)
+    - [Infrastructure \& Platform](#infrastructure--platform)
+    - [OT / IoT Security](#ot--iot-security)
   - [Retention Philosophy](#retention-philosophy)
     - [Recommended Retention Tiers](#recommended-retention-tiers)
   - [Why a Layered Approach?](#why-a-layered-approach)
@@ -60,15 +68,17 @@ Step-by-step guides for the operational tools used alongside this maturity model
 |:----------|:----------|:------------|
 | [Workspace Usage Report](procedures/workspace-usage-report.md) | Workbook | Check free data connectors, ingestion benefit coverage, connector volumes, and retention settings |
 | [XDR Ingestion Calculator](procedures/xdr-ingestion-calculator.md) | Script | Estimate Defender XDR ingestion volumes before enabling the Sentinel connector |
+| [M365 E5 Benefit — Table Sizes by Product](procedures/xdr-e5-benefit-table-sizes.md) | KQL Query | Quantify the value of the E5 security data grant by showing all benefit-eligible tables with size, event count, and estimated cost |
 | [Defender AMA Coverage](procedures/defender-ama-coverage.md) | Workbook | Validate AMA deployment coverage and identify gaps in security event and syslog collection |
+| [Retention Insights](procedures/retention-insights.md) | Workbook | Review table-level retention and archiving settings, evaluate Data Lake candidates, and estimate cost impact of plan changes |
 
 ## Tier Model
 
-| Tier | Description | Target Audience |
-|:-----|:------------|:----------------|
-| **[Tier 1](#tier-1-connectors-bare-minimum)** | **Bare minimum** — Essential connectors that every Sentinel deployment should have. Covers identity, endpoint, email, cloud activity, and server logs. | All customers |
-| **[Tier 2](#tier-2-connectors-extended-visibility)** | **Extended visibility** — Network security, cloud posture, data protection, multi-cloud, endpoint compliance, and threat intelligence. Aligned with [ASD ACSC logging best practices](https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/best-practices-for-event-logging-and-threat-detection). | Customers with higher maturity requirements |
-| Tier 3 | Advanced — Full-spectrum monitoring including OT/IoT, CI/CD, SAP, databases, custom applications, and specialised integrations. | [See below](#tier-3-connectors-advanced--specialised) |
+| Tier | Description | When to adopt |
+|:-----|:------------|:--------------|
+| **[Tier 1](#tier-1-connectors-bare-minimum)** | **Bare minimum** — Essential connectors that every Sentinel deployment should have. Covers identity, endpoint, email, cloud activity, and server logs. | Start here — the foundation for every organisation |
+| **[Tier 2](#tier-2-connectors-extended-visibility)** | **Extended visibility** — Network security, cloud posture, data protection, multi-cloud, endpoint compliance, and threat intelligence. | Once Tier 1 is operational and the team is ready to broaden coverage |
+| **[Tier 3](#tier-3-connectors-advanced--specialised)** | **Advanced / Specialised** — Full-spectrum monitoring including OT/IoT, CI/CD, SAP, databases, custom applications, and specialised integrations. | When Tier 1 & 2 are in place and specialised workloads require visibility |
 
 ## Tier 1 Connectors (Bare Minimum)
 
@@ -222,6 +232,7 @@ For the full rationale, see [Layered Detection Approach](guidance/layered-detect
 | Title | Description | Link |
 |:------|:------------|:-----|
 | The Evolution of EDR Bypasses | Historical timeline showing how EDR bypass techniques evolve, reinforcing why native logs are essential as a fallback | [CovertSwarm](https://www.covertswarm.com/post/the-evolution-of-edr-bypasses-a-historical-timeline) |
+| MDE Telemetry Unreliability and Log Augmentation | In-depth analysis of MDE telemetry gaps, capping behaviour, and why native Windows logs are essential for complete forensic coverage | [FalconForce](https://falconforce.nl/microsoft-defender-for-endpoint-internals-0x03-mde-telemetry-unreliability-and-log-augmentation/) |
 | Cloud Forensics: Forensic Readiness and IR in Azure Virtual Desktop | Demonstrates a layered approach combining EDR and native logging for incident response in cloud environments | [Microsoft Community Hub](https://techcommunity.microsoft.com/blog/microsoftsentinelblog/cloud-forensics-forensic-readiness-and-incident-response-in-azure-virtual-desktop/3835484) |
 | Windows Event Log Analysis: Techniques for Every SOC Analyst | Practical guide on using Windows Security Events for detection, showing their value alongside EDR | [CyberDefenders Blog](https://blog.cyberdefenders.org/2024/02/windows-event-log-analysis-techniques.html) |
 | Sentinel Data Connectors: What Actually Matters | Practical guidance on which Sentinel data connectors to prioritize | [IT Professor](https://www.itprofessor.cloud/sentinel-data-connectors-what-actually-matters/) |
@@ -237,6 +248,7 @@ To help identify retention settings, monitor ingestion volumes, estimate costs, 
 | **Workspace Usage Report** | Workbook | Monitor ingestion volumes per table, identify cost optimisation opportunities, and validate data connector health across all connectors | [Sentinel Content Hub](https://learn.microsoft.com/en-us/azure/sentinel/sentinel-content-hub) (search "Workspace Usage") | [Walkthrough](procedures/workspace-usage-report.md) |
 | **Defender AMA Coverage** | Workbook | Validate Defender for Endpoint and AMA agent deployment coverage, identify gaps in security event and syslog collection | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](procedures/defender-ama-coverage.md) |
 | **XDR tables to Sentinel ingestion calculator** | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector | [GitHub — mathijsvermaat/DefenderIngestToSentinel](https://github.com/mathijsvermaat/DefenderIngestToSentinel) | [Walkthrough](procedures/xdr-ingestion-calculator.md) |
+| **M365 E5 Benefit — Table Sizes by Product** | KQL Query | Quantify the value of the E5 security data grant by showing all benefit-eligible tables with size, event count, and estimated cost | Run in Sentinel Logs | [Walkthrough](procedures/xdr-e5-benefit-table-sizes.md) |
 | **Retention Insights** | Workbook | Review table-level retention and archiving settings, evaluate Data Lake candidates, and estimate cost impact of plan changes | [Github — Azure-Sentinel/Workbooks](https://github.com/Azure/Azure-Sentinel/blob/master/Workbooks/ArchivingBasicLogsRetention.json) | [Walkthrough](procedures/retention-insights.md) |
 
 ---
@@ -260,4 +272,4 @@ Features: save/load progress (JSON), export to PDF, export to Excel.
 - [NIS2 Directive](https://www.europarl.europa.eu/topics/en/article/20221206STO60677/cybersecurity-how-the-eu-tackles-cyber-threats)
 - [Sentinel Ninja training](https://github.com/oshezaf/sentinelninja)
 
-*Last updated: March 2026*
+*Last updated: April 2026*
