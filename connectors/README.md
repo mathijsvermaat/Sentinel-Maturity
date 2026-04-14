@@ -95,7 +95,6 @@ Full-spectrum monitoring for OT/IoT, DevOps, databases, custom applications, and
 
 | Connector | Key Focus | Free Ingestion |
 |:----------|:----------|:---------------|
-| [Microsoft Teams (Advanced)](microsoft-teams-advanced.md) | Advanced Teams governance — external access, guest activity, app permissions | Yes — via Office 365 connector |
 | Third-Party Collaboration | Non-Microsoft collaboration platforms (Slack, Zoom, Cisco Webex) via API or webhook | No — *conditional* |
 
 ### Custom Applications (Crown Jewels)

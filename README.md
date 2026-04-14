@@ -165,7 +165,6 @@ Tier 3 provides full-spectrum monitoring for mature organisations that have comp
 
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
-| [Microsoft Teams (Advanced)](connectors/microsoft-teams-advanced.md) | OfficeActivity (Teams), CloudAppEvents (Teams) | Yes — via Office 365 connector |
 | Third-Party Collaboration (Slack, Zoom, Cisco Webex) | Vendor-specific tables via API or webhook | No — *conditional* |
 
 ### Custom Applications (Crown Jewels)
