@@ -64,50 +64,67 @@ Navigate to https://security.microsoft.com > Hunting > Advanced Hunting and past
 // Shows all M365 E5 benefit-eligible tables (Defender XDR + Entra ID) with
 // size in GB, event count, and estimated cost if they were billable.
 // M365 E5 customers get these for free - this shows the benefit value.
+// Includes a TOTAL row summarising all columns.
 // =====================================================================
-
 let Price = 3.0;
-union withsource=TableName
-    // Entra ID (formerly Azure AD)
-    SigninLogs, AuditLogs, AADNonInteractiveUserSignInLogs,
-    AADServicePrincipalSignInLogs, AADManagedIdentitySignInLogs,
-    AADProvisioningLogs, ADFSSignInLogs,
-    // Defender for Endpoint (MDE)
-    DeviceEvents, DeviceFileEvents, DeviceLogonEvents, DeviceNetworkEvents,
-    DeviceProcessEvents, DeviceRegistryEvents, DeviceImageLoadEvents,
-    DeviceNetworkInfo, DeviceInfo, DeviceFileCertificateInfo,
-    // Defender for Identity (MDI)
-    IdentityLogonEvents, IdentityQueryEvents, IdentityDirectoryEvents,
-    // Defender Alerts
-    AlertEvidence,
-    // Defender for Office 365 (MDO)
-    EmailEvents, EmailUrlInfo, EmailAttachmentInfo, EmailPostDeliveryEvents,
-    // Defender for Cloud Apps (MCA)
-    CloudAppEvents
-| where TimeGenerated > ago(30d)
-| summarize 
-    TotalEvents = count(),
-    SizeInGB = round(sum(estimate_data_size(*)) / 1000.0 / 1000.0 / 1000.0, 2),
-    SizeInMB = round(sum(estimate_data_size(*)) / 1000.0 / 1000.0, 2),
-    FirstEvent = min(TimeGenerated),
-    LastEvent = max(TimeGenerated)
-    by TableName
-| extend 
-    DailyAvgMB = round(SizeInMB / 30.0, 2),
-    IfBillableCostUSD = round(SizeInGB * Price, 2),
-    DefenderProduct = case(
-        TableName has "Signin" or TableName has "Audit" or TableName startswith "AAD" or TableName == "ADFSSignInLogs", "Microsoft Entra ID",
-        TableName startswith "Device", "Microsoft Defender for Endpoint (MDE)",
-        TableName startswith "Identity", "Microsoft Defender for Identity (MDI)",
-        TableName startswith "Email", "Microsoft Defender for Office 365 (MDO)",
-        TableName startswith "CloudApp", "Microsoft Defender for Cloud Apps (MCA)",
-        TableName startswith "Alert", "Microsoft 365 Defender (Alerts)",
-        "Other M365 E5 Benefit"
-    )
-| project 
-    DefenderProduct, TableName, SizeInGB, SizeInMB, DailyAvgMB,
-    TotalEvents, IfBillableCostUSD,
-    FirstEvent, LastEvent
+let LookbackDays = 30;
+let TableData = 
+    union withsource=TableName
+        // Entra ID (formerly Azure AD)
+        SigninLogs, AuditLogs, AADNonInteractiveUserSignInLogs,
+        AADServicePrincipalSignInLogs, AADManagedIdentitySignInLogs,
+        AADProvisioningLogs, ADFSSignInLogs,
+        // Defender for Endpoint (MDE)
+        DeviceEvents, DeviceFileEvents, DeviceLogonEvents, DeviceNetworkEvents,
+        DeviceProcessEvents, DeviceRegistryEvents, DeviceImageLoadEvents,
+        DeviceNetworkInfo, DeviceInfo, DeviceFileCertificateInfo,
+        // Defender for Identity (MDI)
+        IdentityLogonEvents, IdentityQueryEvents, IdentityDirectoryEvents,
+        // Defender Alerts
+        AlertEvidence,
+        // Defender for Office 365 (MDO)
+        EmailEvents, EmailUrlInfo, EmailAttachmentInfo, EmailPostDeliveryEvents,
+        // Defender for Cloud Apps (MCA)
+        CloudAppEvents
+    | where TimeGenerated > ago(totimespan(1d) * LookbackDays)
+    | summarize 
+        TotalEvents = count(),
+        SizeInGB = round(sum(estimate_data_size(*)) / 1024.0 / 1024.0 / 1024.0, 2),
+        SizeInMB = round(sum(estimate_data_size(*)) / 1024.0 / 1024.0, 2),
+        FirstEvent = min(TimeGenerated),
+        LastEvent = max(TimeGenerated)
+        by TableName
+    | extend 
+        DailyAvgMB = round(SizeInMB / todecimal(LookbackDays), 2),
+        IfBillableCostUSD = round(SizeInGB * Price, 2),
+        DefenderProduct = case(
+            TableName has "Signin" or TableName has "Audit" or TableName startswith "AAD" or TableName == "ADFSSignInLogs", "Microsoft Entra ID",
+            TableName startswith "Device", "Microsoft Defender for Endpoint (MDE)",
+            TableName startswith "Identity", "Microsoft Defender for Identity (MDI)",
+            TableName startswith "Email", "Microsoft Defender for Office 365 (MDO)",
+            TableName startswith "CloudApp", "Microsoft Defender for Cloud Apps (MCA)",
+            TableName startswith "Alert", "Microsoft 365 Defender (Alerts)",
+            "Other M365 E5 Benefit"
+        )
+    | project 
+        DefenderProduct, TableName, SizeInGB, SizeInMB, DailyAvgMB,
+        TotalEvents, IfBillableCostUSD,
+        FirstEvent, LastEvent;
+TableData
+| union (
+    TableData
+    | summarize 
+        SizeInGB = round(sum(SizeInGB), 2),
+        SizeInMB = round(sum(SizeInMB), 2),
+        DailyAvgMB = round(sum(DailyAvgMB), 2),
+        TotalEvents = sum(TotalEvents),
+        IfBillableCostUSD = round(sum(IfBillableCostUSD), 2)
+    | extend 
+        DefenderProduct = "=== TOTAL ===",
+        TableName = "All Tables",
+        FirstEvent = datetime(null),
+        LastEvent = datetime(null)
+)
 | order by DefenderProduct asc, SizeInGB desc
 ```
 
