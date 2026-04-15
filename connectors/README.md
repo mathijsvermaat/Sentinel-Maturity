@@ -54,7 +54,6 @@ Additional connectors for customers with higher maturity requirements. Connector
 
 | Connector | Key Focus | Free Ingestion |
 |:----------|:----------|:---------------|
-| [Microsoft Entra ID Protection (Extended Risk Events)](microsoft-entra-id-protection.md) | Detailed risk detections for user and workload identities | Yes — free data source |
 | Third-Party Identity | Non-Microsoft identity providers and PAM solutions (Okta, CyberArk, Ping Identity, BeyondTrust) via API or CEF/Syslog | No — *conditional* |
 
 ### Multi-Cloud

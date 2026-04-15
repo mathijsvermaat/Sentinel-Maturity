@@ -85,7 +85,7 @@ Step-by-step guides for the operational tools used alongside this maturity model
 | Connector | Key Tables | Licensing Benefit | Free Ingestion |
 |:-----------|:-----------|:------------------|:---------------|
 | [Microsoft Defender XDR](connectors/microsoft-defender-xdr.md) | DeviceEvents, AlertInfo, EmailEvents, IdentityLogonEvents, CloudAppEvents, ... | M365 E5 / E5 Security | Yes — ingestion to **Analytics tier only** via [Microsoft Sentinel benefit for M365 E5 customers](https://azure.microsoft.com/en-us/pricing/offers/sentinel-microsoft-365-offer) |
-| [Microsoft Entra ID](connectors/microsoft-entra-id.md) | SigninLogs, AuditLogs, AADNonInteractiveUserSignInLogs, ... | Entra ID P2 (in E5) | Yes — [free data connectors](https://learn.microsoft.com/en-us/azure/sentinel/billing?tabs=simplified%2Ccommitment-tiers#free-data-sources) |
+| [Microsoft Entra ID](connectors/microsoft-entra-id.md) | SigninLogs, AuditLogs, AADNonInteractiveUserSignInLogs, AADRiskyUsers, AADRiskyServicePrincipals, ... | Entra ID P2 (in E5) | Yes — [free data connectors](https://learn.microsoft.com/en-us/azure/sentinel/billing?tabs=simplified%2Ccommitment-tiers#free-data-sources) |
 | [Office 365](connectors/office-365.md) | OfficeActivity | M365 E3/E5 | Yes — free data connector |
 | [Azure Activity Logs](connectors/azure-activity-logs.md) | AzureActivity | Any Azure subscription | Yes — free data connector |
 | [Windows Security Events](connectors/windows-security-events.md) | SecurityEvent / WindowsEvent | [Defender for Servers P2](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) | [500 MB/day per server](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) via Defender for Servers P2 |
@@ -126,7 +126,6 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
-| [Microsoft Entra ID Protection (Extended Risk Events)](connectors/microsoft-entra-id-protection.md) | AADRiskyUsers, AADUserRiskEvents, AADRiskyServicePrincipals | Yes — free data source |
 | Third-Party Identity (Okta, CyberArk, Ping Identity, BeyondTrust) | Vendor-specific tables via API or CEF/Syslog | No — *conditional* |
 
 ### Multi-Cloud

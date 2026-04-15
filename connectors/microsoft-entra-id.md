@@ -37,6 +37,7 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 |:--------|:----------------|
 | **Entra ID Free / P1** | SigninLogs, AuditLogs, NonInteractiveUserSignInLogs, ServicePrincipalSignInLogs, ManagedIdentitySignInLogs, ProvisioningLogs |
 | **Entra ID P2 (included in E5)** | All of the above + AADRiskyUsers, AADUserRiskEvents (Identity Protection data) |
+| **Workload Identities Premium** | AADRiskyServicePrincipals, ServicePrincipalRiskEvents — risk detections for service principals and managed identities |
 | **Entra ID with Global Secure Access** | NetworkAccessTraffic (Entra Internet/Private Access) |
 
 > [!NOTE]
@@ -106,6 +107,11 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 |:----------|:---------|:-------------|:------------|
 | Leaked credentials detection | AADUserRiskEvents | T1078 | Entra ID Protection detects credentials found in dark web dumps or paste sites |
 | Anomalous token usage | AADUserRiskEvents | T1550.001 | Unusual token characteristics indicating potential token manipulation |
+| Leaked credentials not remediated | AADRiskyUsers, AADUserRiskEvents | T1589.001 | User flagged with leaked credentials but risk state remains "atRisk" beyond remediation SLA |
+| Multiple risk detections for single user | AADUserRiskEvents | T1078 | Multiple distinct risk detection types triggered for the same user within a short window — indicates active compromise |
+| Atypical travel followed by data access | AADUserRiskEvents, SigninLogs | T1078, T1537 | Atypical travel risk detection followed by successful sign-in and resource access |
+| Risky service principal accessing Key Vault | AADRiskyServicePrincipals, AKVAuditLogs | T1078.004, T1552.004 | Service principal flagged as risky that subsequently accessed Key Vault secrets |
+| Anomalous service principal credential usage | ServicePrincipalRiskEvents | T1098.001 | Service principal using credentials from an unusual location or at unusual times |
 
 ---
 
@@ -114,6 +120,7 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 | MCSB Control | Relevance |
 |:-------------|:----------|
 | **IM-1** Centralise identity management | Entra ID is the central identity provider — its logs are the primary source of truth |
+| **IM-3** Manage application identities securely and automatically | Workload identity risk detections (AADRiskyServicePrincipals) directly monitor application identity security |
 | **IM-4** Authenticate server and services | Service principal logs track application authentication |
 | **PA-1** Protect privileged users | AuditLogs track role assignments and privilege changes |
 | **PA-7** Follow just enough administration | AuditLogs monitor PIM activations and just-in-time access |
@@ -131,6 +138,10 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 
 - **Always enable all sign-in log types** — non-interactive and service principal logs are often overlooked but critical for detecting modern attacks (AiTM, token theft)
 - If using **Entra ID P2**, always enable the risk tables — they provide high-fidelity detection signals at no additional query cost
+- **Enable all risk log categories:** The Entra ID diagnostic settings must have `RiskyUsers`, `UserRiskEvents`, `RiskyServicePrincipals`, and `ServicePrincipalRiskEvents` categories enabled — they are **not** enabled by default
+- **Workload Identities Premium license:** Risk detections for service principals require the Workload Identities Premium add-on (not included in standard E5)
+- Risk event volume is typically low (tens to hundreds of events per day for most organisations) — cost impact is minimal
+- These risk tables are most valuable when paired with Conditional Access risk-based policies — the risk data explains policy enforcement decisions
 - Consider ingesting **Entra ID Provisioning logs** if you use automated provisioning to SaaS apps
 - The **NetworkAccessTraffic** table becomes available if you deploy Global Secure Access (Entra Internet/Private Access) — this is a Tier 2+ consideration
 - Entra ID sign-in logs in Entra by default retain for **30 days** (P1/P2) — Sentinel provides the extended retention you need for forensic readiness
@@ -154,6 +165,9 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 |:------|:------------|:-----|
 | Connect Microsoft Entra ID to Microsoft Sentinel | Connector setup guide — diagnostic settings for sign-in, audit, and risk logs | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/connect-azure-active-directory) |
 | Microsoft Entra audit log reference | Schema reference for all Entra ID audit log categories | [learn.microsoft.com](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/reference-audit-activities) |
+| Microsoft Entra ID Protection overview | Overview of risk-based identity protection features | [learn.microsoft.com](https://learn.microsoft.com/en-us/entra/id-protection/overview-identity-protection) |
+| Risky users and risk detections | Investigating identity risk signals | [learn.microsoft.com](https://learn.microsoft.com/en-us/entra/id-protection/howto-identity-protection-investigate-risk) |
+| Workload identity risk | Risk detection for service principals and managed identities | [learn.microsoft.com](https://learn.microsoft.com/en-us/entra/id-protection/concept-workload-identity-risk) |
 
 ### Community & Third-Party Resources
 
