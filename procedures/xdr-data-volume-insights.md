@@ -1,8 +1,10 @@
 # XDR Data Volume Insights — Walkthrough
 
-**Tool type:** KQL Query · **Source:** Run directly in Sentinel Log Analytics
+**Tool type:** KQL Query · **Source:** [GitHub — mathijsvermaat/DefenderIngestToSentinelKQL](https://github.com/mathijsvermaat/DefenderIngestToSentinelKQL)
 
-This KQL query shows all M365 XDR tables (Defender XDR + Entra ID) with their size in GB, event count, daily average, and estimated cost if they were billable. Use it to quantify the cost of sending the raw data to Sentinel Analytics or Data Lake tier.
+This KQL query shows all M365 XDR tables (Defender XDR) with their size in GB, event count, daily average, and estimated cost if they were billable. Use it to quantify the cost of sending the raw data to Sentinel Analytics or Data Lake tier.
+
+> **Note:** Entra ID tables (`SigninLogs`, `AuditLogs`, `AAD*`, `ADFSSignInLogs`) are excluded — they are ingested via the Entra ID connector in Sentinel, not the Defender XDR connector.
 
 ---
 
@@ -60,20 +62,19 @@ Microsoft 365 E5, A5, F5, and G5, and Microsoft 365 E5, A5, F5, and G5 Security 
 Navigate to https://security.microsoft.com > Hunting > Advanced Hunting and paste the following query:
 
 ```kql
-// M365 E5 Benefit - Table Sizes by Product
-// Shows all M365 E5 benefit-eligible tables (Defender XDR + Entra ID) with
-// size in GB, event count, and estimated cost if they were billable.
-// M365 E5 customers get these for free - this shows the benefit value.
-// Includes a TOTAL row summarising all columns.
+// M365 XDR Data Ingest - Table Sizes by Product
+// Shows all M365 XDR tables (Defender XDR) with their size in GB,
+// event count, daily average, and estimated cost if they were billable.
+// Use it to quantify the cost of sending the raw data to Sentinel Analytics
+// or Data Lake tier. Includes a TOTAL row summarising all columns.
+// Note: Entra ID tables (SigninLogs, AuditLogs, AAD*) are excluded as they
+// are ingested via the Entra ID connector, not the Defender XDR connector.
 // =====================================================================
+
 let Price = 3.0;
 let LookbackDays = 30;
 let TableData = 
     union withsource=TableName
-        // Entra ID (formerly Azure AD)
-        SigninLogs, AuditLogs, AADNonInteractiveUserSignInLogs,
-        AADServicePrincipalSignInLogs, AADManagedIdentitySignInLogs,
-        AADProvisioningLogs, ADFSSignInLogs,
         // Defender for Endpoint (MDE)
         DeviceEvents, DeviceFileEvents, DeviceLogonEvents, DeviceNetworkEvents,
         DeviceProcessEvents, DeviceRegistryEvents, DeviceImageLoadEvents,
@@ -98,13 +99,12 @@ let TableData =
         DailyAvgMB = round(SizeInMB / todecimal(LookbackDays), 2),
         IfBillableCostUSD = round(SizeInGB * Price, 2),
         DefenderProduct = case(
-            TableName has "Signin" or TableName has "Audit" or TableName startswith "AAD" or TableName == "ADFSSignInLogs", "Microsoft Entra ID",
             TableName startswith "Device", "Microsoft Defender for Endpoint (MDE)",
             TableName startswith "Identity", "Microsoft Defender for Identity (MDI)",
             TableName startswith "Email", "Microsoft Defender for Office 365 (MDO)",
             TableName startswith "CloudApp", "Microsoft Defender for Cloud Apps (MCA)",
             TableName startswith "Alert", "Microsoft 365 Defender (Alerts)",
-            "Other M365 E5 Benefit"
+            "Other XDR"
         )
     | project 
         DefenderProduct, TableName, SizeInGB, SizeInMB, DailyAvgMB,
@@ -139,19 +139,19 @@ The query returns one row per table, grouped by Defender product:
 
 | Column | Description |
 |:-------|:------------|
-| **DefenderProduct** | Which Defender workload the table belongs to (MDE, MDO, MDI, MCA, Entra ID, Alerts) |
+| **DefenderProduct** | Which Defender workload the table belongs to (MDE, MDO, MDI, MCA, Alerts) |
 | **TableName** | The Log Analytics table name |
 | **SizeInGB** | Total data volume over the last 30 days in GB |
 | **SizeInMB** | Same value in MB (useful for low-volume tables) |
 | **DailyAvgMB** | Average daily ingestion in MB (SizeInMB ÷ 30) |
 | **TotalEvents** | Total number of events over 30 days |
-| **IfBillableCostUSD** | What the ingestion would cost at the configured price per GB — this is your **E5 benefit value** |
+| **IfBillableCostUSD** | What the ingestion would cost at the configured price per GB |
 | **FirstEvent / LastEvent** | Timestamps of the earliest and most recent event — useful for confirming data freshness |
 
 ### What to look for
 
 - **Tables with 0 events or missing from results** — the table may not be enabled in the connector. Check the Defender XDR connector configuration
-- **IfBillableCostUSD total** — sum this column to get the total E5 benefit value. This is the amount you would pay without the E5 grant
+- **IfBillableCostUSD total** — sum this column to get the total estimated cost. This is the amount you would pay if the data were billable at the configured rate
 - **DailyAvgMB** — use this for capacity planning if considering Data Lake retention
 - **Large gaps between FirstEvent and LastEvent** — indicates the table has been ingesting consistently
 
@@ -188,7 +188,7 @@ Replace `ago(30d)` with a different duration (e.g., `ago(7d)` for a quick check)
 
 ### Add more tables
 
-If your environment has additional E5 benefit-eligible tables (e.g., `AADRiskyUsers`, `AADUserRiskEvents`), add them to the `union` statement.
+If your environment has additional XDR tables, add them to the `union` statement.
 
 ---
 
@@ -196,5 +196,4 @@ If your environment has additional E5 benefit-eligible tables (e.g., `AADRiskyUs
 
 | Tool | Purpose |
 |:-----|:--------|
-| [Workspace Usage Report](workspace-usage-report.md) | Broader ingestion monitoring across all Sentinel tables (not just E5 benefit) |
 | [XDR Ingestion Calculator](xdr-ingestion-calculator.md) | Estimate XDR ingestion volumes from the Advanced Hunting API **before** enabling the connector |
