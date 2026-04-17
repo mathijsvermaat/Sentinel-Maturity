@@ -35,13 +35,13 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 
 | License | What it unlocks |
 |:--------|:----------------|
-| **Entra ID Free / P1** | SigninLogs, AuditLogs, NonInteractiveUserSignInLogs, ServicePrincipalSignInLogs, ManagedIdentitySignInLogs, ProvisioningLogs |
+| **Entra ID Free / P1** | SigninLogs, AuditLogs, AADNonInteractiveUserSignInLogs, AADServicePrincipalSignInLogs, AADManagedIdentitySignInLogs, AADProvisioningLogs, ADFSSignInLogs |
 | **Entra ID P2 (included in E5)** | All of the above + AADRiskyUsers, AADUserRiskEvents (Identity Protection data) |
-| **Workload Identities Premium** | AADRiskyServicePrincipals, ServicePrincipalRiskEvents — risk detections for service principals and managed identities |
+| **Workload Identities Premium** | AADRiskyServicePrincipals, AADServicePrincipalRiskEvents — risk detections for service principals and managed identities |
 | **Entra ID with Global Secure Access** | NetworkAccessTraffic (Entra Internet/Private Access) |
 
 > [!NOTE]
-> Entra ID sign-in and audit logs are **free data sources** in Microsoft Sentinel. There is no reason not to enable this connector.
+> Entra ID sign-in and audit logs are **free data sources** in Microsoft Sentinel. There is no reason not to enable this connector. The table names above are the Log Analytics / Sentinel table names; the corresponding **diagnostic setting log categories** in the Entra portal use the unprefixed names (e.g. `NonInteractiveUserSignInLogs`, `ServicePrincipalSignInLogs`, `ManagedIdentitySignInLogs`, `ADFSSignInLogs`).
 
 > [!TIP]
 > If your organisation uses **Global Secure Access** (Entra Internet Access / Entra Private Access), see the dedicated [Global Secure Access](global-secure-access.md) Tier 2 connector page for network traffic logging via `NetworkAccessTraffic`. This page covers **authentication events**; the GSA page covers **what users accessed after authenticating**.
@@ -111,7 +111,7 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 | Multiple risk detections for single user | AADUserRiskEvents | T1078 | Multiple distinct risk detection types triggered for the same user within a short window — indicates active compromise |
 | Atypical travel followed by data access | AADUserRiskEvents, SigninLogs | T1078, T1537 | Atypical travel risk detection followed by successful sign-in and resource access |
 | Risky service principal accessing Key Vault | AADRiskyServicePrincipals, AKVAuditLogs | T1078.004, T1552.004 | Service principal flagged as risky that subsequently accessed Key Vault secrets |
-| Anomalous service principal credential usage | ServicePrincipalRiskEvents | T1098.001 | Service principal using credentials from an unusual location or at unusual times |
+| Anomalous service principal credential usage | AADServicePrincipalRiskEvents | T1098.001 | Service principal using credentials from an unusual location or at unusual times |
 
 ---
 
