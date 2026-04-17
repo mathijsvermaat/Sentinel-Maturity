@@ -88,7 +88,7 @@ Step-by-step guides for the operational tools used alongside this maturity model
 | [Microsoft Entra ID](connectors/microsoft-entra-id.md) | SigninLogs, AuditLogs, AADNonInteractiveUserSignInLogs, AADRiskyUsers, AADRiskyServicePrincipals, ... | Entra ID P2 (in E5) | Yes — [free data connectors](https://learn.microsoft.com/en-us/azure/sentinel/billing?tabs=simplified%2Ccommitment-tiers#free-data-sources) |
 | [Office 365](connectors/office-365.md) | OfficeActivity | M365 E3/E5 | Yes — free data connector |
 | [Azure Activity Logs](connectors/azure-activity-logs.md) | AzureActivity | Any Azure subscription | Yes — free data connector |
-| [Windows Security Events](connectors/windows-security-events.md) | SecurityEvent / WindowsEvent | [Defender for Servers P2](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) | [500 MB/day per server](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) via Defender for Servers P2 |
+| [Windows Security Events](connectors/windows-security-events.md) | SecurityEvent / WindowsEvent | [Defender for Servers P2](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) | [Pooled 500 MB/day × AMA-covered servers](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) via Defender for Servers P2 (SecurityEvent stream only) |
 | [Syslog for Linux](connectors/syslog-linux.md) | Syslog | None | None |
 | [Sentinel Health & Audit Diagnostics](connectors/sentinel-health.md) | SentinelHealth, SentinelAudit | Any Sentinel workspace | Yes — SentinelHealth is not billable |
 
@@ -144,7 +144,7 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 | [DNS Security Logs](connectors/dns-security-logs.md) | DnsEvents, DnsInventory | No |
 | [Microsoft Global Secure Access](connectors/global-secure-access.md) | NetworkAccessTraffic | No |
 | [VNet Flow Logs & Traffic Analytics](connectors/vnet-flow-logs.md) | NTANetAnalytics, NTAIpDetails | No |
-| [Third-Party Network & Proxy Appliances (CEF/Syslog)](connectors/third-party-network-appliances.md) | CommonSecurityLog | 500 MB/day via DfS P2 — *conditional* |
+| [Third-Party Network & Proxy Appliances (CEF/Syslog)](connectors/third-party-network-appliances.md) | CommonSecurityLog | No — *conditional* |
 
 ## Tier 3 Connectors (Advanced / Specialised)
 
@@ -154,7 +154,7 @@ Tier 3 provides full-spectrum monitoring for mature organisations that have comp
 
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
-| [IIS / Web Server Logs](connectors/iis-web-server-logs.md) | W3CIISLog | No (500 MB/day via DfS P2) |
+| [IIS / Web Server Logs](connectors/iis-web-server-logs.md) | W3CIISLog | No |
 | [Microsoft Defender for Cloud Apps (Standalone)](connectors/microsoft-defender-cloud-apps.md) | McasShadowItReporting | No |
 | [SAP](connectors/sap.md) | SAPAuditLog, ABAPAuditLog, SAPChangeDocuments | No — separately licensed |
 | [SQL / Database Audit Logs](connectors/sql-database-audit.md) | SQLSecurityAuditEvents, CDBDataPlaneRequests | No |
@@ -187,7 +187,7 @@ Tier 3 provides full-spectrum monitoring for mature organisations that have comp
 | [Azure Kubernetes Service (AKS) Audit](connectors/azure-kubernetes-service.md) | AKSAudit, AKSAuditAdmin | No |
 | [Azure Storage Analytics](connectors/azure-storage-analytics.md) | StorageBlobLogs, StorageFileLogs | No |
 | [Microsoft Defender for DNS (Azure DNS)](connectors/microsoft-defender-for-dns.md) | AzureDiagnostics (DNS), DNSQueryLogs | No |
-| [Windows Forwarded Events (Advanced)](connectors/windows-forwarded-events.md) | WindowsEvent (PowerShell, Sysmon, AppLocker) | No (500 MB/day via DfS P2) |
+| [Windows Forwarded Events (Advanced)](connectors/windows-forwarded-events.md) | WindowsEvent (PowerShell, Sysmon, AppLocker) | No |
 
 ### OT / IoT Security
 

@@ -14,8 +14,8 @@ Every Microsoft Sentinel deployment should have these connectors enabled.
 | [Microsoft Entra ID](microsoft-entra-id.md) | Authentication, directory changes, identity risk events | Yes — free data source |
 | [Office 365](office-365.md) | Exchange, SharePoint, and Teams audit activity | Yes — free data source |
 | [Azure Activity Logs](azure-activity-logs.md) | Azure control plane operations across all subscriptions | Yes — free data source |
-| [Windows Security Events](windows-security-events.md) | Windows server authentication, process, and account management events | 500 MB/day/server via Defender for Servers P2 |
-| [Syslog for Linux](syslog-linux.md) | Linux server authentication and system logging | 500 MB/day/server via Defender for Servers P2 |
+| [Windows Security Events](windows-security-events.md) | Windows server authentication, process, and account management events | Pooled 500 MB/day × AMA-covered servers via Defender for Servers P2 (SecurityEvent stream) |
+| [Syslog for Linux](syslog-linux.md) | Linux server authentication and system logging | Partial — `LinuxAuditLog` (auditd) is covered by the Defender for Servers P2 pooled allowance; the general `Syslog` table is not |
 | [Sentinel Health & Audit Diagnostics](sentinel-health.md) | Data connector health, analytics rule execution, automation monitoring, rule change auditing | Yes — SentinelHealth is not billable |
 
 ---
@@ -72,7 +72,7 @@ Additional connectors for customers with higher maturity requirements. Connector
 | [DNS Security Logs](dns-security-logs.md) | Endpoint and infrastructure DNS query logging for C2 and tunnelling detection | No |
 | [Microsoft Global Secure Access](global-secure-access.md) | Cloud-delivered web proxy and ZTNA (Entra Internet/Private Access) | No — *conditional* |
 | [VNet Flow Logs & Traffic Analytics](vnet-flow-logs.md) | East-west network traffic metadata, lateral movement detection | No |
-| [Third-Party Network & Proxy Appliances (CEF/Syslog)](third-party-network-appliances.md) | Non-Microsoft firewalls, proxies, IDS/IPS — Palo Alto, Fortinet, Zscaler, etc. | 500 MB/day via DfS P2 — *conditional* |
+| [Third-Party Network & Proxy Appliances (CEF/Syslog)](third-party-network-appliances.md) | Non-Microsoft firewalls, proxies, IDS/IPS — Palo Alto, Fortinet, Zscaler, etc. | No — *conditional* |
 
 ---
 
@@ -84,7 +84,7 @@ Full-spectrum monitoring for OT/IoT, DevOps, databases, custom applications, and
 
 | Connector | Key Focus | Free Ingestion |
 |:----------|:----------|:---------------|
-| [IIS / Web Server Logs](iis-web-server-logs.md) | HTTP request logs from Windows web servers — application-layer attack detection | No (500 MB/day via DfS P2) |
+| [IIS / Web Server Logs](iis-web-server-logs.md) | HTTP request logs from Windows web servers — application-layer attack detection | No |
 | [Microsoft Defender for Cloud Apps (Standalone)](microsoft-defender-cloud-apps.md) | Shadow IT discovery, app governance — beyond XDR CloudAppEvents | No |
 | [SAP](sap.md) | SAP audit logs, security events, change documents — ERP monitoring | No — separately licensed |
 | [SQL / Database Audit Logs](sql-database-audit.md) | Azure SQL, Managed Instance, and Cosmos DB data-plane audit trail | No |
@@ -117,7 +117,7 @@ Full-spectrum monitoring for OT/IoT, DevOps, databases, custom applications, and
 | [Azure Kubernetes Service (AKS) Audit](azure-kubernetes-service.md) | Kubernetes API server audit — pod, RBAC, secrets, and namespace operations | No |
 | [Azure Storage Analytics](azure-storage-analytics.md) | Blob, File, Queue, and Table access logs — data exfiltration detection | No |
 | [Microsoft Defender for DNS (Azure DNS)](microsoft-defender-for-dns.md) | Azure-level DNS query logs — C2 and tunnelling detection for cloud-native workloads | No |
-| [Windows Forwarded Events (Advanced)](windows-forwarded-events.md) | PowerShell ScriptBlock, WMI, Sysmon, AppLocker/WDAC — advanced endpoint telemetry | No (500 MB/day via DfS P2) |
+| [Windows Forwarded Events (Advanced)](windows-forwarded-events.md) | PowerShell ScriptBlock, WMI, Sysmon, AppLocker/WDAC — advanced endpoint telemetry | No |
 
 ### OT / IoT Security
 

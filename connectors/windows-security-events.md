@@ -1,6 +1,6 @@
 # Windows Security Events / Windows Events
 
-**Tier:** 1 (Bare Minimum) · **Connector type:** Microsoft first-party (AMA) · **Free ingestion:** 500 MB/day per server (Defender for Servers P2)
+**Tier:** 1 (Bare Minimum) · **Connector type:** Microsoft first-party (AMA) · **Free ingestion:** Pooled 500 MB/day × AMA-covered servers (Defender for Servers P2) for `SecurityEvent`
 
 ---
 
@@ -37,12 +37,12 @@ There are two approaches to collecting these events:
 
 | License | What it unlocks |
 |:--------|:----------------|
-| **[Defender for Servers P2](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit)** | [500 MB/day free ingestion per server](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) (covers Security Events, Syslog, and other security data types) |
+| **[Defender for Servers P2](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit)** | [Pooled 500 MB/day × AMA-covered servers](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) for eligible security tables — applies to `SecurityEvent` (and the `Microsoft-SecurityEvent` stream in `WindowsEvent`) |
 | **Defender for Servers P1** | MDE on servers, but no free data ingestion for Sentinel |
 | **No Defender for Servers** | Full ingestion cost — still recommended for critical servers |
 
 > [!NOTE]
-> The **500 MB/day free allowance** from Defender for Servers P2 typically covers Windows Security Events for most servers. This is one of the key cost arguments for deploying Defender for Servers P2.
+> The P2 benefit is a **pooled allowance across the subscription** (500 MB × number of AMA-covered servers), not a per-machine cap. Individual servers can ingest more as long as the pool isn’t exceeded. The allowance applies only to [eligible tables](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) — `SecurityEvent`, the `Microsoft-SecurityEvent` `WindowsEvent` stream, `LinuxAuditLog`, `SecurityAlert`, `WindowsFirewall`, `ProtectionStatus`, and a few others. This is one of the key cost arguments for deploying Defender for Servers P2.
 
 ---
 

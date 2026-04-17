@@ -28,10 +28,9 @@ For organisations hosting custom web applications, internal portals, or APIs on 
 | License | What it unlocks |
 |:--------|:----------------|
 | **Any Azure subscription** | Full IIS log collection via Azure Monitor Agent and Data Collection Rules |
-| **Defender for Servers P2** | 500 MB/day/server ingestion benefit applies to IIS logs collected via AMA |
 
 > [!NOTE]
-> IIS logs can generate **significant volume** on busy web servers. Use DCR transformations to filter out health probes, static asset requests, and known-good traffic to manage cost.
+> IIS logs are **not** covered by the Defender for Servers P2 500 MB/day data ingestion benefit. The `W3CIISLog` table is not on the list of [eligible tables](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit). IIS logs can generate **significant volume** on busy web servers — use DCR transformations to filter out health probes, static asset requests, and known-good traffic to manage cost.
 
 ---
 

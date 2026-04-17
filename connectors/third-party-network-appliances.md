@@ -1,6 +1,6 @@
 # Third-Party Network & Proxy Appliances (CEF / Syslog)
 
-**Tier:** 2 (Extended Visibility) · **Connector type:** Third-party · **Free ingestion:** 500 MB/day for CommonSecurityLog with Defender for Servers P2 · **Conditional:** Only applicable with non-Microsoft network appliances
+**Tier:** 2 (Extended Visibility) · **Connector type:** Third-party · **Free ingestion:** No · **Conditional:** Only applicable with non-Microsoft network appliances
 
 ---
 
@@ -33,7 +33,7 @@ This is the catch-all connector page for all third-party network security device
 | **Dedicated Content Hub connector** | Vendor-specific custom table (e.g., `PaloAltoNetworks_CL`) | Vendors with Sentinel Content Hub solutions — richer parsing |
 
 > [!NOTE]
-> `CommonSecurityLog` benefits from the [Defender for Servers P2 ingestion benefit](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) — 500 MB/day per server when the AMA log forwarder runs on a server with Defender for Servers P2.
+> `CommonSecurityLog` is **not** covered by the Defender for Servers P2 500 MB/day data ingestion benefit — see the list of [eligible tables](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit). CEF/Syslog traffic from network appliances is billed at standard ingestion rates; use DCR transformations to drop non-security traffic and manage volume.
 
 ---
 

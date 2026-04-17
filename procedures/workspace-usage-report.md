@@ -80,13 +80,13 @@ Some connectors include a free ingestion allowance as part of a Microsoft licens
 
 ### Defender for Servers P2 (500 MB/day ingestion benefit)
 
-1. Locate **SecurityEvent** / **WindowsEvent** and **Syslog** tables in the workbook
+1. Locate **SecurityEvent** / **WindowsEvent** (Microsoft-SecurityEvent stream) and **LinuxAuditLog** tables in the workbook
 2. Check the daily ingestion volume per table
-3. The [Defender for Servers P2 ingestion benefit](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) provides **500 MB/day per server** across qualifying data types — this is a combined allowance, not per data type
-4. Compare your actual daily ingestion against the expected free allowance (number of P2-covered servers × 500 MB)
+3. The [Defender for Servers P2 ingestion benefit](https://learn.microsoft.com/en-us/azure/defender-for-cloud/data-ingestion-benefit) provides a **pooled daily allowance of 500 MB × number of AMA-covered servers**, applied across eligible security tables only (SecurityEvent, WindowsEvent [Microsoft-SecurityEvent stream], LinuxAuditLog, SecurityAlert, WindowsFirewall, ProtectionStatus, and a few others). Individual servers can ingest more, as long as the pooled allowance isn’t exceeded
+4. Compare your actual daily ingestion against the expected pooled allowance (number of P2-covered servers × 500 MB)
 
    > [!NOTE]
-   > The 500 MB/day benefit is per qualifying server, not per workspace. If you ingest more than 500 MB/day per server on average, the excess will be billed. See the [Windows Security Events](../connectors/windows-security-events.md) connector page for tier sizing guidance.
+   > The allowance is pooled across the subscription / workspace, not enforced per machine. The general `Syslog` table, `CommonSecurityLog`, `W3CIISLog`, and non-SecurityEvent `WindowsEvent` channels (PowerShell, Sysmon, AppLocker) are **not** eligible for this benefit. See the [Windows Security Events](../connectors/windows-security-events.md) connector page for tier sizing guidance.
 
 ---
 
