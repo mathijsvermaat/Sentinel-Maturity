@@ -78,7 +78,6 @@ Microsoft Sentinel provides several mechanisms to control and optimise costs:
 | **Data Collection Rules (DCRs)** | Filter and transform data at ingestion time to reduce unnecessary volume | [DCR overview](https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-rule-overview) |
 | **Sentinel Data Lake** | Route long-term retention to cheaper storage instead of keeping all data in Analytics tier | Analytics: 90d + Lake: 365d |
 | **Summary Rules** | Aggregate high-volume data into compact summaries, retaining analytical value at lower cost | [Summary rules](https://learn.microsoft.com/en-us/azure/sentinel/summary-rules) |
-| **Basic Logs** | Reduced-cost ingestion for high-volume, low-query tables | [Basic logs plan](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/basic-logs-configure) |
 
 ### Monitoring and Reporting
 
