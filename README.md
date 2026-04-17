@@ -143,7 +143,7 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 | [Azure WAF (Application Gateway / Front Door)](connectors/azure-waf.md) | ApplicationGatewayFirewallLog, FrontDoorWebApplicationFirewallLog | No |
 | [DNS Security Logs](connectors/dns-security-logs.md) | DnsEvents, DnsInventory | No |
 | [Microsoft Global Secure Access](connectors/global-secure-access.md) | NetworkAccessTraffic | No |
-| [VNet Flow Logs & Traffic Analytics](connectors/nsg-flow-logs.md) | NTANetAnalytics, NTAIpDetails | No |
+| [VNet Flow Logs & Traffic Analytics](connectors/vnet-flow-logs.md) | NTANetAnalytics, NTAIpDetails | No |
 | [Third-Party Network & Proxy Appliances (CEF/Syslog)](connectors/third-party-network-appliances.md) | CommonSecurityLog | 500 MB/day via DfS P2 — *conditional* |
 
 ## Tier 3 Connectors (Advanced / Specialised)

@@ -150,6 +150,7 @@ VNet Flow Logs capture traffic at the VNet level including gateway traffic, whic
 |:------|:------------|:-----|
 | VNet flow logs overview | GA successor to NSG flow logs — setup, pricing, VNet vs NSG comparison | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/network-watcher/vnet-flow-logs-overview) |
 | Traffic Analytics overview | How Traffic Analytics processes flow logs into NTANetAnalytics for Sentinel | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/network-watcher/traffic-analytics) |
+| NSG flow logs (legacy) | Reference for the legacy NSG flow logs product being retired on 30 September 2027 — included for brownfield deployments that have not yet migrated | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/network-watcher/nsg-flow-logs-overview) |
 
 ### Community & Third-Party Resources
 
