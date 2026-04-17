@@ -110,7 +110,6 @@ Defender for Cloud can generate significant alert volumes, particularly from Def
 
 - `SecurityAlert` is free to ingest — there is no cost justification needed for this connector
 - `SecurityRecommendation` and `SecurityRegulatoryCompliance` incur ingestion cost — evaluate whether querying these in Sentinel adds value beyond the Defender for Cloud portal
-- If you use **Defender CSPM** (premium), additional tables like `SecurityAttackPath` may become available — these are high-value for proactive hunting
 - For Defender for Servers P2 VM-level alerts, ensure that AMA deployment is complete — see the [Defender AMA Coverage](../procedures/defender-ama-coverage.md) procedure
 
 ---
@@ -132,6 +131,8 @@ Defender for Cloud can generate significant alert volumes, particularly from Def
 | Title | Description | Link |
 |:------|:------------|:-----|
 | Connect Microsoft Defender for Cloud alerts to Microsoft Sentinel | Connector setup guide — tenant-based vs subscription-based, bi-directional sync | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/connect-defender-for-cloud) |
+| Security explorer and attack paths | Concept overview of Defender for Cloud attack path analysis (Defender CSPM) | [learn.microsoft.com](https://learn.microsoft.com/azure/defender-for-cloud/concept-attack-path) |
+| Retrieve attack path data with API | Query attack paths via Azure Resource Graph (`securityresources` → `microsoft.security/attackpaths`) | [learn.microsoft.com](https://learn.microsoft.com/azure/defender-for-cloud/attack-path-api) |
 
 ### Community & Third-Party Resources
 
