@@ -36,13 +36,16 @@ This connector is most valuable for organisations that need visibility into unsa
 > [!NOTE]
 > `CloudAppEvents` from the XDR connector (Tier 1) covers M365 app activity. This standalone connector adds **Cloud Discovery logs** (shadow IT), **CASB governance alerts**, and **app governance signals** that are not available through XDR advanced hunting.
 
+> [!NOTE]
+> The Microsoft Defender for Cloud Apps → Microsoft Sentinel integration is currently labelled **(Preview)** by Microsoft. See the [Microsoft Sentinel integration (Preview)](https://learn.microsoft.com/defender-cloud-apps/siem-sentinel) Learn page. This is distinct from the generic **MDCA SIEM agent** (CEF forwarder for third-party SIEMs), which is being retired in November 2025 — the Sentinel integration remains supported.
+
 ---
 
 ## Tables and Rationale
 
 | Table | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
 |:------|:------------|:------------------------|:----------|:---------------|:------------------|
-| **McasShadowItReporting** | Cloud Discovery logs — unsanctioned SaaS applications, traffic volume per app, user counts | Analytics: 90d / Lake: 365d | Identifies cloud applications being used without IT approval — data exfiltration vector through unsanctioned file sharing and collaboration apps | Proves which unsanctioned applications were in use during a breach — establishes data exfiltration paths through shadow IT | High-volume uploads to unsanctioned file-sharing service (T1567) |
+| **McasShadowItReporting** | Cloud Discovery logs — unsanctioned SaaS applications, traffic volume per app, user counts | Analytics: 90d / Lake: 365d | Identifies cloud applications being used without IT approval — data exfiltration vector through unsanctioned file sharing and collaboration apps. Supports ingestion-time DCR and Lake-only ingestion — consider Lake-only for high-volume shadow IT data. | Proves which unsanctioned applications were in use during a breach — establishes data exfiltration paths through shadow IT | High-volume uploads to unsanctioned file-sharing service (T1567) |
 | **SecurityAlert** (MDCA) | CASB alerts — impossible travel, mass download, suspicious OAuth consent, anomalous activity | Analytics: 90d / Lake: 365d | Threat detection for SaaS application abuse — complements XDR alerts with CASB-specific detections | Details the specific CASB policy violation or anomaly detected — supports SaaS compromise investigation | Mass download from SharePoint by compromised account (T1530) |
 
 ---
@@ -97,7 +100,10 @@ This connector is most valuable for organisations that need visibility into unsa
 | Microsoft Defender for Cloud Apps overview | [Learn](https://learn.microsoft.com/en-us/defender-cloud-apps/what-is-defender-for-cloud-apps) |
 | Cloud Discovery overview | [Learn](https://learn.microsoft.com/en-us/defender-cloud-apps/set-up-cloud-discovery) |
 | Connect MDCA to Sentinel | [Learn](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/microsoft-defender-for-cloud-apps) |
+| Microsoft Sentinel integration (Preview) | [Learn](https://learn.microsoft.com/defender-cloud-apps/siem-sentinel) |
 | App governance in MDCA | [Learn](https://learn.microsoft.com/en-us/defender-cloud-apps/app-governance-manage-app-governance) |
+| Microsoft Sentinel tables and associated connectors | [Learn](https://learn.microsoft.com/azure/sentinel/sentinel-tables-connectors-reference) |
+| McasShadowItReporting table schema | [Learn](https://learn.microsoft.com/azure/azure-monitor/reference/tables/mcasshadowitreporting) |
 
 ---
 
