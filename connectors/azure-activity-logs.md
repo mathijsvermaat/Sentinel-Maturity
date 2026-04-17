@@ -158,6 +158,7 @@ This ensures new subscriptions are automatically connected to your Sentinel work
 |:------|:------------|:-----|
 | Connect Azure Activity to Microsoft Sentinel | Connector setup guide — diagnostic settings for Azure management plane events | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/azure-activity) |
 | Azure Activity log event schema | Schema reference for all Azure Activity log categories | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema) |
+| Create diagnostic settings at scale with built-in Azure Policy | Built-in policies to enforce diagnostic settings on resources across a subscription or management group — list of supported resource types and example deployment | [learn.microsoft.com](https://learn.microsoft.com/azure/azure-monitor/platform/diagnostic-settings-policy-built-in) |
 
 ### Community & Third-Party Resources
 

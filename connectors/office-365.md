@@ -133,6 +133,7 @@ The Office 365 connector provides **audit log data for Exchange Online, SharePoi
 | Title | Description | Link |
 |:------|:------------|:-----|
 | Connect Office 365 Logs to Microsoft Sentinel | Connector setup guide — Exchange, SharePoint, and Teams activity logs | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/microsoft-365) |
+| Microsoft Purview auditing solutions overview | Overview of Audit (Standard) vs Audit (Premium) — activation, retention, and premium-only events such as `MailItemsAccessed`, `Send`, `SearchQueryInitiatedExchange`, requiring Microsoft 365 E5 or the Audit add-on | [learn.microsoft.com](https://learn.microsoft.com/purview/audit-solutions-overview) |
 
 ### Community & Third-Party Resources
 

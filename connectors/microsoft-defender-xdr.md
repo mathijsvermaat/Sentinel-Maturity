@@ -193,6 +193,7 @@ If you have **not** enabled the Defender XDR connector in Sentinel, there is no 
 |:------|:------------|:-----|
 | Connect Microsoft Defender XDR to Microsoft Sentinel | Connector setup guide — incidents & alerts, UEBA entities, and advanced hunting tables | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/connect-microsoft-365-defender) |
 | Microsoft Defender XDR integration with Microsoft Sentinel | Architecture overview of the XDR-Sentinel integration | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/microsoft-365-defender-sentinel-integration) |
+| Advanced hunting schema reference | Table-by-table schema documentation for all Defender XDR advanced hunting tables (DeviceEvents, EmailEvents, IdentityLogonEvents, etc.) | [learn.microsoft.com](https://learn.microsoft.com/defender-xdr/advanced-hunting-schema-tables) |
 
 ### Community & Third-Party Resources
 
