@@ -100,7 +100,7 @@ SAP systems are high-value targets because they store financial data, HR records
 | Microsoft Sentinel for SAP overview | [Learn](https://learn.microsoft.com/en-us/azure/sentinel/sap/solution-overview) |
 | Deploy SAP data connector agent | [Learn](https://learn.microsoft.com/en-us/azure/sentinel/sap/deploy-data-connector-agent-container) |
 | SAP solution security content | [Learn](https://learn.microsoft.com/en-us/azure/sentinel/sap/deploy-sap-security-content) |
-| SAP solution pricing | [Learn](https://azure.microsoft.com/en-us/pricing/details/microsoft-sentinel/) |
+| SAP solution pricing | [Learn](https://learn.microsoft.com/azure/sentinel/sap/solution-overview#solution-pricing) |
 
 ---
 

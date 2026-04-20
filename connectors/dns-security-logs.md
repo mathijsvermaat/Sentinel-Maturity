@@ -137,6 +137,7 @@ DNS logs are **high-volume**. Strategies to manage cost:
 | Title | Description | Link |
 |:------|:------------|:-----|
 | Connect your DNS servers to Microsoft Sentinel | Connector setup guide — Windows DNS Events via AMA | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/dns) |
+| Windows DNS Events via AMA (Sentinel data connectors reference) | Official Sentinel data connector entry — `ASimDnsActivityLogs` table and ASIM normalisation | [learn.microsoft.com](https://learn.microsoft.com/azure/sentinel/data-connectors-reference#windows-dns-events-via-ama) |
 
 ### Community & Third-Party Resources
 

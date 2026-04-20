@@ -94,6 +94,7 @@ For organisations hosting custom web applications, internal portals, or APIs on 
 | Collect IIS logs with Azure Monitor Agent | [Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/agents/data-collection-iis) |
 | W3CIISLog table reference | [Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/w3ciislog) |
 | IIS log file formats | [Learn](https://learn.microsoft.com/en-us/previous-versions/iis/6.0-sdk/ms525807(v=vs.90)) |
+| Create a transformation in Azure Monitor DCR | [Learn](https://learn.microsoft.com/azure/azure-monitor/data-collection/data-collection-transformations-create) |
 
 ---
 
