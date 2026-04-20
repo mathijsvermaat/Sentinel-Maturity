@@ -35,6 +35,7 @@ A structured approach to Microsoft Sentinel data connector onboarding, retention
   - [Tools](#tools)
   - [Assessment Checklist](#assessment-checklist)
   - [References](#references)
+  - [Reference Index](#reference-index)
 
 ---
 
@@ -269,5 +270,11 @@ Features: save/load progress (JSON), export to PDF, export to Excel.
 - [NIST SP 800-92 — Guide to Computer Security Log Management](https://csrc.nist.gov/pubs/sp/800/92/final)
 - [NIS2 Directive](https://www.europarl.europa.eu/topics/en/article/20221206STO60677/cybersecurity-how-the-eu-tackles-cyber-threats)
 - [Sentinel Ninja training](https://github.com/oshezaf/sentinelninja)
+
+---
+
+## Reference Index
+
+For a consolidated, categorised index of every external URL cited across this maturity model (Microsoft Learn docs, Azure pricing pages, tools and workbooks, blogs, standards and frameworks), see **[references.md](references.md)**.
 
 *Last updated: April 2026*

@@ -42,6 +42,41 @@ All four locations must stay in sync. Verify after every structural change.
 
 ---
 
+## References Index Synchronisation Rules (`references.md`)
+
+`references.md` at the repo root is a **consolidated index of every external URL** used anywhere in the model, grouped by category. It MUST be kept in sync whenever external links are added, changed, or removed in any `.md` file under `connectors/`, `guidance/`, `procedures/`, or the root `README.md`.
+
+**When adding a new external URL to any page:**
+
+1. Add (or update) a row in the appropriate category table in `references.md`. Use the next sequential number within that category (e.g. `5.20`).
+2. Populate columns: **Title** (authoritative short title of the target page), **URL** (formatted as `[short-host-or-label](https://full-url)`), **Referenced in** (comma-separated markdown links to every repo page that cites the URL, using paths relative to the repo root — e.g. `[connectors/foo.md](connectors/foo.md)`).
+3. If the same URL is cited in multiple pages, keep a **single** row and list all citing pages in the "Referenced in" cell — do not create duplicate rows across categories.
+4. If the URL already exists in `references.md` and you add a new citation in another page, append that page to the existing row's "Referenced in" cell.
+
+**When removing or renaming a citation:** update the "Referenced in" cell. If the last citation is removed, delete the row (renumber is not required — gaps are acceptable).
+
+**Categories** (do not invent new ones unless clearly justified):
+
+1. Microsoft Learn — Sentinel core
+2. Microsoft Learn — Defender XDR & Advanced Hunting
+3. Microsoft Learn — Azure Monitor, AMA & DCR
+4. Microsoft Learn — Identity (Entra ID, ID Protection, GSA)
+5. Microsoft Learn — Defender for Cloud / Servers / Containers / IoT / DNS / Storage / SQL / Cloud Apps
+6. Microsoft Learn — Microsoft 365, Purview, Intune & Copilot
+7. Microsoft Learn — Windows security event ID reference
+8. Microsoft Learn — Azure workload logging
+9. Azure pricing & commercial offers
+10. Tools & workbooks (GitHub) — **executable / deployable** workbooks, scripts, KQL queries, hosted apps only
+11. Blogs & community resources — articles, configuration baselines (e.g. Sysmon configs), mindmaps, vendor product documentation (GitHub Docs, etc.) and any non-executable third-party reading material
+12. Standards & frameworks
+13. Sentinel Ninja (reference documentation)
+
+If a new URL fits none of the above, add a new category at the end with the next number and also add it to the Contents block at the top of `references.md`.
+
+**Scope:** `references.md` indexes **external URLs only** (http/https). Internal cross-links between repo files are out of scope.
+
+---
+
 ## Connector Pages (`connectors/*.md`)
 
 Template: `connectors/_TEMPLATE.md`
