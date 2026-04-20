@@ -93,7 +93,7 @@ These additional event sources are essential for detecting sophisticated attacks
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
 | [Workspace Usage Report](../procedures/workspace-usage-report.md) | Workbook | Verify advanced Windows event log volumes | Sentinel Maturity Model | [Procedure guide](../procedures/workspace-usage-report.md) |
-| [Defender AMA Coverage](../procedures/defender-ama-coverage.md) | Workbook | Validate AMA deployment and DCR coverage for advanced channels | Sentinel Maturity Model | [Procedure guide](../procedures/defender-ama-coverage.md) |
+| [Defender AMA Coverage](../procedures/defender-ama-coverage.md) | Workbook | Validate AMA deployment and DCR coverage for advanced channels | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Procedure guide](../procedures/defender-ama-coverage.md) · [Blog](https://www.linkedin.com/pulse/closing-telemetry-gap-how-we-built-kql-query-workbook-mathijs-vermaat-rzfbe/) |
 
 ---
 

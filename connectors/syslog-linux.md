@@ -193,7 +193,7 @@ Just as with Windows, relying solely on EDR for Linux server security leaves gap
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
 | **Workspace Usage Report** | Workbook | Monitor `Syslog` and `LinuxAuditLog` ingestion volumes per server and validate the P2 ingestion benefit (only `LinuxAuditLog` counts against the allowance) | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
-| **Defender AMA Coverage** | Workbook | Validate AMA agent deployment and Syslog collection coverage on Linux servers | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](../procedures/defender-ama-coverage.md) |
+| **Defender AMA Coverage** | Workbook | Validate AMA agent deployment and Syslog collection coverage on Linux servers | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](../procedures/defender-ama-coverage.md) · [Blog](https://www.linkedin.com/pulse/closing-telemetry-gap-how-we-built-kql-query-workbook-mathijs-vermaat-rzfbe/) |
 | **SOC Handbook** | Solution | Identity & Access workbook, Investigation Insights workbook, MITRE ATT&CK workbook — Syslog authentication events feed identity-based detections | Sentinel Content Hub | — |
 
 ---

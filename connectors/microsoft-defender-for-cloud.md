@@ -6,14 +6,26 @@
 
 ## Contents
 
-- [Overview](#overview)
-- [Tables and Rationale](#tables-and-rationale)
-- [Example Detections](#example-detections)
-- [MCSB Control Mapping](#mcsb-control-mapping)
-- [Important Considerations](#important-considerations)
-- [Notes](#notes)
-- [Tools](#tools)
-- [References](#references)
+- [Microsoft Defender for Cloud](#microsoft-defender-for-cloud)
+  - [Contents](#contents)
+  - [Overview](#overview)
+    - [Licensing Benefits](#licensing-benefits)
+  - [Tables and Rationale](#tables-and-rationale)
+    - [Alert Tables](#alert-tables)
+    - [Posture Tables](#posture-tables)
+  - [Example Detections](#example-detections)
+    - [Cloud Workloads](#cloud-workloads)
+    - [Posture and Compliance](#posture-and-compliance)
+  - [MCSB Control Mapping](#mcsb-control-mapping)
+  - [Important Considerations](#important-considerations)
+    - [Multi-Cloud Coverage](#multi-cloud-coverage)
+    - [Bi-Directional Incident Sync](#bi-directional-incident-sync)
+    - [Alert Volume Management](#alert-volume-management)
+  - [Notes](#notes)
+  - [Tools](#tools)
+  - [References](#references)
+    - [Official Documentation](#official-documentation)
+    - [Community \& Third-Party Resources](#community--third-party-resources)
 
 ---
 
@@ -119,7 +131,7 @@ Defender for Cloud can generate significant alert volumes, particularly from Def
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
 | **Workspace Usage Report** | Workbook | Monitor SecurityAlert and recommendation ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
-| **Defender AMA Coverage** | Workbook | Validate AMA deployment for Defender for Servers | Sentinel Content Hub | [Walkthrough](../procedures/defender-ama-coverage.md) |
+| **Defender AMA Coverage** | Workbook | Validate AMA deployment for Defender for Servers | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](../procedures/defender-ama-coverage.md) · [Blog](https://www.linkedin.com/pulse/closing-telemetry-gap-how-we-built-kql-query-workbook-mathijs-vermaat-rzfbe/) |
 | **Microsoft Defender for Cloud** | Solution | 1 analytic rule — provides the tenant-based and subscription-based connectors plus detection content | Sentinel Content Hub | — |
 
 ---

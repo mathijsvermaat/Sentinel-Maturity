@@ -182,4 +182,10 @@ If you have **not yet enabled** the Defender XDR connector in Sentinel (and ther
 
 ---
 
+## Further Reading
+
+- [Closing the telemetry gap — how we built the KQL query & workbook (LinkedIn)](https://www.linkedin.com/pulse/closing-telemetry-gap-how-we-built-kql-query-workbook-mathijs-vermaat-rzfbe/) — background on the design of this workbook and the KQL behind it
+
+---
+
 [← Back to Procedures](README.md) · [← Back to Sentinel Maturity Model](../README.md)

@@ -6,18 +6,35 @@
 
 ## Contents
 
-- [Overview](#overview)
-- [Tables and Rationale](#tables-and-rationale)
-  - [Event Collection Tiers — Minimal, Common, and Full](#event-collection-tiers--minimal-common-and-full)
-  - [Key Events by Tier](#key-events-by-tier)
-- [Example Detections](#example-detections)
-- [MCSB Control Mapping](#mcsb-control-mapping)
-- [Recommended Configuration](#recommended-configuration)
-- [Notes](#notes)
-  - [Staying Within the Defender for Servers P2 Ingestion Benefit](#staying-within-the-defender-for-servers-p2-ingestion-benefit)
-  - [Why Layered Logging Matters for Windows Servers](#why-layered-logging-matters-for-windows-servers)
-- [Tools](#tools)
-- [References](#references)
+- [Windows Security Events / Windows Events](#windows-security-events--windows-events)
+  - [Contents](#contents)
+  - [Overview](#overview)
+    - [Licensing Benefits](#licensing-benefits)
+  - [Tables and Rationale](#tables-and-rationale)
+    - [SecurityEvent Table (Recommended)](#securityevent-table-recommended)
+      - [Event Collection Tiers — Minimal, Common, and Full](#event-collection-tiers--minimal-common-and-full)
+      - [Key Events by Tier](#key-events-by-tier)
+        - [Authentication Events](#authentication-events)
+        - [Account and Group Management Events](#account-and-group-management-events)
+        - [Process, Persistence, and Policy Events](#process-persistence-and-policy-events)
+        - [Network and Firewall Events](#network-and-firewall-events)
+        - [AppLocker / WDAC Events](#applocker--wdac-events)
+        - [Credential Access Events](#credential-access-events)
+        - [Full (All Events) Only — Additional Forensic and Audit Events](#full-all-events-only--additional-forensic-and-audit-events)
+  - [Example Detections](#example-detections)
+  - [MCSB Control Mapping](#mcsb-control-mapping)
+  - [Recommended Configuration](#recommended-configuration)
+    - [Minimum Audit Policy (GPO)](#minimum-audit-policy-gpo)
+    - [Essential GPO Setting](#essential-gpo-setting)
+  - [Notes](#notes)
+    - [Staying Within the Defender for Servers P2 Ingestion Benefit](#staying-within-the-defender-for-servers-p2-ingestion-benefit)
+      - [Example: 5,000 servers with Defender for Servers P2](#example-5000-servers-with-defender-for-servers-p2)
+    - [Why Layered Logging Matters for Windows Servers](#why-layered-logging-matters-for-windows-servers)
+      - [Why EDR Telemetry Is Not the Full Picture](#why-edr-telemetry-is-not-the-full-picture)
+  - [Tools](#tools)
+  - [References](#references)
+    - [Official Documentation](#official-documentation)
+    - [Community \& Third-Party Resources](#community--third-party-resources)
 
 ---
 
@@ -303,7 +320,7 @@ See the following resources for deeper analysis:
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
 | **Workspace Usage Report** | Workbook | Monitor SecurityEvent/WindowsEvent ingestion volumes per server | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
-| **Defender AMA Coverage** | Workbook | Validate AMA agent deployment and Windows Security Event collection coverage | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](../procedures/defender-ama-coverage.md) |
+| **Defender AMA Coverage** | Workbook | Validate AMA agent deployment and Windows Security Event collection coverage | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](../procedures/defender-ama-coverage.md) · [Blog](https://www.linkedin.com/pulse/closing-telemetry-gap-how-we-built-kql-query-workbook-mathijs-vermaat-rzfbe/) |
 | **Windows Security Events** | Solution | Event Analyzer workbook — explore, audit, and speed up Windows Event Log analysis with all event details and attributes | Sentinel Content Hub | — |
 
 ---
