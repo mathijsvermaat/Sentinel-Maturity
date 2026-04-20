@@ -95,6 +95,7 @@ This connector provides visibility into DNS activity for Azure-native workloads 
 |:-------|:-----|
 | Azure DNS diagnostic logging | [Learn](https://learn.microsoft.com/en-us/azure/dns/dns-metrics-alerts) |
 | Azure DNS Private Resolver | [Learn](https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview) |
+| Secure your Azure DNS deployment | [Learn](https://learn.microsoft.com/azure/dns/secure-dns) |
 | Defender for DNS overview | [Learn](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-dns-introduction) |
 
 ---

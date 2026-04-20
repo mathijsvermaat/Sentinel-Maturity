@@ -103,6 +103,7 @@ These additional event sources are essential for detecting sophisticated attacks
 | AppLocker overview | [Learn](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/applocker/applocker-overview) |
 | WDAC overview | [Learn](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/wdac) |
 | AMA Windows Event collection | [Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/agents/data-collection-windows-events) |
+| Sentinel — Windows agent-based connectors (WEF prerequisite) | [Learn](https://learn.microsoft.com/azure/sentinel/connect-services-windows-based) |
 
 ---
 

@@ -6,14 +6,17 @@
 
 ## Contents
 
-- [Overview](#overview)
-- [Tables and Rationale](#tables-and-rationale)
-- [Example Detections](#example-detections)
-- [MCSB Control Mapping](#mcsb-control-mapping)
-- [Important Considerations](#important-considerations)
-- [Notes](#notes)
-- [Tools](#tools)
-- [References](#references)
+- [SAP](#sap)
+  - [Contents](#contents)
+  - [Overview](#overview)
+    - [Licensing Benefits](#licensing-benefits)
+  - [Tables and Rationale](#tables-and-rationale)
+  - [Example Detections](#example-detections)
+  - [MCSB Control Mapping](#mcsb-control-mapping)
+  - [Important Considerations](#important-considerations)
+  - [Notes](#notes)
+    - [Tools](#tools)
+  - [References](#references)
 
 ---
 

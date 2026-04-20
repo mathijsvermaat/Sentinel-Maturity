@@ -98,6 +98,7 @@ OT/IoT environments are increasingly targeted: ransomware impacting manufacturin
 | Defender for IoT overview | [Learn](https://learn.microsoft.com/en-us/azure/defender-for-iot/overview) |
 | OT sensor deployment | [Learn](https://learn.microsoft.com/en-us/azure/defender-for-iot/ot-deploy/ot-deploy-path) |
 | Connect Defender for IoT to Sentinel | [Learn](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/iot-ot-threat-monitoring-with-defender-for-iot) |
+| Tutorial: Connect Defender for IoT with Microsoft Sentinel | [Learn](https://learn.microsoft.com/azure/defender-for-iot/organizations/iot-solution) |
 | MITRE ATT&CK for ICS | [MITRE](https://attack.mitre.org/matrices/ics/) |
 
 ---

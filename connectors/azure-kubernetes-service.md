@@ -98,6 +98,7 @@ While Azure Activity Logs (Tier 1) capture AKS cluster-level operations (create,
 |:-------|:-----|
 | AKS monitoring with diagnostics | [Learn](https://learn.microsoft.com/en-us/azure/aks/monitor-aks) |
 | AKS diagnostic settings categories | [Learn](https://learn.microsoft.com/en-us/azure/aks/monitor-aks-reference) |
+| Enable control plane logs on an AKS cluster | [Learn](https://learn.microsoft.com/azure/azure-monitor/containers/kubernetes-monitoring-enable#enable-control-plane-logs-on-an-aks-cluster) |
 | Defender for Containers overview | [Learn](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-introduction) |
 | Kubernetes threat matrix (MITRE) | [Microsoft](https://www.microsoft.com/en-us/security/blog/2020/04/02/attack-matrix-kubernetes/) |
 
