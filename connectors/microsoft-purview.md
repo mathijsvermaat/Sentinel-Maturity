@@ -105,6 +105,7 @@ This connector addresses the question: *"Was sensitive data involved in this inc
 | Title | Description | Link |
 |:------|:------------|:-----|
 | Connect Microsoft Purview Information Protection to Microsoft Sentinel | Connector setup guide — DLP alerts, sensitivity labels, and data governance events | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/microsoft-purview-information-protection) |
+| Microsoft Purview with Microsoft Sentinel data lake | Overview of the modern Purview ↔ Sentinel integration — data lake onboarding, data risk graph for Insider Risk Management, and per-solution prerequisites | [learn.microsoft.com](https://learn.microsoft.com/purview/purview-sentinel) |
 
 ### Community & Third-Party Resources
 

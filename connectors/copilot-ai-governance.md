@@ -116,6 +116,7 @@ The Copilot/AI governance logging story in Sentinel is evolving rapidly. This pa
 
 | Title | Description | Link |
 |:------|:------------|:-----|
+| Microsoft Copilot data connector (Sentinel data connectors reference) | Official Sentinel data connector entry — `CopilotActivity` table, prerequisites (Security Administrator or Global Administrator), Lake-only ingestion note | [learn.microsoft.com](https://learn.microsoft.com/azure/sentinel/data-connectors-reference#microsoft-copilot) |
 | Microsoft Copilot data connector for Microsoft Sentinel | Connector setup guide — CopilotActivity table via Purview audit pipeline | [techcommunity.microsoft.com](https://techcommunity.microsoft.com/blog/microsoftsentinelblog/the-microsoft-copilot-data-connector-for-microsoft-sentinel-is-now-in-public-pre/4491986) |
 
 ### Community & Third-Party Resources
