@@ -71,6 +71,7 @@ For organisations with databases containing sensitive data (PII, financial recor
 ## Important Considerations
 
 - **Resource-specific vs AzureDiagnostics mode:** Prefer resource-specific mode (`SQLSecurityAuditEvents`) for structured, queryable data. Legacy `AzureDiagnostics` mode mixes SQL logs with other resource types
+- **Aggregated Cosmos DB diagnostics (preview):** For cost reduction, consider the aggregated tables `CDBDataPlaneRequests5M` and `CDBDataPlaneRequests15M` (5-minute / 15-minute summaries) instead of the per-request `CDBDataPlaneRequests` — up to 95% cost reduction while retaining troubleshooting and anomaly-detection value
 - **Volume management:** Busy OLTP databases can generate millions of audit events per day. Use server-level audit policies with selective action group filtering to control volume
 - **Audit action groups:** Start with `SUCCESSFUL_DATABASE_AUTHENTICATION_GROUP`, `FAILED_DATABASE_AUTHENTICATION_GROUP`, `BATCH_COMPLETED_GROUP`, and `DATABASE_PERMISSION_CHANGE_GROUP` — add more as needed
 - **Defender for SQL:** If you have Defender for Cloud (Tier 2), SQL threat detection alerts already flow through `SecurityAlert`. The audit logs in this Tier 3 connector add the detailed query-level trail

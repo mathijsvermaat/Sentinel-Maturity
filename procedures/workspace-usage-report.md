@@ -52,6 +52,8 @@ Free data connectors do not count towards your Sentinel commitment tier or pay-a
    | **SigninLogs** | Microsoft Entra ID | Free data source |
    | **AuditLogs** | Microsoft Entra ID | Free data source |
    | **AADNonInteractiveUserSignInLogs** | Microsoft Entra ID | Free data source |
+   | **AADRiskyUsers** | Microsoft Entra ID Protection | Free data source |
+   | **AADRiskyServicePrincipals** | Microsoft Entra ID Protection | Free data source |
    | **OfficeActivity** | Office 365 | Free data source |
    | **AzureActivity** | Azure Activity Logs | Free data source |
 

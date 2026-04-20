@@ -39,8 +39,10 @@ GitHub is often the central nervous system of software development — it holds 
 
 | Table | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
 |:------|:------------|:------------------------|:----------|:---------------|:------------------|
-| **GitHubAuditLogPolling** | Enterprise audit events — repo access, Actions runs, admin operations, team changes, SSO events | Analytics: 90d / Lake: 365d | Primary audit trail for GitHub platform security — the only source for detecting code repository and CI/CD compromise | Reconstructs attacker actions in GitHub — which repos were cloned, what Actions workflows were modified, what secrets were exposed | Workflow file modified to exfiltrate secrets (T1195.002) |
-| **GitHubAuditEntry** (via API) | Detailed audit records including actor, action, and context for all enterprise operations | Analytics: 90d / Lake: 365d | Enriched audit data with full context — actor details, geo-location, and affected resources | Provides complete event context for investigation — matches actor to action with precise timestamps | Repository visibility changed from private to public (T1567) |
+| **GitHubAuditLogsV2_CL** | Enterprise audit events — repo access, Actions runs, admin operations, team changes, SSO events, full actor context and affected resource metadata | Analytics: 90d / Lake: 365d | Primary audit trail for GitHub platform security — the only source for detecting code repository and CI/CD compromise. Ingested via the current GitHub Enterprise Audit Log (CCF) connector. | Reconstructs attacker actions in GitHub — which repos were cloned, what Actions workflows were modified, which secrets were exposed; matches actor to action with precise timestamps | Workflow file modified to exfiltrate secrets (T1195.002), repository visibility changed from private to public (T1567) |
+
+> [!NOTE]
+> The legacy `GitHubAuditLogPolling_CL` table is produced by the **deprecated** GitHub Enterprise Audit Log connector (HTTP Data Collector API). New deployments must use the **GitHub Enterprise Audit Log (via Codeless Connector Framework)** connector, which writes to `GitHubAuditLogsV2_CL`.
 
 ---
 
@@ -48,12 +50,12 @@ GitHub is often the central nervous system of software development — it holds 
 
 | Detection | Table(s) | MITRE ATT&CK | Description |
 |:----------|:---------|:-------------|:------------|
-| Workflow file modified in protected branch | GitHubAuditLogPolling | T1195.002 | GitHub Actions workflow YAML changed — potential supply chain backdoor |
-| Repository cloned by unusual actor | GitHubAuditLogPolling | T1213 | Repository clone event from a user or machine not in the normal contributor set |
-| Secret scanning alert dismissed | GitHubAuditLogPolling | T1552 | Leaked secret detected by scanning but dismissed by a user — potential cover-up or negligence |
-| Outside collaborator added to private repo | GitHubAuditLogPolling | T1199 | External user granted access to a private repository — trust boundary expansion |
-| Personal Access Token created with broad scope | GitHubAuditLogPolling | T1528 | PAT with repo, admin, or write-all scope created — high-risk credential |
-| Repository visibility changed to public | GitHubAuditLogPolling | T1567 | Private repository made public — potential data leak of source code or secrets |
+| Workflow file modified in protected branch | GitHubAuditLogsV2_CL | T1195.002 | GitHub Actions workflow YAML changed — potential supply chain backdoor |
+| Repository cloned by unusual actor | GitHubAuditLogsV2_CL | T1213 | Repository clone event from a user or machine not in the normal contributor set |
+| Secret scanning alert dismissed | GitHubAuditLogsV2_CL | T1552 | Leaked secret detected by scanning but dismissed by a user — potential cover-up or negligence |
+| Outside collaborator added to private repo | GitHubAuditLogsV2_CL | T1199 | External user granted access to a private repository — trust boundary expansion |
+| Personal Access Token created with broad scope | GitHubAuditLogsV2_CL | T1528 | PAT with repo, admin, or write-all scope created — high-risk credential |
+| Repository visibility changed to public | GitHubAuditLogsV2_CL | T1567 | Private repository made public — potential data leak of source code or secrets |
 
 ---
 

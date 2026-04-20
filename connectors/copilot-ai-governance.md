@@ -94,7 +94,7 @@ The Copilot/AI governance logging story in Sentinel is evolving rapidly. This pa
 ## Notes
 
 - AI governance logging is **evolving rapidly** — revisit this page as new Sentinel connectors and tables become available
-- M365 Copilot interactions appear in the `OfficeActivity` table (already a Tier 1 free connector) — you may already have partial AI audit data
+- M365 Copilot interactions are also audited in the `OfficeActivity` table (already a Tier 1 free connector), giving partial AI audit coverage at no extra cost. The dedicated Microsoft Copilot data connector adds structured `CopilotActivity` events — this is **paid ingestion** and requires the Copilot licence
 - The primary security concern with M365 Copilot is **data oversharing** — Copilot surfaces everything the user has access to, making over-permissioned accounts a higher risk
 - For Azure OpenAI, enable **diagnostic settings** on the Cognitive Services resource to capture API call logs
 - Consider deploying Purview **Copilot governance policies** alongside Sentinel monitoring for preventive + detective controls

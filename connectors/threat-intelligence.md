@@ -1,6 +1,6 @@
 # Threat Intelligence Platforms
 
-**Tier:** 2 (Extended Visibility) · **Connector type:** Microsoft first-party · **Free ingestion:** Yes — ThreatIntelligenceIndicator is a free data source
+**Tier:** 2 (Extended Visibility) · **Connector type:** Microsoft first-party · **Free ingestion:** Yes — ThreatIntelIndicators and ThreatIntelObjects are free data sources
 
 ---
 
@@ -57,9 +57,9 @@ Without TI, your detections rely entirely on behavioural analytics and custom ru
 
 | Table | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
 |:------|:------------|:------------------------|:----------|:---------------|:------------------|
-| **ThreatIntelligenceIndicator** | IOCs from all connected TI sources — IPs, domains, URLs, file hashes, email addresses, with confidence scores and expiry dates | Analytics: 90d / Lake: 365d | **Detection force multiplier.** Automated matching of known malicious indicators against all ingested logs. MCSB LT-1. | Proves that a specific IP, domain, URL, or file hash seen in your environment matches known threat intelligence — strong evidence of compromise when correlated with behavioural signals | Network connection to known C2 IP (T1071), DNS resolution of known malicious domain (T1071.004), file hash match on known malware (T1204) |
-| **ThreatIntelIndicators** | Next-generation TI table (STIX-based schema) — structured IOCs with full STIX object representation | Analytics: 90d / Lake: 365d | Modern TI schema with richer context — supports STIX patterns, confidence levels, and object relationships. Replaces `ThreatIntelligenceIndicator` for new integrations. | Same forensic value with richer context — structured STIX objects enable more precise IOC matching and attribution | Same detection coverage with improved STIX-based correlation |
-| **ThreatIntelObjects** | Threat intelligence objects — threat actors, campaigns, attack patterns linked to IOCs | Analytics: 90d / Lake: 365d | Enrichment layer that links IOCs to threat actors and campaigns. Enables attribution and strategic threat context. | Links indicators to named threat actors and campaigns — provides the "who" and "why" behind an IOC match | IOC match attributed to known threat actor campaign |
+| **ThreatIntelIndicators** | STIX-based indicator table — structured IOCs (IPs, domains, URLs, file hashes, email addresses) with STIX patterns, confidence scores, and expiry dates | Analytics: 90d / Lake: 365d | **Detection force multiplier.** Automated matching of known malicious indicators against all ingested logs. MCSB LT-1. Replaces the legacy `ThreatIntelligenceIndicator` table (ingestion stopped 31 July 2025). | Proves that a specific IP, domain, URL, or file hash seen in your environment matches known threat intelligence — strong evidence of compromise when correlated with behavioural signals | Network connection to known C2 IP (T1071), DNS resolution of known malicious domain (T1071.004), file hash match on known malware (T1204) |
+| **ThreatIntelObjects** | STIX-based threat intelligence objects — threat actors, campaigns, attack patterns linked to indicators | Analytics: 90d / Lake: 365d | Enrichment layer that links IOCs to threat actors and campaigns. Enables attribution and strategic threat context. | Links indicators to named threat actors and campaigns — provides the "who" and "why" behind an IOC match | IOC match attributed to known threat actor campaign |
+| **ThreatIntelligenceIndicator** *(legacy — ingestion stopped 31 July 2025)* | Legacy IOC table. Microsoft stopped ingesting data into this table on 31 July 2025; retained only for historical queries against pre-cutoff data | — | Historical data only. All new detections, analytics rules, workbooks, and hunting queries should target `ThreatIntelIndicators` / `ThreatIntelObjects`. | Retained data supports retrospective investigation prior to July 2025 | Historical lookup only |
 
 ---
 
@@ -69,10 +69,10 @@ Without TI, your detections rely entirely on behavioural analytics and custom ru
 
 | Detection | Table(s) | MITRE ATT&CK | Description |
 |:----------|:---------|:-------------|:------------|
-| IP match — inbound connection | ThreatIntelligenceIndicator + AZFWNetworkRule / CommonSecurityLog | T1190 | Inbound connection from a known malicious IP |
-| IP match — outbound C2 | ThreatIntelligenceIndicator + DeviceNetworkEvents / AZFWApplicationRule | T1071 | Outbound connection to a known C2 IP |
-| Domain match — DNS resolution | ThreatIntelligenceIndicator + AZFWDnsQuery / DnsEvents | T1071.004 | DNS query for a known malicious domain |
-| File hash match | ThreatIntelligenceIndicator + DeviceFileEvents | T1204 | File on endpoint matching a known malware hash |
+| IP match — inbound connection | ThreatIntelIndicators + AZFWNetworkRule / CommonSecurityLog | T1190 | Inbound connection from a known malicious IP |
+| IP match — outbound C2 | ThreatIntelIndicators + DeviceNetworkEvents / AZFWApplicationRule | T1071 | Outbound connection to a known C2 IP |
+| Domain match — DNS resolution | ThreatIntelIndicators + AZFWDnsQuery / DnsEvents | T1071.004 | DNS query for a known malicious domain |
+| File hash match | ThreatIntelIndicators + DeviceFileEvents | T1204 | File on endpoint matching a known malware hash |
 | Email sender match | ThreatIntelligenceIndicator + EmailEvents | T1566 | Email received from a known threat actor email address |
 | URL match — user visited | ThreatIntelligenceIndicator + UrlClickEvents / NetworkAccessTraffic | T1566.002 | User visited a known phishing or malware delivery URL |
 

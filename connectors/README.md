@@ -10,7 +10,7 @@ Every Microsoft Sentinel deployment should have these connectors enabled.
 
 | Connector | Key Focus | Free Ingestion |
 |:----------|:----------|:---------------|
-| [Microsoft Defender XDR](microsoft-defender-xdr.md) | Endpoint, email, identity, and cloud app telemetry from M365 E5 | Yes — Analytics tier via E5 grant |
+| [Microsoft Defender XDR](microsoft-defender-xdr.md) | Endpoint, email, identity, and cloud app telemetry from M365 E5 | Yes — Analytics tier only via [Microsoft Sentinel benefit for M365 E5 customers](https://azure.microsoft.com/en-us/pricing/offers/sentinel-microsoft-365-offer) |
 | [Microsoft Entra ID](microsoft-entra-id.md) | Authentication, directory changes, identity risk events | Yes — free data source |
 | [Office 365](office-365.md) | Exchange, SharePoint, and Teams audit activity | Yes — free data source |
 | [Azure Activity Logs](azure-activity-logs.md) | Azure control plane operations across all subscriptions | Yes — free data source |

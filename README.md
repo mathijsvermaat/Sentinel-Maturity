@@ -114,7 +114,7 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
-| [Threat Intelligence Platforms](connectors/threat-intelligence.md) | ThreatIntelligenceIndicator | Yes — free data source |
+| [Threat Intelligence Platforms](connectors/threat-intelligence.md) | ThreatIntelIndicators, ThreatIntelObjects | Yes — free data source |
 
 ### Endpoint Compliance
 
@@ -177,7 +177,7 @@ Tier 3 provides full-spectrum monitoring for mature organisations that have comp
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
 | [Azure DevOps](connectors/azure-devops.md) | AzureDevOpsAuditing | No |
-| [GitHub Enterprise](connectors/github-enterprise.md) | GitHubAuditLogPolling | No |
+| [GitHub Enterprise](connectors/github-enterprise.md) | GitHubAuditLogsV2_CL | No |
 | Third-Party DevOps (GitLab, Jenkins, Bitbucket) | Vendor-specific tables via API or webhook | No — *conditional* |
 
 ### Infrastructure & Platform
