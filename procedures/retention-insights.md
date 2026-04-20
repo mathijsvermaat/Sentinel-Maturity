@@ -324,4 +324,12 @@ If the workbook shows a warning banner about retention below 90 days, the worksp
 
 ---
 
+## Related Microsoft Learn Documentation
+
+- [Manage data retention in a Log Analytics workspace](https://learn.microsoft.com/azure/azure-monitor/logs/data-retention-configure) — canonical table-level retention procedure (analytics + total retention)
+- [Reduce costs for Microsoft Sentinel — pricing tier](https://learn.microsoft.com/azure/sentinel/billing-reduce-costs#set-or-change-pricing-tier) — commitment-tier and pre-purchase background used for cost estimation
+- [Microsoft Sentinel data lake overview](https://learn.microsoft.com/azure/sentinel/datalake/sentinel-lake-overview) — context for evaluating data lake vs archive tier
+
+---
+
 [← Back to Procedures](README.md) · [← Back to Sentinel Maturity Model](../README.md)

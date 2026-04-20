@@ -197,4 +197,11 @@ The script estimates are based on sampled CSV sizes and event counts. Observed a
 
 ---
 
+## Related Microsoft Learn Documentation
+
+- [Advanced hunting schema reference](https://learn.microsoft.com/defender-xdr/advanced-hunting-schema-tables) — full list of XDR tables and their columns
+- [Microsoft Defender XDR Advanced hunting API](https://learn.microsoft.com/defender-xdr/api/api-advanced-hunting) — programmatic access used by this calculator
+
+---
+
 [← Back to Procedures](README.md) · [← Back to Sentinel Maturity Model](../README.md)

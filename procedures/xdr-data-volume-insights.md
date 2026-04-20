@@ -197,3 +197,14 @@ If your environment has additional XDR tables, add them to the `union` statement
 | Tool | Purpose |
 |:-----|:--------|
 | [XDR Ingestion Calculator](xdr-ingestion-calculator.md) | Estimate XDR ingestion volumes from the Advanced Hunting API **before** enabling the connector |
+
+---
+
+## Related Microsoft Learn Documentation
+
+- [Advanced hunting schema reference](https://learn.microsoft.com/defender-xdr/advanced-hunting-schema-tables) — canonical table list and descriptions for Defender XDR advanced hunting tables
+- [Microsoft Defender XDR data connector (Sentinel reference)](https://learn.microsoft.com/azure/sentinel/data-connectors-reference#microsoft-defender-xdr)
+
+---
+
+[← Back to Procedures](README.md) · [← Back to Sentinel Maturity Model](../README.md)
