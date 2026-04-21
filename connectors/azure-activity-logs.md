@@ -130,6 +130,9 @@ Microsoft.Insights/diagnosticSettings — deployIfNotExists
 
 This ensures new subscriptions are automatically connected to your Sentinel workspace.
 
+> [!TIP]
+> To verify coverage after deployment, run the community [Azure Activity Log Sentinel Audit](https://github.com/mathijsvermaat/azure-activity-log-sentinel-audit) script. It compares the list of subscriptions you can read against AzureActivity ingestion in the workspace and flags any subscription not sending logs.
+
 ---
 
 ## Notes
@@ -147,6 +150,7 @@ This ensures new subscriptions are automatically connected to your Sentinel work
 |:-----|:-----|:--------|:-------|:------|
 | **Workspace Usage Report** | Workbook | Monitor AzureActivity ingestion volumes and retention | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
 | **Azure Activity** | Solution | 2 workbooks (Azure Activity, Azure Service Health), 14 analytic rules, 15 hunting queries — covers suspicious resource deployments, role assignments, and service health events | Sentinel Content Hub | — |
+| **Azure Activity Log Sentinel Audit** | PowerShell script | Enumerates every Azure subscription the caller can read and compares it against AzureActivity ingestion in the workspace — surfaces subscriptions missing diagnostic settings so no control-plane blind spots go unnoticed | Community (Mathijs Vermaat) | [github.com/mathijsvermaat/azure-activity-log-sentinel-audit](https://github.com/mathijsvermaat/azure-activity-log-sentinel-audit) |
 
 ---
 
