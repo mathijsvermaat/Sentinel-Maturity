@@ -2,6 +2,9 @@
 
 **Tier:** 2 (Extended Visibility) · **Connector type:** Microsoft first-party · **Free ingestion:** Yes — SecurityAlert table is a free data source
 
+> [!IMPORTANT]
+> The **Tenant-based Microsoft Defender for Cloud (Preview)** connector is only listed in the **Azure portal** Data connectors page — it is **not visible** in the Defender portal (`security.microsoft.com`). Install the **Microsoft Defender for Cloud** solution from Content Hub and configure the tenant-based connector from the Azure portal. See [Ingest Microsoft Defender for Cloud alerts to Microsoft Sentinel](https://learn.microsoft.com/azure/sentinel/connect-defender-for-cloud#prerequisites).
+
 ---
 
 ## Contents
