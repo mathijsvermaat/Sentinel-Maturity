@@ -1,6 +1,9 @@
 # Microsoft Intune (Endpoint Management)
 
-**Tier:** 2 (Extended Visibility) · **Connector type:** Microsoft first-party · **Free ingestion:** Partial — IntuneAuditLogs and IntuneOperationalLogs are free; IntuneDevices incurs cost
+**Tier:** 2 (Extended Visibility) · **Connector type:** Microsoft first-party · **Free ingestion:** No — Intune tables are billed at standard Log Analytics ingestion rates
+
+> [!IMPORTANT]
+> **Microsoft Intune is not a Sentinel data connector.** It does not appear in **Content Hub** or under **Data connectors** in the Sentinel/Defender portal. Intune log ingestion is configured directly from the **Intune admin center → Reports → Diagnostics settings**, sending logs to your Log Analytics workspace. Detections that use Intune tables come from generic or cross-solution analytic-rule templates rather than a dedicated Intune solution.
 
 ---
 
@@ -30,7 +33,7 @@ This connector bridges endpoint **management** (Intune) with endpoint **detectio
 | **Microsoft Intune Plan 2 / Suite** | Advanced features — Tunnel, Endpoint Privilege Management, remote actions |
 
 > [!NOTE]
-> `IntuneAuditLogs` and `IntuneOperationalLogs` are **free data sources** in Sentinel. `IntuneDevices` incurs standard ingestion cost.
+> Intune tables are **not** on Sentinel's [free data sources](https://learn.microsoft.com/azure/sentinel/billing#free-data-sources) list — all four (`IntuneAuditLogs`, `IntuneOperationalLogs`, `IntuneDevices`, `IntuneDeviceComplianceOrg`) are billed at standard Log Analytics ingestion rates. Use DCR transformations and Microsoft Sentinel data lake (Auxiliary / Total retention) tiers to manage volume on `IntuneOperationalLogs` and `IntuneDevices`, which are typically the highest-volume tables.
 
 ---
 
@@ -41,6 +44,7 @@ This connector bridges endpoint **management** (Intune) with endpoint **detectio
 | **IntuneAuditLogs** | Administrative actions — policy changes, app deployments, role assignments, remote actions (wipe, lock, retire) | Analytics: 90d / Lake: 365d | Detects unauthorized configuration changes, rogue admin activity, and policy tampering. MCSB AM-1, PA-7. | Audit trail of all Intune administrative actions — proves who changed which policy, deployed which app, or triggered which remote action. Essential for investigating supply chain and admin compromise. | Compliance policy disabled by compromised admin account (T1562.001) |
 | **IntuneOperationalLogs** | Device check-in, enrollment, compliance evaluation, policy application results | Analytics: 90d / Lake: 365d | Tracks device lifecycle events and compliance drift — detects devices falling out of compliance. | Proves device compliance state at the time of an incident — was the device encrypted? Was the OS up to date? Were security policies applied? | Device compliance failure correlating with security incident |
 | **IntuneDevices** | Device inventory — device name, OS, ownership (corporate/personal), compliance state, last check-in | Analytics: 90d / Lake: 365d | Asset inventory enrichment — correlate incidents with device properties and compliance state. MCSB AM-1. | Historical device inventory — proves which devices were managed, their compliance state, and ownership type at any point during an investigation | Unmanaged device accessing corporate resources |
+| **IntuneDeviceComplianceOrg** | Organisational device-compliance reporting — per-policy and per-setting compliance state across the tenant | Analytics: 90d / Lake: 365d | Tenant-wide compliance posture reporting — surfaces non-compliant devices and the specific policy/setting causing failure. MCSB ES-1. | Identifies which compliance policy or setting was failing on a device at the time of an incident; supports systemic posture trending | Sustained drop in tenant compliance rate after a policy change |
 
 ---
 
@@ -74,7 +78,7 @@ This connector bridges endpoint **management** (Intune) with endpoint **detectio
 
 ## Notes
 
-- `IntuneAuditLogs` and `IntuneOperationalLogs` are free — enable them by default
+- All Intune tables incur standard Log Analytics ingestion cost — plan volume carefully and consider DCR transformations or lake-only ingestion for `IntuneOperationalLogs` and `IntuneDevices`
 - The primary detection value is in **correlating** Intune compliance state with security incidents — an incident on a non-compliant, unencrypted device has different risk implications than one on a fully compliant device
 - For mobile device (iOS/Android) visibility, Intune logs are the primary source — Defender XDR endpoint tables primarily cover Windows/macOS
 - Consider creating **compliance-based watchlists** from `IntuneDevices` to flag non-compliant devices in other detection rules
@@ -86,7 +90,7 @@ This connector bridges endpoint **management** (Intune) with endpoint **detectio
 | Tool | Type | Purpose | Source | Guide |
 |:-----|:-----|:--------|:-------|:------|
 | **Workspace Usage Report** | Workbook | Monitor Intune table ingestion volumes | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
-| **Microsoft Entra ID** | Solution | 3 workbooks, 73 analytic rules — Intune audit events flow via the Entra ID diagnostic pipeline; the Entra ID solution provides relevant detections | Sentinel Content Hub | — |
+| **Microsoft Defender XDR** | Solution | Endpoint detection signals — correlate Defender XDR endpoint alerts with Intune compliance/inventory state for richer device-context investigations | Sentinel Content Hub | — |
 
 ---
 
@@ -96,7 +100,8 @@ This connector bridges endpoint **management** (Intune) with endpoint **detectio
 
 | Title | Description | Link |
 |:------|:------------|:-----|
-| Monitor Intune audit logs with Microsoft Sentinel | Setup guide for routing Intune audit and operational logs via Entra ID diagnostics | [learn.microsoft.com](https://learn.microsoft.com/en-us/mem/intune/fundamentals/review-logs-using-azure-monitor) |
+| Send Intune log data to Azure Storage, Event Hubs, or Log Analytics | Setup guide for routing Intune audit, operational, device, and compliance logs to Log Analytics via Intune Diagnostics settings | [learn.microsoft.com](https://learn.microsoft.com/intune/intune-service/fundamentals/review-logs-using-azure-monitor) |
+| Microsoft Sentinel pricing — Free data sources | Authoritative list of Sentinel free data sources (Intune tables are not included) | [learn.microsoft.com](https://learn.microsoft.com/azure/sentinel/billing#free-data-sources) |
 
 ### Community & Third-Party Resources
 

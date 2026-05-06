@@ -48,7 +48,7 @@ Additional connectors for customers with higher maturity requirements. Connector
 
 | Connector | Key Focus | Free Ingestion |
 |:----------|:----------|:---------------|
-| [Microsoft Intune (Endpoint Management)](microsoft-intune.md) | Device compliance, MDM/MAM events, admin audit trail | Partial — audit/operational logs free |
+| [Microsoft Intune (Endpoint Management)](microsoft-intune.md) | Device compliance, MDM/MAM events, admin audit trail | No |
 
 ### Identity & Access (Extended)
 

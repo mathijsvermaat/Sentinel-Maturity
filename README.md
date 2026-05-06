@@ -124,7 +124,7 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
-| [Microsoft Intune (Endpoint Management)](connectors/microsoft-intune.md) | IntuneAuditLogs, IntuneOperationalLogs, IntuneDevices | Partial — audit/operational logs free |
+| [Microsoft Intune (Endpoint Management)](connectors/microsoft-intune.md) | IntuneAuditLogs, IntuneOperationalLogs, IntuneDevices, IntuneDeviceComplianceOrg | No |
 
 ### Identity & Access (Extended)
 
