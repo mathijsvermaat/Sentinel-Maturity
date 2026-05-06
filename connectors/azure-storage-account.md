@@ -1,6 +1,9 @@
-# Azure Storage Analytics
+# Azure Storage Account
 
 **Tier:** 3 (Advanced) · **Connector type:** Microsoft first-party (Diagnostic Settings) · **Free ingestion:** No
+
+> [!NOTE]
+> Microsoft Sentinel lists this connector as **Azure Storage Account** in the data connectors reference. It was previously referred to in this guide as "Azure Storage Analytics" — only the name changed; the underlying diagnostic settings and tables are the same.
 
 ---
 
@@ -39,6 +42,7 @@ For organisations storing sensitive documents, backups, application data, or dat
 
 | Table | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
 |:------|:------------|:------------------------|:----------|:---------------|:------------------|
+| **AzureMetrics** | Storage account-level metrics — transaction counts, capacity, availability, end-to-end latency | Analytics: 30d / Lake: 90d | Baseline activity signal for anomaly detection — sudden transaction spikes or capacity changes can indicate exfiltration or destruction | Quantifies access volume even when individual `Storage*Logs` are filtered for cost; complements operational alerting | Sudden 10× spike in egress transactions outside business hours |
 | **StorageBlobLogs** | Blob storage operations — read, write, delete, list, copy, and snapshot operations with caller identity and IP | Analytics: 90d / Lake: 365d | Primary data-plane audit trail for blob storage — the most commonly used Azure storage service | Proves exactly which blobs were accessed, by whom, and from which IP — essential for determining data exfiltration scope | Mass blob download from unusual IP (T1530) |
 | **StorageFileLogs** | Azure Files operations — file share read, write, delete, and permission changes | Analytics: 90d / Lake: 365d | Audit trail for Azure Files — commonly used for lift-and-shift file shares and application data | Identifies unauthorized file access and share-level operations during investigations | Bulk file copy from Azure Files to external location (T1039) |
 | **StorageQueueLogs** | Queue storage operations — send, receive, peek, and delete messages | Analytics: 30d / Lake: 180d | Queue operations can reveal application workflow manipulation or message injection | Identifies queue manipulation that could affect application behavior and data processing | Unauthorized message injection into processing queue (T1565) |

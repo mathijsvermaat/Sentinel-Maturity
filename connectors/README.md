@@ -115,7 +115,7 @@ Full-spectrum monitoring for OT/IoT, DevOps, databases, custom applications, and
 | Connector | Key Focus | Free Ingestion |
 |:----------|:----------|:---------------|
 | [Azure Kubernetes Service (AKS) Audit](azure-kubernetes-service.md) | Kubernetes API server audit — pod, RBAC, secrets, and namespace operations | No |
-| [Azure Storage Analytics](azure-storage-analytics.md) | Blob, File, Queue, and Table access logs — data exfiltration detection | No |
+| [Azure Storage Account](azure-storage-account.md) | Blob, File, Queue, and Table access logs — data exfiltration detection | No |
 | [Windows Forwarded Events (Advanced)](windows-forwarded-events.md) | PowerShell ScriptBlock, WMI, Sysmon, AppLocker/WDAC — advanced endpoint telemetry | No |
 
 ### OT / IoT Security
