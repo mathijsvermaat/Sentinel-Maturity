@@ -112,7 +112,8 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 |:----------|:-----------|:---------------|
 | [Azure Key Vault](connectors/azure-key-vault.md) | AKVAuditLogs | No |
 | [Microsoft Copilot / AI Governance](connectors/copilot-ai-governance.md) | OfficeActivity (Copilot), AzureDiagnostics (OpenAI) | No |
-| [Microsoft Purview (Information Protection & DLP)](connectors/microsoft-purview.md) | MicrosoftPurviewInformationProtection | No |
+| [Microsoft Purview (Data Map / Discovery)](connectors/microsoft-purview-data-map.md) | PurviewDataSensitivityLogs | No |
+| [Microsoft Purview Information Protection (Preview)](connectors/microsoft-purview-information-protection.md) | MicrosoftPurviewInformationProtection | No |
 
 ### Detection Enrichment
 

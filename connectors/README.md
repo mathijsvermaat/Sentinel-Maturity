@@ -36,7 +36,8 @@ Additional connectors for customers with higher maturity requirements. Connector
 |:----------|:----------|:---------------|
 | [Azure Key Vault](azure-key-vault.md) | Secrets, keys, and certificate access audit trail | No |
 | [Microsoft Copilot / AI Governance](copilot-ai-governance.md) | AI interaction auditing and governance for Copilot and Azure OpenAI | No — *conditional* |
-| [Microsoft Purview (Information Protection & DLP)](microsoft-purview.md) | Sensitivity labels, data loss prevention events | No — *conditional* |
+| [Microsoft Purview (Data Map / Discovery)](microsoft-purview-data-map.md) | Data discovery and classification scan results across the data estate | No — *conditional* |
+| [Microsoft Purview Information Protection (Preview)](microsoft-purview-information-protection.md) | Sensitivity-label activity from MIP clients and scanners | No — *conditional* |
 
 ### Detection Enrichment
 

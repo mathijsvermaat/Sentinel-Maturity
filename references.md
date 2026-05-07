@@ -8,19 +8,21 @@ This page is kept in sync via the repository's Copilot instructions: whenever a 
 
 ## Contents
 
-- [1. Microsoft Learn — Sentinel core](#1-microsoft-learn--sentinel-core)
-- [2. Microsoft Learn — Defender XDR & Advanced Hunting](#2-microsoft-learn--defender-xdr--advanced-hunting)
-- [3. Microsoft Learn — Azure Monitor, AMA & DCR](#3-microsoft-learn--azure-monitor-ama--dcr)
-- [4. Microsoft Learn — Identity (Entra ID, ID Protection, GSA)](#4-microsoft-learn--identity-entra-id-id-protection-gsa)
-- [5. Microsoft Learn — Defender for Cloud / Servers / Containers / IoT / DNS / Storage / SQL / Cloud Apps](#5-microsoft-learn--defender-for-cloud--servers--containers--iot--dns--storage--sql--cloud-apps)
-- [6. Microsoft Learn — Microsoft 365, Purview, Intune & Copilot](#6-microsoft-learn--microsoft-365-purview-intune--copilot)
-- [7. Microsoft Learn — Windows security event ID reference](#7-microsoft-learn--windows-security-event-id-reference)
-- [8. Microsoft Learn — Azure workload logging (Firewall, WAF, Key Vault, Storage, Network, AKS, DevOps)](#8-microsoft-learn--azure-workload-logging-firewall-waf-key-vault-storage-network-aks-devops)
-- [9. Azure pricing & commercial offers](#9-azure-pricing--commercial-offers)
-- [10. Tools & workbooks (GitHub)](#10-tools--workbooks-github)
-- [11. Blogs & community resources](#11-blogs--community-resources)
-- [12. Standards & frameworks](#12-standards--frameworks)
-- [13. Sentinel Ninja (reference documentation)](#13-sentinel-ninja-reference-documentation)
+- [References](#references)
+  - [Contents](#contents)
+  - [1. Microsoft Learn — Sentinel core](#1-microsoft-learn--sentinel-core)
+  - [2. Microsoft Learn — Defender XDR \& Advanced Hunting](#2-microsoft-learn--defender-xdr--advanced-hunting)
+  - [3. Microsoft Learn — Azure Monitor, AMA \& DCR](#3-microsoft-learn--azure-monitor-ama--dcr)
+  - [4. Microsoft Learn — Identity (Entra ID, ID Protection, GSA)](#4-microsoft-learn--identity-entra-id-id-protection-gsa)
+  - [5. Microsoft Learn — Defender for Cloud / Servers / Containers / IoT / DNS / Storage / SQL / Cloud Apps](#5-microsoft-learn--defender-for-cloud--servers--containers--iot--dns--storage--sql--cloud-apps)
+  - [6. Microsoft Learn — Microsoft 365, Purview, Intune \& Copilot](#6-microsoft-learn--microsoft-365-purview-intune--copilot)
+  - [7. Microsoft Learn — Windows security event ID reference](#7-microsoft-learn--windows-security-event-id-reference)
+  - [8. Microsoft Learn — Azure workload logging (Firewall, WAF, Key Vault, Storage, Network, AKS, DevOps)](#8-microsoft-learn--azure-workload-logging-firewall-waf-key-vault-storage-network-aks-devops)
+  - [9. Azure pricing \& commercial offers](#9-azure-pricing--commercial-offers)
+  - [10. Tools \& workbooks (GitHub)](#10-tools--workbooks-github)
+  - [11. Blogs \& community resources](#11-blogs--community-resources)
+  - [12. Standards \& frameworks](#12-standards--frameworks)
+  - [13. Sentinel Ninja (reference documentation)](#13-sentinel-ninja-reference-documentation)
 
 ---
 
@@ -74,7 +76,7 @@ This page is kept in sync via the repository's Copilot instructions: whenever a 
 | 1.44 | Data connectors reference — MDCA | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/microsoft-defender-for-cloud-apps) | [connectors/microsoft-defender-cloud-apps.md](connectors/microsoft-defender-cloud-apps.md) |
 | 1.45 | Data connectors reference — Defender for IoT (OT) | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/iot-ot-threat-monitoring-with-defender-for-iot) | [connectors/microsoft-defender-for-iot.md](connectors/microsoft-defender-for-iot.md) |
 | 1.46 | Data connectors reference — Microsoft 365 (Office activity) | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/microsoft-365) | [connectors/office-365.md](connectors/office-365.md) |
-| 1.47 | Data connectors reference — Microsoft Purview Information Protection | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/microsoft-purview-information-protection) | [connectors/microsoft-purview.md](connectors/microsoft-purview.md) |
+| 1.47 | Data connectors reference — Microsoft Purview Information Protection | [learn.microsoft.com](https://learn.microsoft.com/azure/sentinel/connect-microsoft-purview) | [connectors/microsoft-purview-information-protection.md](connectors/microsoft-purview-information-protection.md) |
 | 1.48 | Data connectors reference — Windows Security Events via AMA | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/windows-security-events-via-ama) | [connectors/windows-security-events.md](connectors/windows-security-events.md) |
 | 1.49 | Data connectors reference — Palo Alto Networks | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/palo-alto-networks) | [connectors/third-party-network-appliances.md](connectors/third-party-network-appliances.md) |
 | 1.50 | Data connectors reference — Fortinet | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/fortinet) | [connectors/third-party-network-appliances.md](connectors/third-party-network-appliances.md) |
@@ -160,7 +162,7 @@ This page is kept in sync via the repository's Copilot instructions: whenever a 
 
 | # | Title | URL | Referenced in |
 | - | ----- | --- | ------------- |
-| 6.1 | Purview — connect to Sentinel | [learn.microsoft.com](https://learn.microsoft.com/purview/purview-sentinel) | [connectors/microsoft-purview.md](connectors/microsoft-purview.md) |
+| 6.1 | Purview — connect to Sentinel | [learn.microsoft.com](https://learn.microsoft.com/purview/purview-sentinel) | [connectors/microsoft-purview-information-protection.md](connectors/microsoft-purview-information-protection.md) · [connectors/microsoft-purview-data-map.md](connectors/microsoft-purview-data-map.md) |
 | 6.2 | Purview — audit solutions overview | [learn.microsoft.com](https://learn.microsoft.com/purview/audit-solutions-overview) | [connectors/office-365.md](connectors/office-365.md) |
 | 6.3 | Microsoft Copilot connector (Sentinel reference) | [learn.microsoft.com](https://learn.microsoft.com/azure/sentinel/data-connectors-reference#microsoft-copilot) | [connectors/copilot-ai-governance.md](connectors/copilot-ai-governance.md) |
 | 6.4 | Intune — review logs using Azure Monitor | [learn.microsoft.com](https://learn.microsoft.com/en-us/mem/intune/fundamentals/review-logs-using-azure-monitor) | [connectors/microsoft-intune.md](connectors/microsoft-intune.md) |
@@ -311,7 +313,7 @@ Auto-generated Sentinel solutions / connectors / tables reference by **Ofer Shez
 | 13.11 | Defender for Cloud (tenant-based) connector | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/microsoftdefenderforcloudtenantbased.md) | [connectors/microsoft-defender-for-cloud.md](connectors/microsoft-defender-for-cloud.md) |
 | 13.12 | Microsoft Threat Protection (Defender XDR) connector | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/microsoftthreatprotection.md) | [connectors/microsoft-defender-xdr.md](connectors/microsoft-defender-xdr.md) |
 | 13.13 | Azure Active Directory connector | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/azureactivedirectory.md) | [connectors/microsoft-entra-id.md](connectors/microsoft-entra-id.md) |
-| 13.14 | Microsoft Purview Information Protection connector | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/microsoftpurviewinformationprotection.md) | [connectors/microsoft-purview.md](connectors/microsoft-purview.md) |
+| 13.14 | Microsoft Purview Information Protection connector | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/microsoftpurviewinformationprotection.md) | [connectors/microsoft-purview-information-protection.md](connectors/microsoft-purview-information-protection.md) |
 | 13.15 | Office 365 connector | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/office365.md) | [connectors/office-365.md](connectors/office-365.md) |
 | 13.16 | Syslog (via AMA) connector | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/syslogama.md) | [connectors/syslog-linux.md](connectors/syslog-linux.md) |
 | 13.17 | CEF (via AMA) connector | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/cefama.md) | [connectors/third-party-network-appliances.md](connectors/third-party-network-appliances.md) |
