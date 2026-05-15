@@ -277,6 +277,12 @@ Per-event pages on [learn.microsoft.com/windows/security/threat-protection/audit
 | 11.19 | matro7sh/BypassAV mindmap (AV/EDR bypass techniques) | matro7sh | [github.com/matro7sh/BypassAV](https://github.com/matro7sh/BypassAV) | [guidance/layered-detection.md](guidance/layered-detection.md) |
 | 11.20 | GitHub Docs — audit log streaming (Enterprise Cloud) | GitHub | [docs.github.com](https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise) | [connectors/github-enterprise.md](connectors/github-enterprise.md) |
 | 11.21 | GitHub Docs — GitHub Advanced Security | GitHub | [docs.github.com](https://docs.github.com/en/get-started/learning-about-github/about-github-advanced-security) | [connectors/github-enterprise.md](connectors/github-enterprise.md) |
+| 11.22 | Bringing Microsoft Copilot Data Connector into your SOC | Shakirabdul31 (Medium) | [medium.com](https://medium.com/@shakirabdul31/bringing-microsoft-copilot-data-connector-into-your-soc-3e6811fc2135) | [connectors/copilot-ai-governance.md](connectors/copilot-ai-governance.md) |
+| 11.23 | Defending the AI Layer using Microsoft Sentinel’s Copilot Detection Use Cases | Shakirabdul31 (Medium) | [medium.com](https://medium.com/@shakirabdul31/defending-the-ai-layer-using-microsoft-sentinels-copilot-detection-use-cases-cd002c5bc29a) | [connectors/copilot-ai-governance.md](connectors/copilot-ai-governance.md) |
+| 11.24 | Monitor & detect Microsoft Copilot activity in Sentinel | Samik Roy (LinkedIn) | [linkedin.com](https://www.linkedin.com/pulse/monitor-detect-microsoft-copilot-activity-sentinel-samik-roy-fklzc/) | [connectors/copilot-ai-governance.md](connectors/copilot-ai-governance.md) |
+| 11.25 | Now generally available: License usage insights in Microsoft Entra | Microsoft Entra blog | [techcommunity.microsoft.com](https://techcommunity.microsoft.com/blog/microsoft-entra-blog/now-generally-available-license-usage-insights-in-microsoft-entra/4507463) | [connectors/microsoft-entra-id.md](connectors/microsoft-entra-id.md) |
+| 11.26 | Microsoft Entra license usage insights | Microsoft Learn | [learn.microsoft.com](https://learn.microsoft.com/en-us/entra/fundamentals/concept-license-usage-insights) | [connectors/microsoft-entra-id.md](connectors/microsoft-entra-id.md) |
+| 11.27 | Neo23x0/auditd releases | Florian Roth | [github.com/Neo23x0/auditd](https://github.com/Neo23x0/auditd/releases) | [connectors/syslog-linux.md](connectors/syslog-linux.md) |
 
 ---
 

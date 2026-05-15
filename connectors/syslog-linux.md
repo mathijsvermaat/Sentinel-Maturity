@@ -174,7 +174,7 @@ Ensure the Linux server's rsyslog (or syslog-ng) is configured to generate the r
 - Linux syslog does **not natively log process execution** like Windows 4688 — for process-level visibility, rely on MDE's DeviceProcessEvents or deploy `auditd` with process tracking rules (Tier 2 consideration)
 - For **containers and Kubernetes nodes**, syslog captures host-level events but not container-internal activity — consider Container Insights for Tier 2
 - If you use **CEF-formatted logs** from network appliances forwarded via Linux syslog, these go to the `CommonSecurityLog` table — that's a separate connector consideration
-- For high-security environments, consider deploying **auditd** with STIG-compliant rules and forwarding via syslog (Tier 2/3) — this provides process execution, file access, and syscall monitoring comparable to Windows Security Events
+- For high-security environments, consider deploying **auditd** with STIG-compliant rules and forwarding via syslog (Tier 2/3) — this provides process execution, file access, and syscall monitoring comparable to Windows Security Events. A maintained community baseline is [Neo23x0/auditd](https://github.com/Neo23x0/auditd/releases) by Florian Roth — v0.2.0 (telemetry-first, simplified) and v0.1.0 (broad historic baseline) are both released and CI-validated
 - Volume is typically much lower than Windows Security Events, but note that **neither** the general `Syslog` table **nor** `LinuxAuditLog` is covered by the Defender for Servers P2 pooled allowance — both are billed at standard ingestion rates. For cost-sensitive deployments, rely on DCR filtering (facility/severity), KQL transformations, and Basic / Auxiliary log tiers rather than the P2 benefit
 
 ### Why Layered Logging Matters for Linux Servers
@@ -211,5 +211,6 @@ Just as with Windows, relying solely on EDR for Linux server security leaves gap
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
 | Sentinel Ninja — Syslog via AMA connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/syslogama.md) |
+| Neo23x0/auditd releases | Florian Roth | Maintained auditd ruleset baseline — v0.2.0 is the streamlined telemetry-first ruleset (detection logic moved downstream to SIGMA/SIEM); v0.1.0 preserves the broad historic master baseline. A solid starting point for `LinuxAuditLog` collection via AMA | [github.com](https://github.com/Neo23x0/auditd/releases) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

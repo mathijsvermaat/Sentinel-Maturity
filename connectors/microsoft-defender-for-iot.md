@@ -103,8 +103,4 @@ OT/IoT environments are increasingly targeted: ransomware impacting manufacturin
 
 ---
 
-### Admin portal
-
-- [Microsoft Defender portal](https://security.microsoft.com/) — review Defender for IoT / OT alerts and configure the Sentinel data connector.
-
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)

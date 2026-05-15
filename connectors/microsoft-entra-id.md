@@ -171,10 +171,12 @@ The Microsoft Entra ID (formerly Azure AD) connector is **essential for every Se
 | Microsoft Entra ID Protection overview | Overview of risk-based identity protection features | [learn.microsoft.com](https://learn.microsoft.com/en-us/entra/id-protection/overview-identity-protection) |
 | Risky users and risk detections | Investigating identity risk signals | [learn.microsoft.com](https://learn.microsoft.com/en-us/entra/id-protection/howto-identity-protection-investigate-risk) |
 | Workload identity risk | Risk detection for service principals and managed identities | [learn.microsoft.com](https://learn.microsoft.com/en-us/entra/id-protection/concept-workload-identity-risk) |
+| Microsoft Entra license usage insights | GA experience in **Billing > Licenses** — shows entitlements (Entra ID P1/P2, Entra Suite, standalone SKUs), six-month usage trends, and which identity protections are actively in use vs. licensed-but-unused. Use it to confirm risk-based access policies, Identity Protection, PIM, and other security features are actually enforcing before relying on them in Sentinel detections | [learn.microsoft.com](https://learn.microsoft.com/en-us/entra/fundamentals/concept-license-usage-insights) |
+| Now generally available: License usage insights in Microsoft Entra | Announcement blog — covers what's new in GA (six-month trends, active vs. guest split, Copilot prompt suggestions) | [techcommunity.microsoft.com](https://techcommunity.microsoft.com/blog/microsoft-entra-blog/now-generally-available-license-usage-insights-in-microsoft-entra/4507463) |
 
 ### Admin portal
 
-- [Microsoft Entra admin centre](https://entra.microsoft.com/) — enable diagnostic settings for sign-in, audit, and provisioning logs; review Identity Protection signals.
+- [Microsoft Entra admin centre](https://entra.microsoft.com/) — enable diagnostic settings for sign-in, audit, and provisioning logs; review Identity Protection signals; **Billing > Licenses** for license usage insights (verify which Entra protections are licensed and actively in use).
   - Quick links via [cmd.ms](https://cmd.ms/) (see [References §14.6](../references.md#14-admin-portals)): [`enusers.cmd.ms`](https://enusers.cmd.ms/) (Users), [`enca.cmd.ms`](https://enca.cmd.ms/) (Conditional Access), [`enauth.cmd.ms`](https://enauth.cmd.ms/) (Authentication methods), [`enpim.cmd.ms`](https://enpim.cmd.ms/) (PIM), [`enar.cmd.ms`](https://enar.cmd.ms/) (Access reviews), [`enidp.cmd.ms`](https://enidp.cmd.ms/) (Identity Protection), [`ensign.cmd.ms`](https://ensign.cmd.ms/) (Sign-in logs), [`ensynclog.cmd.ms`](https://ensynclog.cmd.ms/) (Entra Connect sync errors).
 
 ### Community & Third-Party Resources

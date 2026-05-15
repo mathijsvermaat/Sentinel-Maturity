@@ -98,6 +98,8 @@ The Copilot/AI governance logging story in Sentinel is evolving rapidly. This pa
 - The primary security concern with M365 Copilot is **data oversharing** — Copilot surfaces everything the user has access to, making over-permissioned accounts a higher risk
 - For Azure OpenAI, enable **diagnostic settings** on the Cognitive Services resource to capture API call logs
 - Consider deploying Purview **Copilot governance policies** alongside Sentinel monitoring for preventive + detective controls
+- The Microsoft Copilot solution ships four **built-in analytic rules** out of the box covering the highest-value detection categories: `CopilotFileUploadsDisabled` (policy tampering), `CopilotJailbreakAttempt` (adversarial prompt manipulation, parses `LLMEventData.Messages[0].JailbreakDetected`), `CopilotPluginCreatedByNonAdmin` (unauthorised plugin extension), and `CopilotPluginTampering` (plugin supply-chain / insider risk). Deploy these first, then layer custom KQL on `CopilotActivity` for volume, geographic, and after-hours anomalies
+- The `LLMEventData` dynamic field carries the AI interaction context (model, workload, jailbreak signals) that no traditional log source provides — parsing and correlating it is the core skill for Copilot detection engineering
 
 ---
 
@@ -129,5 +131,8 @@ The Copilot/AI governance logging story in Sentinel is evolving rapidly. This pa
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
 | Sentinel Ninja — Microsoft Copilot connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/microsoftcopilot.md) |
+| Bringing Microsoft Copilot Data Connector into your SOC | Shakirabdul31 (Medium) | Overview of the GA Copilot solution and walkthrough of the four built-in analytic rules (`CopilotFileUploadsDisabled`, `CopilotJailbreakAttempt`, `CopilotPluginCreatedByNonAdmin`, `CopilotPluginTampering`) | [medium.com](https://medium.com/@shakirabdul31/bringing-microsoft-copilot-data-connector-into-your-soc-3e6811fc2135) |
+| Defending the AI Layer using Microsoft Sentinel’s Copilot Detection Use Cases | Shakirabdul31 (Medium) | Three custom scheduled-analytics rules against `CopilotActivity` — high-volume interaction spike, anomalous geographic region, and after-hours elevated volume; introduces parsing patterns for `LLMEventData` | [medium.com](https://medium.com/@shakirabdul31/defending-the-ai-layer-using-microsoft-sentinels-copilot-detection-use-cases-cd002c5bc29a) |
+| Monitor & detect Microsoft Copilot activity in Sentinel | Samik Roy (LinkedIn) | Practitioner walkthrough of the Microsoft Copilot connector and SOC monitoring patterns | [linkedin.com](https://www.linkedin.com/pulse/monitor-detect-microsoft-copilot-activity-sentinel-samik-roy-fklzc/) |
 
 [← Back to Connectors](README.md) · [← Back to Sentinel Maturity Model](../README.md)
