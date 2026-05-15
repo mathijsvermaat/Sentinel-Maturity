@@ -9,7 +9,7 @@
 - [Microsoft Defender for IoT](#microsoft-defender-for-iot)
   - [Contents](#contents)
   - [Overview](#overview)
-    - [Licensing Benefits](#licensing-benefits)
+    - [Licensing Prerequisites](#licensing-prerequisites)
   - [Tables and Rationale](#tables-and-rationale)
   - [Example Detections](#example-detections)
   - [MCSB Control Mapping](#mcsb-control-mapping)
@@ -26,15 +26,15 @@ Microsoft Defender for IoT provides **network-layer threat detection** for OT (O
 
 OT/IoT environments are increasingly targeted: ransomware impacting manufacturing, attacks on critical infrastructure, and weaponised IoT botnets. Traditional IT security tools have no visibility into these environments. Defender for IoT closes this gap by detecting protocol anomalies, unauthorized PLC programming changes, known OT-specific threats, and network policy violations.
 
-### Licensing Benefits
+### Licensing Prerequisites
 
-| License | What it unlocks |
-|:--------|:----------------|
-| **Defender for IoT (per-device)** | OT/IoT network sensor deployment, asset discovery, vulnerability assessment, and threat detection |
-| **Defender for IoT (Enterprise IoT)** | Enterprise IoT device discovery and monitoring — integrated with Defender for Endpoint |
+| Licence | Scope |
+|:--------|:------|
+| **Defender for IoT — OT monitoring (site-based)** | Annual per-site licence covering OT/ICS environments. Five tiers from 100 to 5000 devices per site, regardless of device type (OT, IT, IoT). Required to deploy the network sensor and generate OT alerts |
+| **Defender for IoT — Enterprise IoT (EIoT)** | Included in **Microsoft 365 E5 / E5 Security** at 5 devices per user licence, or as the standalone *Microsoft Defender for IoT — EIoT Device License add-on*. **Requires Microsoft Defender for Endpoint P2** as a hard prerequisite in both cases |
 
 > [!NOTE]
-> `SecurityAlert` from Defender for IoT is a **free data source** in Sentinel. Device inventory and recommendation data incur ingestion cost. OT sensor deployment requires network TAP or SPAN port access.
+> Unlike most paid licences in this model, Defender for IoT does **not** provide a Sentinel-side ingestion benefit — the licence is a prerequisite to operate the product itself. That said, `SecurityAlert` from Defender for IoT is a **free data source** in Sentinel for every customer. Device inventory and recommendation data incur standard ingestion cost. OT sensor deployment requires network TAP or SPAN port access.
 
 ---
 
