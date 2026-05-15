@@ -9,7 +9,7 @@
 - [VNet Flow Logs \& Traffic Analytics](#vnet-flow-logs--traffic-analytics)
   - [Contents](#contents)
   - [Overview](#overview)
-    - [Licensing Benefits](#licensing-benefits)
+    - [Components](#components)
   - [Tables and Rationale](#tables-and-rationale)
   - [Example Detections](#example-detections)
     - [Lateral Movement](#lateral-movement)
@@ -37,10 +37,10 @@ While Azure Firewall logs cover traffic at the centralised egress/ingress point,
 > [!IMPORTANT]
 > VNet Flow Logs replace NSG Flow Logs. Microsoft recommends disabling NSG Flow Logs before enabling VNet Flow Logs on the same workloads to avoid duplicate traffic recording and additional costs. The `NTANetAnalytics` table replaces `AzureNetworkAnalytics_CL`.
 
-### Licensing Benefits
+### Components
 
-| License | What it unlocks |
-|:--------|:----------------|
+| Component | What it captures |
+|:----------|:-----------------|
 | **VNet Flow Logs** | Flow records at the VNet level — 5-tuple + byte/packet counts + flow state + encryption status |
 | **Traffic Analytics** | Enriched flow analysis with geo, ASN, traffic patterns, anomaly detection |
 
