@@ -63,37 +63,54 @@
 
 <!--
   Curated list of MITRE Detection Strategies (https://attack.mitre.org/detectionstrategies/)
-  relevant to the techniques referenced on this page. Each strategy publishes
-  pseudo-code analytics keyed to ATT&CK data sources — use them as a blueprint
-  for writing or reviewing Sentinel analytic rules against this connector's
-  table(s).
+  relevant to the techniques referenced on this page. The third column lists the
+  EXACT log channels and event codes referenced by each strategy's analytic for
+  this connector's platform — taken verbatim from MITRE's published
+  `x_mitre_log_source_references` field. Never hand-pick "similar-looking"
+  events from this connector's own tables.
 
-  IMPORTANT — legacy / revoked technique IDs:
-  MITRE periodically revokes technique IDs and reorganises them under new IDs
-  (e.g. in April 2026 T1070.001, T1562, T1562.002, T1562.004 were revoked and
-  moved into the T1685 / T1686 family). Published Detection Strategies are only
-  attached to the *current* technique IDs. When building this section:
+  SOURCE OF TRUTH (in C:\Temp):
+    - build_mitre_map_v3.ps1            (regenerate after pulling a new STIX bundle)
+    - enterprise-attack.json            (MITRE STIX 2.1 bundle)
+    - tech_to_det_v3.csv                (summary: one row per CitedTech+Strategy)
+    - tech_to_det_v3_detail.csv         (one row per CitedTech+Strategy+Analytic+LogSource)
+                                        columns include Platform, Channel, EventCode
 
-    1. For each technique cited on the page, look it up in the MITRE STIX
-       enterprise-attack bundle.
-    2. If the technique has `revoked = true`, follow the `revoked-by`
-       relationship to the current technique and look up the strategy under
-       that current ID.
-    3. Show the legacy ID in the first column with "*(revoked → Txxxx.xxx)*"
-       so the reader can still match it against connector docs / Sentinel
-       rules that cite the legacy ID.
-    4. Only include the "no published strategy" note for techniques where
-       neither the legacy nor the current (post-revoked-by) technique has a
-       Detection Strategy.
+  HOW TO FILL THE THIRD COLUMN:
+    1. Rename the column header "MITRE Log Sources (<Platform>)" — substitute
+       this connector's primary platform: (Windows), (Linux), (macOS), (Azure),
+       (IaaS), (Containers), (Identity Provider), (SaaS), (Network Devices),
+       (ESXi), or (Office Suite).
+    2. Filter tech_to_det_v3_detail.csv by CitedTechId, DetId, Platform.
+    3. Group the remaining rows by Channel and concatenate EventCode values.
+       Render `` `Channel`: <codes> `` joined with ` · `.
+       Example: `` `Security`: 4624, 4648 · `Sysmon`: 1, 3, 22 ``
+    4. If no rows match the platform, write:
+       `*MITRE has not published a <Platform> analytic for this strategy*`
+    5. If matching rows are only non-`Security`-channel (Sysmon / System /
+       PowerShell only), still list them and append
+       `*(no \`Security\`-channel analytic published)*`.
 
-  The mapping CSV (`tech_to_det_v2.csv` in C:\Temp) already follows
-  `revoked-by` chains. Use it as the source of truth.
+  LEGACY / REVOKED TECHNIQUE IDs:
+    MITRE periodically revokes technique IDs and reorganises them under new IDs
+    (e.g. in April 2026 T1070.001, T1562, T1562.002, T1562.004 were revoked and
+    moved into the T1685 / T1686 family). Detection Strategies are only attached
+    to current technique IDs. Both v3 CSVs already follow the `revoked-by`
+    chain; show legacy IDs as `*(revoked → Txxxx.xxx)*`.
+
+    Only mark a technique as "no published strategy" (in the Example Detections
+    table) when NEITHER the legacy nor the current (post-revoked-by) technique
+    appears in tech_to_det_v3.csv.
 -->
 
-| Technique | Detection Strategy | Relevant Event IDs / Tables |
-|:----------|:-------------------|:----------------------------|
-| [Txxxx.xxx](https://attack.mitre.org/techniques/Txxxx/xxx/) — [Name] | [DET####](https://attack.mitre.org/detectionstrategies/DET####/) — [Strategy name] | [Event IDs or tables on this page that map to this strategy] |
-| [Txxxx.xxx](https://attack.mitre.org/techniques/Txxxx/xxx/) — [Name] *(revoked → [Tyyyy.yyy](https://attack.mitre.org/techniques/Tyyyy/yyy/))* | [DET####](https://attack.mitre.org/detectionstrategies/DET####/) — [Strategy name] | [Event IDs or tables] |
+| Technique | Detection Strategy | MITRE Log Sources (<Platform>) |
+|:----------|:-------------------|:-------------------------------|
+| [Txxxx.xxx](https://attack.mitre.org/techniques/Txxxx/xxx/) — [Name] | [DET####](https://attack.mitre.org/detectionstrategies/DET####/) — [Strategy name] | `Channel`: <codes> · `Channel`: <codes> |
+| [Txxxx.xxx](https://attack.mitre.org/techniques/Txxxx/xxx/) — [Name] *(revoked → [Tyyyy.yyy](https://attack.mitre.org/techniques/Tyyyy/yyy/))* | [DET####](https://attack.mitre.org/detectionstrategies/DET####/) — [Strategy name] | `Channel`: <codes> |
+| [Txxxx.xxx](https://attack.mitre.org/techniques/Txxxx/xxx/) — [Name] | [DET####](https://attack.mitre.org/detectionstrategies/DET####/) — [Strategy name] | *MITRE has not published a [Platform] analytic for this strategy* |
+
+> [!NOTE]
+> **Log sources are verbatim from MITRE.** The third column is generated directly from each strategy's published `x_mitre_log_source_references` field in the [ATT&CK STIX 2.1 bundle](https://github.com/mitre-attack/attack-stix-data). If the cell shows only `Sysmon` or `PowerShell` events, that is exactly what MITRE's analytic queries; the page-author has **not** substituted similar-looking events from this connector's tables.
 
 > [!NOTE]
 > *(Include only if the page cites any revoked techniques)* **MITRE legacy technique IDs.** Some technique IDs cited on this page are *legacy* IDs that MITRE later revoked and moved to a new family. Detection Strategies are attached to the current technique IDs — the parenthetical *(revoked → Txxxx.xxx)* in each row shows the current ID. Pages may continue to cite legacy IDs because that is what Microsoft Sentinel docs and built-in analytic rules still reference.
@@ -127,6 +144,28 @@
   
   ## Key Events to Monitor
      Example: Specific log patterns to watch for (Syslog page)
+
+  ## Key Events by Tier (per-event-ID tier table)
+     Used when a connector defines collection tiers (Minimal / Common / Full) and
+     enumerates individual Event IDs per tier (see windows-security-events.md).
+     Columns:
+       | Event ID | Description | Minimal | Common | Full | Rationale | Forensic Value | MITRE | Example Detection |
+
+     RULES:
+     - Rationale and Example Detection cells MUST NOT contain MCSB control IDs
+       (MCSB IM-1., MCSB PA-1., MCSB LT-3., …) or MITRE technique IDs
+       (MITRE T1136.001., trailing (T1110), (T1059.001), …). MCSB belongs in
+       the MCSB Control Mapping section; MITRE technique/strategy references
+       belong in the new MITRE column and the MITRE Detection Strategies section.
+     - MITRE column format: `[N mappings](#mitre-detection-strategies)` (or
+       `[1 mapping](#mitre-detection-strategies)`) where N = count of distinct
+       (CurrentTechId, DetId) pairs in tech_to_det_v3_detail.csv for
+       Platform = <connector's platform> and whose EventCode field matches the
+       row's Event ID (regex \bID\b — so EventCode=4624, 4648 matches both).
+       Use `—` when no MITRE analytic references the Event ID.
+     - The MITRE cell links to the page's own ## MITRE Detection Strategies
+       section (anchor #mitre-detection-strategies). Do NOT inline individual
+       technique or strategy links per row — that section is the canonical list.
 -->
 
 ## Notes
