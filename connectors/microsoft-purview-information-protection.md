@@ -126,6 +126,15 @@ Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detections
 
 ## Notes
 
+- This connector is in **Preview** — schema and behaviour may change. Validate KQL detections after Microsoft schema updates
+- This connector **replaces the retired Azure Information Protection (AIP) connector**. Disable AIP if previously enabled to avoid duplicate ingestion in `InformationProtectionLogs_CL`
+- DLP policy matches are **not** in this table — they appear in `OfficeActivity` (Tier 1) or as Defender XDR alerts in `AlertInfo` (Tier 1). Plan your DLP alert routing accordingly
+- Pair with the **Microsoft Purview (Data Map / Discovery)** connector for end-to-end coverage: that connector tells you *where* sensitive data lives; this connector tells you *what users do* with labelled documents
+- The highest detection value comes from **correlating** Purview IP events with identity and endpoint tables — label downgrade + mass download + unusual sign-in = strong insider threat signal
+- Ensure your organisation has a deployed **sensitivity label taxonomy** before enabling this connector — without labels applied, the table will be sparse
+
+---
+
 ## Tools
 
 | Tool | Type | Purpose | Source | Guide |
