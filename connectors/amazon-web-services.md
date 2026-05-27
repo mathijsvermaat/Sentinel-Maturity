@@ -15,6 +15,7 @@
     - [IAM and Access](#iam-and-access)
     - [Resource Security](#resource-security)
     - [Threat Detection](#threat-detection)
+  - [MITRE Detection Strategies](#mitre-detection-strategies)
   - [MCSB Control Mapping](#mcsb-control-mapping)
   - [Important Considerations](#important-considerations)
     - [Connector Architecture](#connector-architecture)
@@ -49,9 +50,9 @@ The ACSC logging guidance treats cloud logging as a **generic requirement** — 
 
 | Table | Description | Retention Recommendation | Rationale | Forensic Value | Example Detection |
 |:------|:------------|:------------------------|:----------|:---------------|:------------------|
-| **AWSCloudTrail** | All AWS API calls — IAM actions, resource CRUD, console logins, security group changes, S3 operations | Analytics: 90d / Lake: 365d | **Core AWS control plane audit trail.** Equivalent of AzureActivity for AWS. Detects unauthorized resource deployment, IAM privilege escalation, security group modifications, and S3 exfiltration. MCSB LT-3. | Proves exactly which AWS API calls were made, by which principal, from which IP, and when. The authoritative evidence for AWS infrastructure investigations. | IAM user created with admin policy (T1136), security group opened to 0.0.0.0/0 (T1562.007), S3 bucket made public (T1530) |
-| **AWSGuardDuty** | Amazon GuardDuty findings — anomalous API activity, cryptocurrency mining, credential compromise | Analytics: 90d / Lake: 365d | AWS-native threat detection — complements behavioural detections in Sentinel. Equivalent of Defender for Cloud SecurityAlert for AWS. | Correlated AWS threat findings — proves that AWS-native detection identified suspicious activity, providing additional confidence alongside Sentinel analytics | GuardDuty finding for cryptocurrency mining instance (T1496) |
-| **AWSVPCFlow** | VPC Flow Logs — network traffic metadata for AWS VPCs (source/dest IP, port, protocol, action) | Analytics: 90d / Lake: 365d | AWS network visibility — equivalent of NSG Flow Logs. Detects lateral movement within AWS VPCs. MCSB LT-4. | Network flow evidence for AWS workloads — proves which EC2 instances communicated with each other and with external IPs | Lateral movement between EC2 instances (T1021), outbound C2 from compromised instance (T1071) |
+| **AWSCloudTrail** | All AWS API calls — IAM actions, resource CRUD, console logins, security group changes, S3 operations | Analytics: 90d / Lake: 365d | **Core AWS control plane audit trail.** Equivalent of AzureActivity for AWS. Detects unauthorized resource deployment, IAM privilege escalation, security group modifications, and S3 exfiltration. | Proves exactly which AWS API calls were made, by which principal, from which IP, and when. The authoritative evidence for AWS infrastructure investigations. | IAM user created with admin policy, security group opened to 0.0.0.0/0, S3 bucket made public |
+| **AWSGuardDuty** | Amazon GuardDuty findings — anomalous API activity, cryptocurrency mining, credential compromise | Analytics: 90d / Lake: 365d | AWS-native threat detection — complements behavioural detections in Sentinel. Equivalent of Defender for Cloud SecurityAlert for AWS. | Correlated AWS threat findings — proves that AWS-native detection identified suspicious activity, providing additional confidence alongside Sentinel analytics | GuardDuty finding for cryptocurrency mining instance |
+| **AWSVPCFlow** | VPC Flow Logs — network traffic metadata for AWS VPCs (source/dest IP, port, protocol, action) | Analytics: 90d / Lake: 365d | AWS network visibility — equivalent of NSG Flow Logs. Detects lateral movement within AWS VPCs. | Network flow evidence for AWS workloads — proves which EC2 instances communicated with each other and with external IPs | Lateral movement between EC2 instances, outbound C2 from compromised instance |
 
 ---
 
@@ -59,30 +60,61 @@ The ACSC logging guidance treats cloud logging as a **generic requirement** — 
 
 ### IAM and Access
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| IAM user created with admin policy | AWSCloudTrail | T1136 | CreateUser + AttachUserPolicy with AdministratorAccess — privilege escalation |
-| Console login without MFA | AWSCloudTrail | T1078 | ConsoleLogin event without MFA — potential compromised credentials |
-| Access key used from unusual IP | AWSCloudTrail | T1078 | API calls from an IP not seen in baseline access patterns for this key |
-| AssumeRole from unexpected source | AWSCloudTrail | T1550 | Cross-account role assumption from an account not in the trusted relationship |
-| Root account usage | AWSCloudTrail | T1078.004 | Any API call from the AWS root account — should be extremely rare |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| IAM user created with admin policy | AWSCloudTrail | [T1136](https://attack.mitre.org/techniques/T1136/) | [DET0583](https://attack.mitre.org/detectionstrategies/DET0583/) — Create Account | CreateUser + AttachUserPolicy with AdministratorAccess — privilege escalation |
+| Console login without MFA | AWSCloudTrail | [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) — Valid Account Abuse | ConsoleLogin event without MFA — potential compromised credentials |
+| Access key used from unusual IP | AWSCloudTrail | [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) — Valid Account Abuse | API calls from an IP not seen in baseline access patterns for this key |
+| AssumeRole from unexpected source | AWSCloudTrail | [T1550](https://attack.mitre.org/techniques/T1550/) | [DET0338](https://attack.mitre.org/detectionstrategies/DET0338/) — Alternate Authentication Material | Cross-account role assumption from an account not in the trusted relationship |
+| Root account usage | AWSCloudTrail | [T1078.004](https://attack.mitre.org/techniques/T1078/004/) | [DET0546](https://attack.mitre.org/detectionstrategies/DET0546/) — Compromised Cloud Accounts | Any API call from the AWS root account — should be extremely rare |
 
 ### Resource Security
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| S3 bucket made public | AWSCloudTrail | T1530 | PutBucketPolicy or PutBucketAcl granting public access |
-| Security group opened to 0.0.0.0/0 | AWSCloudTrail | T1562.007 | AuthorizeSecurityGroupIngress with 0.0.0.0/0 — opens compute to internet |
-| CloudTrail logging disabled | AWSCloudTrail | T1562.008 | StopLogging or DeleteTrail — attacker disabling audit trail |
-| KMS key policy modified | AWSCloudTrail | T1098 | Changes to KMS key policies — potential data access escalation |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| S3 bucket made public | AWSCloudTrail | [T1530](https://attack.mitre.org/techniques/T1530/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) — Cloud Storage Exfiltration | PutBucketPolicy or PutBucketAcl granting public access |
+| Security group opened to 0.0.0.0/0 | AWSCloudTrail | [T1562.007](https://attack.mitre.org/techniques/T1562/007/) *(revoked &rarr; [T1686.001](https://attack.mitre.org/techniques/T1686/001/))* | [DET0424](https://attack.mitre.org/detectionstrategies/DET0424/) — Disable or Modify Cloud Firewall | AuthorizeSecurityGroupIngress with 0.0.0.0/0 — opens compute to internet |
+| CloudTrail logging disabled | AWSCloudTrail | [T1562.008](https://attack.mitre.org/techniques/T1562/008/) *(revoked &rarr; [T1685.002](https://attack.mitre.org/techniques/T1685/002/))* | [DET0289](https://attack.mitre.org/detectionstrategies/DET0289/) — Disable or Modify Cloud Log | StopLogging or DeleteTrail — attacker disabling audit trail |
+| KMS key policy modified | AWSCloudTrail | [T1098](https://attack.mitre.org/techniques/T1098/) | [DET0096](https://attack.mitre.org/detectionstrategies/DET0096/) — Account Manipulation | Changes to KMS key policies — potential data access escalation |
 
 ### Threat Detection
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| GuardDuty cryptocurrency finding | AWSGuardDuty | T1496 | EC2 instance flagged for cryptocurrency mining activity |
-| GuardDuty credential exfiltration | AWSGuardDuty | T1552 | Credential extracted from EC2 instance metadata service |
-| Unusual VPC traffic pattern | AWSVPCFlow | T1046 | Internal scanning or lateral movement within AWS VPCs |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| GuardDuty cryptocurrency finding | AWSGuardDuty | [T1496](https://attack.mitre.org/techniques/T1496/) | [DET0267](https://attack.mitre.org/detectionstrategies/DET0267/) — Resource Hijacking | EC2 instance flagged for cryptocurrency mining activity |
+| GuardDuty credential exfiltration | AWSGuardDuty | [T1552](https://attack.mitre.org/techniques/T1552/) | [DET0412](https://attack.mitre.org/detectionstrategies/DET0412/) — Unsecured Credentials | Credential extracted from EC2 instance metadata service |
+| Unusual VPC traffic pattern | AWSVPCFlow | [T1046](https://attack.mitre.org/techniques/T1046/) | [DET0376](https://attack.mitre.org/detectionstrategies/DET0376/) — Network Service Discovery | Internal scanning or lateral movement within AWS VPCs |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page. The **Connector Evidence (IaaS)** column translates MITRE's published cloud-analytic intent into the analogous AWS evidence available in this connector.
+
+| Technique | Detection Strategy | Connector Evidence (IaaS) |
+|:----------|:-------------------|:-----------|
+| [T1136](https://attack.mitre.org/techniques/T1136/) | [DET0583](https://attack.mitre.org/detectionstrategies/DET0583/) &mdash; Detection Strategy for T1136 - Create Account across platforms | `AWSCloudTrail`: `CreateUser`, `AttachUserPolicy`, and related IAM account-creation activity |
+| [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) &mdash; Detection of Valid Account Abuse Across Platforms | *MITRE has not published an IaaS analytic for this strategy* |
+| [T1550](https://attack.mitre.org/techniques/T1550/) | [DET0338](https://attack.mitre.org/detectionstrategies/DET0338/) &mdash; Behavioral Detection Strategy for Use Alternate Authentication Material (T1550) | `AWSCloudTrail`: `AssumeRole`, `GetCallerIdentity`, and other alternate-authentication API activity |
+| [T1078.004](https://attack.mitre.org/techniques/T1078/004/) | [DET0546](https://attack.mitre.org/detectionstrategies/DET0546/) &mdash; Detection of Abused or Compromised Cloud Accounts for Access and Persistence | `AWSCloudTrail`: `ConsoleLogin`, `AssumeRole`, `ListAccessKeys`, `CreateUser`, and other compromised-cloud-account behaviours |
+| [T1530](https://attack.mitre.org/techniques/T1530/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) &mdash; Multi-Platform Cloud Storage Exfiltration Behavior Chain | `AWSCloudTrail`: `GetObject`, `CopyObject`, bucket-access changes; `AWSVPCFlow`: unusual outbound transfer from S3 endpoints |
+| [T1562.007](https://attack.mitre.org/techniques/T1562/007/) *(revoked &rarr; [T1686.001](https://attack.mitre.org/techniques/T1686/001/))* | [DET0424](https://attack.mitre.org/detectionstrategies/DET0424/) &mdash; Detection Strategy for Disable or Modify Cloud Firewall | `AWSCloudTrail`: security-group ingress / egress rule changes and related network-control modification activity |
+| [T1562.008](https://attack.mitre.org/techniques/T1562/008/) *(revoked &rarr; [T1685.002](https://attack.mitre.org/techniques/T1685/002/))* | [DET0289](https://attack.mitre.org/detectionstrategies/DET0289/) &mdash; Detection Strategy for Disable or Modify Cloud Log | `AWSCloudTrail`: `StopLogging`, trail updates / deletion, or other logging-impairment operations |
+| [T1098](https://attack.mitre.org/techniques/T1098/) | [DET0096](https://attack.mitre.org/detectionstrategies/DET0096/) &mdash; Account Manipulation Behavior Chain Detection | *MITRE has not published an IaaS analytic for this strategy* |
+| [T1496](https://attack.mitre.org/techniques/T1496/) | [DET0267](https://attack.mitre.org/detectionstrategies/DET0267/) &mdash; Resource Hijacking Detection Strategy | `AWSCloudTrail`: `RunInstances` and related compute deployment activity; `AWSGuardDuty`: cryptocurrency-mining findings; `AWSVPCFlow`: mining-pool egress |
+| [T1552](https://attack.mitre.org/techniques/T1552/) | [DET0412](https://attack.mitre.org/detectionstrategies/DET0412/) &mdash; Detect Access or Search for Unsecured Credentials Across Platforms | *MITRE has not published an IaaS analytic for this strategy* |
+| [T1046](https://attack.mitre.org/techniques/T1046/) | [DET0376](https://attack.mitre.org/detectionstrategies/DET0376/) &mdash; Behavioral Detection Strategy for Network Service Discovery Across Platforms | *MITRE has not published an IaaS analytic for this strategy* |
+| [T1021](https://attack.mitre.org/techniques/T1021/) | [DET0269](https://attack.mitre.org/detectionstrategies/DET0269/) &mdash; Behavioral Detection Strategy for Remote Service Logins and Post-Access Activity | `AWSCloudTrail`: `ConsoleLogin`, `StartSession`; `AWSVPCFlow`: connections to administrative ports such as 22 and 3389 |
+| [T1071](https://attack.mitre.org/techniques/T1071/) | [DET0444](https://attack.mitre.org/detectionstrategies/DET0444/) &mdash; Detection of Command and Control Over Application Layer Protocols | *MITRE has not published an IaaS analytic for this strategy* |
+
+> [!NOTE]
+> **Connector-native evidence mapping.** MITRE's published Detection Strategies for the IaaS platform family sometimes mix source names across cloud vendors. To keep this page AWS-native and readable, the third column translates MITRE's analytic intent into the analogous evidence available in `AWSCloudTrail`, `AWSVPCFlow`, and `AWSGuardDuty`.
+
+> [!NOTE]
+> **MITRE legacy technique IDs.** Some technique IDs cited on this page are *legacy* IDs that MITRE has revoked and remapped: T1562.007 &rarr; T1686.001; T1562.008 &rarr; T1685.002. Published Detection Strategies are attached to the current technique IDs only; the table above follows the `revoked-by` chain so each strategy still applies to the legacy ID cited above.
+
+> [!TIP]
+> Detection Strategies are MITRE-published *pseudo-code analytics*, not vendor rules — they tell you **what** to correlate across data sources. Use them to validate that your Sentinel analytic rules and KQL hunting queries cover the published correlation logic.
 
 ---
 
