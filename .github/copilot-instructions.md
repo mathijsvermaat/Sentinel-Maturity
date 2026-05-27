@@ -121,40 +121,62 @@ Template: `connectors/_TEMPLATE.md`
 When a connector page enumerates individual Event IDs and their collection tier (e.g. the "Key Events by Tier" tables on `windows-security-events.md`), use the columns: `| Event ID | Description | Minimal | Common | Full | Rationale | Forensic Value | MITRE | Example Detection |`
 
 - **`Rationale` and `Example Detection` cells must not contain MCSB control IDs or MITRE technique IDs.** Strip phrases like `MCSB IM-1.`, `MCSB PA-1.`, `MCSB LT-3.`, `MITRE T1136.001.`, and trailing parentheticals like `(T1110)` / `(T1059.001)`. MCSB belongs in the `MCSB Control Mapping` section; MITRE technique/strategy references belong in the new `MITRE` column and the dedicated `MITRE Detection Strategies` section.
-- **`MITRE` column format**: `[N mappings](#mitre-detection-strategies)` (or `[1 mapping](#mitre-detection-strategies)`) where `N` is the count of distinct `(CurrentTechId, DetId)` pairs in `tech_to_det_v3_detail.csv` for `Platform = <connector's platform>` and whose `EventCode` field matches the row's Event ID (regex `\bID\b`, so comma-separated lists like `EventCode=4624, 4648` match both). When no MITRE analytic references the Event ID, render `—`.
+- **`MITRE` column format**: `[N mappings](#mitre-detection-strategies)` (or `[1 mapping](#mitre-detection-strategies)`) where `N` is the count of distinct `(CurrentTechId, DetId)` pairs in your local MITRE mapping detail export for `Platform = <connector's platform>` and whose `EventCode` field matches the row's Event ID (regex `\bID\b`, so comma-separated lists like `EventCode=4624, 4648` match both). When no MITRE analytic references the Event ID, render `—`.
 - The MITRE cell links to the page's own `## MITRE Detection Strategies` section (anchor `#mitre-detection-strategies`); do **not** inline individual technique or strategy links per row — the strategies section is the canonical list. Counts give a navigation cue ("this event has many published analytics; here are all of them in one place").
 
 ### MITRE Detection Strategies mapping
 
 The `## MITRE Detection Strategies` section maps every technique cited on the page to MITRE's [Detection Strategies catalogue](https://attack.mitre.org/detectionstrategies/) — pseudo-code analytics that describe what to correlate across data sources.
 
-**Source of truth**: the MITRE STIX 2.1 `enterprise-attack.json` bundle (cached at `C:\Temp\enterprise-attack.json`, source `github.com/mitre-attack/attack-stix-data`). The pre-built CSVs already follow `revoked-by` chains and now also resolve each strategy's per-analytic log sources:
+**Source of truth**: the MITRE STIX 2.1 `enterprise-attack` bundle (source `github.com/mitre-attack/attack-stix-data`). Maintainers may keep a local cached copy plus derived mapping exports, but the repo does **not** require any specific filesystem path or filename. The local mapping exports used for faster editing should follow `revoked-by` chains and resolve each strategy's per-analytic log sources:
 
-- `C:\Temp\tech_to_det_v3.csv` — one row per `(CitedTech, Strategy)`. Columns: `CitedTechId, CitedName, Revoked, CurrentTechId, CurrentName, DetId, DetName, DetUrl, AnalyticIds, Platforms, LogSources`.
-- `C:\Temp\tech_to_det_v3_detail.csv` — one row per `(CitedTech, Strategy, Analytic, LogSource)`. Columns: `CitedTechId, CitedName, Revoked, CurrentTechId, CurrentName, DetId, DetName, DetUrl, AnalyticId, AnalyticName, Platform, DataComponent, DataComponentId, Channel, EventCode`.
+- Summary export — one row per `(CitedTech, Strategy)` with fields such as `CitedTechId`, `CurrentTechId`, `DetId`, `DetName`, and high-level log-source metadata.
+- Detail export — one row per `(CitedTech, Strategy, Analytic, LogSource)` with fields such as `Platform`, `Channel`, and `EventCode`.
 
-Re-run `C:\Temp\build_mitre_map_v3.ps1` to refresh after pulling a new STIX bundle. Older `*_v2.csv` files are superseded — do **not** use them for the log-sources column.
+Refresh these derived files with your local MITRE-mapping build process after pulling a new STIX bundle. Older legacy mapping exports are superseded — do **not** use them for the log-sources column. If the derived exports are unavailable, work directly from the STIX bundle and MITRE ATT&CK technique / detection-strategy pages instead of assuming a local cache exists.
 
 **Build rules**:
 
 1. Extract every unique technique ID referenced anywhere on the page (regex `T\d{4}(\.\d{3})?`).
-2. For each technique, look it up in `tech_to_det_v3.csv`. If `Revoked = True`, MITRE has reorganised it — the `CurrentTechId` column gives the current ID and `DetId` / `DetName` are the strategy attached to that current technique. Render the technique cell as `[Txxxx.xxx](…) — [Name] *(revoked → [Tyyyy.yyy](…))*`.
-3. For the third column **MITRE Log Sources (<Platform>)** (e.g. `(Windows)` for `windows-security-events.md`, `(Linux)` for `syslog-linux.md`, `(Azure)` for Azure activity pages):
-   - Open `tech_to_det_v3_detail.csv` and filter rows by `CitedTechId = <T>`, `DetId = <DET>`, and `Platform = <connector's platform>`.
+2. For each technique, look it up in your local MITRE mapping summary export. If `Revoked = True`, MITRE has reorganised it — the `CurrentTechId` column gives the current ID and `DetId` / `DetName` are the strategy attached to that current technique. Render the technique cell as `[Txxxx.xxx](…) — [Name] *(revoked → [Tyyyy.yyy](…))*`.
+3. For the third column on raw-channel pages:
+   - Use **MITRE Log Sources (<Platform>)** when the connector's native channels and tables substantially align with MITRE's published `x_mitre_log_source_references` for that platform.
+   - Use **Connector Evidence (<Platform>)** when MITRE's published platform-family analytic is expressed through another vendor's concrete source names and repeating them verbatim would mislead readers on this page (for example `AWS:CloudTrail` on an Azure connector page, or mixed AWS/GCP exemplars on a single-cloud page). In that mode, translate MITRE's published analytic inputs into the analogous tables, operations, and telemetry on the current connector page.
+   - The goal is clarity for the connector reader: preserve MITRE's analytic intent, but do not imply that a connector emits another vendor's literal table names.
+4. For **MITRE Log Sources (<Platform>)** mode (e.g. `(Windows)` for `windows-security-events.md`, `(Linux)` for `syslog-linux.md`):
+   - Open your local MITRE mapping detail export and filter rows by `CitedTechId = <T>`, `DetId = <DET>`, and `Platform = <connector's platform>`.
    - Group the resulting rows by `Channel` (`Security`, `System`, `PowerShell`, `Sysmon`, `auditd:SYSCALL`, etc.) and concatenate the `EventCode` values within each group.
    - Render as `` `Channel`: <codes> `` joined with ` · `. Example: `` `Security`: 4624, 4648 · `Sysmon`: 1, 3, 22 ``.
    - Use the literal `Channel` and `EventCode` strings from the CSV — they come straight from MITRE's `x_mitre_log_source_references` (`name` and `channel` fields). **Do not substitute** "similar-looking" events from the connector's own Event-ID tables.
    - When no row matches the connector's platform, render the cell as `*MITRE has not published a <Platform> analytic for this strategy*`.
    - When the platform rows contain only non-`Security` channels (e.g. only `Sysmon`, `PowerShell`, `System`), still list them verbatim and add the suffix `*(no \`Security\`-channel analytic published)*` so the reader knows MITRE expects out-of-`Security`-channel data.
-4. Only mark a technique as `— *(no published strategy)*` in the `Example Detections` table when **neither** the cited nor the current `revoked-by` target appears in `tech_to_det_v3.csv` at all.
-5. Include a `> [!NOTE]` "log sources are verbatim from MITRE" callout in the `## MITRE Detection Strategies` section so readers understand the third column is not author-curated. Suggested wording:
-   > **Log sources are verbatim from MITRE.** The third column is generated directly from each strategy's published `x_mitre_log_source_references` field in the [ATT&CK STIX 2.1 bundle](https://github.com/mitre-attack/attack-stix-data). If the cell shows only `Sysmon` or `PowerShell` events, that is exactly what MITRE's analytic queries; the page-author has **not** substituted similar-looking events from this connector's tables.
-6. Include a `> [!NOTE]` legacy-ID callout whenever at least one row uses a revoked technique. Suggested wording:
+5. For **Connector Evidence (<Platform>)** mode, express the third column in this connector's own evidence terms: actual table names, operation names, event families, or telemetry categories available on the page. Preserve MITRE's analytic intent, but avoid foreign vendor table names. When no analogous evidence exists on the page, render the cell as `*No direct connector-native evidence mapped for this strategy*`.
+6. Only mark a technique as `— *(no published strategy)*` in the `Example Detections` table when **neither** the cited nor the current `revoked-by` target appears in your local MITRE mapping summary export.
+7. Include a `> [!NOTE]` callout in the `## MITRE Detection Strategies` section explaining which mode is in use:
+   - For **MITRE Log Sources** mode: keep the existing "log sources are verbatim from MITRE" wording.
+   - For **Connector Evidence** mode, use wording like:
+     > **Connector-native evidence mapping.** MITRE's published Detection Strategies for this platform family sometimes cite another vendor's concrete source names. To avoid implying a false 1:1 table match on this connector page, the third column translates MITRE's analytic intent into the analogous evidence available in this connector's own tables.
+8. Include a `> [!NOTE]` legacy-ID callout whenever at least one row uses a revoked technique. Suggested wording:
    > **MITRE legacy technique IDs.** Some technique IDs cited on this page are *legacy* IDs that MITRE later revoked and moved to a new family (e.g. in April 2026 `T1070.001`, `T1562.*` were revoked and moved into `T1685` / `T1686`). Detection Strategies are attached to the *current* technique IDs — the parenthetical *(revoked → Txxxx.xxx)* shows the current ID. Pages may continue to cite legacy IDs because that is what Microsoft Sentinel docs and built-in analytic rules still reference.
-7. Include a `> [!TIP]` reminding readers that Detection Strategies are pseudo-code analytics, not vendor rules — they describe *what* to correlate and should be used to validate Sentinel analytic-rule / KQL coverage.
-8. The same DET#### link must also appear in the corresponding row of the `## Example Detections` summary table.
+9. Include a `> [!TIP]` reminding readers that Detection Strategies are pseudo-code analytics, not vendor rules — they describe *what* to correlate and should be used to validate Sentinel analytic-rule / KQL coverage.
+10. The same DET#### link must also appear in the corresponding row of the `## Example Detections` summary table.
 
 **Do NOT** add DET#### inline to the per-Event-ID detail tables under `Tables and Rationale` — keep the mapping in the dedicated `## MITRE Detection Strategies` section and the `Example Detections` summary table only.
+
+### Raw-channel vs portal-abstracted connectors
+
+The `MITRE Log Sources (<Platform>)` column **only** belongs on connectors that ingest raw channels at the same abstraction level MITRE references in `x_mitre_log_source_references`. For connectors that surface telemetry through a vendor-normalised schema, the column is misleading and must be omitted.
+
+- **Raw-channel** (column included): `windows-security-events`, `windows-forwarded-events`, `syslog-linux`, `office-365` (m365 unified audit), `microsoft-entra-id` (signinlogs / audit), `amazon-web-services` (CloudTrail), `google-cloud-platform`, `iis-web-server-logs`, `dns-security-logs`, `azure-activity-logs`, `azure-firewall`, `azure-waf`, `azure-storage-account`, `azure-key-vault`, `vnet-flow-logs`, `third-party-network-appliances`, `azure-kubernetes-service`.
+- **Portal-abstracted** (omit log-sources column; render 2-column `| Technique | Detection Strategy |` table and add a `[!NOTE]` explaining why): `microsoft-defender-xdr`, `microsoft-defender-cloud-apps`, `microsoft-defender-for-cloud`, `microsoft-defender-for-iot`, `microsoft-intune`, `microsoft-purview-data-map`, `microsoft-purview-information-protection`, `copilot-ai-governance`, `sentinel-health`, `threat-intelligence`, `global-secure-access`, `sap`, `sql-database-audit`, `azure-devops`, `github-enterprise`, `custom-applications`.
+
+**When in doubt, omit the column.** The cost of an omitted column is small (readers still follow strategy links to MITRE's pages); the cost of a misleading column is high (readers assume their connector emits raw channels it does not).
+
+The rationale: MDE/MDI/MDO/MDCA, Defender for Cloud, Intune, Purview, etc. do **not** surface raw Sysmon / auditd / m365 unified audit / Okta events — they surface their own parsed tables (`DeviceProcessEvents`, `CloudAppEvents`, etc.). Listing MITRE's raw `log_sources` against those connectors implies a 1:1 mapping that doesn't exist. Use the strategy pages on attack.mitre.org for **what** to correlate; implement against the connector's own tables listed in `Tables and Rationale`.
+
+If you use a local helper such as `generate_strategies_section.ps1`, it should support both modes:
+- Raw-channel: `-Platform <Name>` (or `-Platform "A,B,C" -MultiPlatform` for cross-platform raw connectors).
+- Portal-abstracted: add `-NoLogSources`.
 
 **Do NOT** fill the log-sources column from the connector page's own Event-ID tables. If a strategy's MITRE-published analytic uses 4688 + Sysmon 13/14, write exactly that — do not "improve" it with 4946/4948/4956 because they look semantically related. This was the v2 mistake; the v3 CSV exists precisely to remove that temptation.
 
