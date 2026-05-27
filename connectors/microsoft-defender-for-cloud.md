@@ -19,6 +19,7 @@
   - [Example Detections](#example-detections)
     - [Cloud Workloads](#cloud-workloads)
     - [Posture and Compliance](#posture-and-compliance)
+  - [MITRE Detection Strategies](#mitre-detection-strategies)
   - [MCSB Control Mapping](#mcsb-control-mapping)
   - [Important Considerations](#important-considerations)
     - [Multi-Cloud Coverage](#multi-cloud-coverage)

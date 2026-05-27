@@ -7,16 +7,17 @@
 ## Contents
 
 - [Microsoft Defender for IoT](#microsoft-defender-for-iot)
-  - [Contents](#contents)
-  - [Overview](#overview)
-    - [Licensing Prerequisites](#licensing-prerequisites)
-  - [Tables and Rationale](#tables-and-rationale)
-  - [Example Detections](#example-detections)
-  - [MCSB Control Mapping](#mcsb-control-mapping)
-  - [Important Considerations](#important-considerations)
-  - [Notes](#notes)
-    - [Tools](#tools)
-  - [References](#references)
+	- [Contents](#contents)
+	- [Overview](#overview)
+		- [Licensing Prerequisites](#licensing-prerequisites)
+	- [Tables and Rationale](#tables-and-rationale)
+	- [Example Detections](#example-detections)
+	- [MITRE Detection Strategies](#mitre-detection-strategies)
+	- [MCSB Control Mapping](#mcsb-control-mapping)
+	- [Important Considerations](#important-considerations)
+	- [Notes](#notes)
+		- [Tools](#tools)
+	- [References](#references)
 
 ---
 
@@ -50,13 +51,30 @@ OT/IoT environments are increasingly targeted: ransomware impacting manufacturin
 
 ## Example Detections
 
-| Detection | Table(s) | MITRE ATT&CK (ICS) | Description |
-|:----------|:---------|:--------------------|:------------|
-| Unauthorized PLC programming | SecurityAlert (IoT) | T0839 | PLC program download or upload from an unauthorized engineering workstation |
-| OT network scan detected | SecurityAlert (IoT) | T0846 | Network reconnaissance activity within the OT network — ARP scanning, port scanning from IT segment |
-| Insecure industrial protocol usage | SecurityAlert (IoT) | T0869 | Unencrypted Modbus, DNP3, or OPC-UA communication detected — man-in-the-middle risk |
-| New device in OT network | SecurityAlert (IoT) | T0800 | Previously unseen device communicating on the OT network — unauthorized connection |
-| IT-to-OT lateral movement | SecurityAlert (IoT) | T0886 | Communication from IT network segment to OT devices — potential IT compromise spreading to OT |
+| Detection | Table(s) | MITRE ATT&CK (ICS) | Detection Strategy | Description |
+|:----------|:---------|:--------------------|:-------------------|:------------|
+| Unauthorized PLC programming | SecurityAlert (IoT) | [T0839](https://attack.mitre.org/techniques/T0839/) | — *(no published strategy)* | PLC program download or upload from an unauthorized engineering workstation |
+| OT network scan detected | SecurityAlert (IoT) | [T0846](https://attack.mitre.org/techniques/T0846/) | — *(no published strategy)* | Network reconnaissance activity within the OT network — ARP scanning, port scanning from IT segment |
+| Insecure industrial protocol usage | SecurityAlert (IoT) | [T0869](https://attack.mitre.org/techniques/T0869/) | — *(no published strategy)* | Unencrypted Modbus, DNP3, or OPC-UA communication detected — man-in-the-middle risk |
+| New device in OT network | SecurityAlert (IoT) | [T0800](https://attack.mitre.org/techniques/T0800/) | — *(no published strategy)* | Previously unseen device communicating on the OT network — unauthorized connection |
+| IT-to-OT lateral movement | SecurityAlert (IoT) | [T0886](https://attack.mitre.org/techniques/T0886/) | — *(no published strategy)* | Communication from IT network segment to OT devices — potential IT compromise spreading to OT |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T0839](https://attack.mitre.org/techniques/T0839/) | — *(no published strategy)* |
+| [T0846](https://attack.mitre.org/techniques/T0846/) | — *(no published strategy)* |
+| [T0869](https://attack.mitre.org/techniques/T0869/) | — *(no published strategy)* |
+| [T0800](https://attack.mitre.org/techniques/T0800/) | — *(no published strategy)* |
+| [T0886](https://attack.mitre.org/techniques/T0886/) | — *(no published strategy)* |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. It also cites ATT&CK for ICS techniques, and MITRE has not yet published Detection Strategy pages for the OT/ICS techniques referenced here.
 
 ---
 

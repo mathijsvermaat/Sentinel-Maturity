@@ -9,6 +9,7 @@
 - [Overview](#overview)
 - [Tables and Rationale](#tables-and-rationale)
 - [Example Detections](#example-detections)
+- [MITRE Detection Strategies](#mitre-detection-strategies)
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Important Considerations](#important-considerations)
 - [Notes](#notes)
@@ -52,21 +53,38 @@ The [Microsoft Entra ID](microsoft-entra-id.md) connector covers **authenticatio
 
 ### Internet Access (Web Proxy)
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Access to phishing domain | NetworkAccessTraffic | T1566.002 | User traffic to newly registered or threat intel-flagged domains |
-| Shadow IT discovery | NetworkAccessTraffic | — | Users accessing unapproved SaaS applications — build shadow IT baseline from traffic data |
-| Data exfiltration to personal cloud storage | NetworkAccessTraffic | T1567 | Large uploads to consumer cloud storage services (Dropbox, Google Drive, WeTransfer) |
-| C2 callback over HTTPS | NetworkAccessTraffic | T1071.001 | Repeated connections to low-reputation domain with consistent beacon pattern |
-| Web category policy violation | NetworkAccessTraffic | — | Access to blocked web categories (adult, gambling, malware) — indicates policy bypass attempt or compromised endpoint |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Access to phishing domain | NetworkAccessTraffic | [T1566.002](https://attack.mitre.org/techniques/T1566/002/) | [DET0107](https://attack.mitre.org/detectionstrategies/DET0107/) — Detection Strategy for Spearphishing Links | User traffic to newly registered or threat intel-flagged domains |
+| Shadow IT discovery | NetworkAccessTraffic | — | — | Users accessing unapproved SaaS applications — build shadow IT baseline from traffic data |
+| Data exfiltration to personal cloud storage | NetworkAccessTraffic | [T1567](https://attack.mitre.org/techniques/T1567/) | [DET0548](https://attack.mitre.org/detectionstrategies/DET0548/) — Detection Strategy for Exfiltration Over Web Service | Large uploads to consumer cloud storage services (Dropbox, Google Drive, WeTransfer) |
+| C2 callback over HTTPS | NetworkAccessTraffic | [T1071.001](https://attack.mitre.org/techniques/T1071/001/) | [DET0027](https://attack.mitre.org/detectionstrategies/DET0027/) — Detection of Web Protocol-Based C2 Over HTTP, HTTPS, or WebSockets | Repeated connections to low-reputation domain with consistent beacon pattern |
+| Web category policy violation | NetworkAccessTraffic | — | — | Access to blocked web categories (adult, gambling, malware) — indicates policy bypass attempt or compromised endpoint |
 
 ### Private Access (ZTNA)
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Unusual private app access | NetworkAccessTraffic | T1078 | User accessing private applications they have never accessed before — possible lateral movement via ZTNA |
-| After-hours private app access | NetworkAccessTraffic | T1078 | Private application access outside normal business hours — investigate with identity context |
-| Failed private app connections | NetworkAccessTraffic | T1021 | Repeated connection failures to private applications — may indicate reconnaissance or misconfigured stolen credentials |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Unusual private app access | NetworkAccessTraffic | [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) — Detection of Valid Account Abuse Across Platforms | User accessing private applications they have never accessed before — possible lateral movement via ZTNA |
+| After-hours private app access | NetworkAccessTraffic | [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) — Detection of Valid Account Abuse Across Platforms | Private application access outside normal business hours — investigate with identity context |
+| Failed private app connections | NetworkAccessTraffic | [T1021](https://attack.mitre.org/techniques/T1021/) | [DET0269](https://attack.mitre.org/detectionstrategies/DET0269/) — Behavioral Detection Strategy for Remote Service Logins and Post-Access Activity | Repeated connection failures to private applications — may indicate reconnaissance or misconfigured stolen credentials |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T1566.002](https://attack.mitre.org/techniques/T1566/002/) | [DET0107](https://attack.mitre.org/detectionstrategies/DET0107/) &mdash; Detection Strategy for Spearphishing Links |
+| [T1567](https://attack.mitre.org/techniques/T1567/) | [DET0548](https://attack.mitre.org/detectionstrategies/DET0548/) &mdash; Detection Strategy for Exfiltration Over Web Service |
+| [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) &mdash; Detection of Valid Account Abuse Across Platforms |
+| [T1071.001](https://attack.mitre.org/techniques/T1071/001/) | [DET0027](https://attack.mitre.org/detectionstrategies/DET0027/) &mdash; Detection of Web Protocol-Based C2 Over HTTP, HTTPS, or WebSockets |
+| [T1021](https://attack.mitre.org/techniques/T1021/) | [DET0269](https://attack.mitre.org/detectionstrategies/DET0269/) &mdash; Behavioral Detection Strategy for Remote Service Logins and Post-Access Activity |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. `NetworkAccessTraffic` is identity-enriched proxy and ZTNA telemetry, not the raw DNS, proxy, or firewall channels that MITRE strategies may cite.
 
 ---
 

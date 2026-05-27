@@ -7,22 +7,23 @@
 ## Contents
 
 - [Threat Intelligence Platforms](#threat-intelligence-platforms)
-  - [Contents](#contents)
-  - [Overview](#overview)
-    - [Threat Intelligence Sources in Sentinel](#threat-intelligence-sources-in-sentinel)
-    - [Licensing Benefits](#licensing-benefits)
-  - [Tables and Rationale](#tables-and-rationale)
-  - [Example Detections](#example-detections)
-    - [IOC Matching](#ioc-matching)
-    - [TI Quality and Lifecycle](#ti-quality-and-lifecycle)
-  - [MCSB Control Mapping](#mcsb-control-mapping)
-  - [Important Considerations](#important-considerations)
-    - [Sentinel Analytics Rules for TI](#sentinel-analytics-rules-for-ti)
-    - [Feed Quality](#feed-quality)
-    - [IOC Expiry](#ioc-expiry)
-  - [Notes](#notes)
-  - [Tools](#tools)
-  - [References](#references)
+	- [Contents](#contents)
+	- [Overview](#overview)
+		- [Threat Intelligence Sources in Sentinel](#threat-intelligence-sources-in-sentinel)
+		- [Licensing Benefits](#licensing-benefits)
+	- [Tables and Rationale](#tables-and-rationale)
+	- [Example Detections](#example-detections)
+		- [IOC Matching](#ioc-matching)
+		- [TI Quality and Lifecycle](#ti-quality-and-lifecycle)
+	- [MITRE Detection Strategies](#mitre-detection-strategies)
+	- [MCSB Control Mapping](#mcsb-control-mapping)
+	- [Important Considerations](#important-considerations)
+		- [Sentinel Analytics Rules for TI](#sentinel-analytics-rules-for-ti)
+		- [Feed Quality](#feed-quality)
+		- [IOC Expiry](#ioc-expiry)
+	- [Notes](#notes)
+	- [Tools](#tools)
+	- [References](#references)
 
 ---
 
@@ -67,21 +68,39 @@ Without TI, your detections rely entirely on behavioural analytics and custom ru
 
 ### IOC Matching
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| IP match — inbound connection | ThreatIntelIndicators + AZFWNetworkRule / CommonSecurityLog | T1190 | Inbound connection from a known malicious IP |
-| IP match — outbound C2 | ThreatIntelIndicators + DeviceNetworkEvents / AZFWApplicationRule | T1071 | Outbound connection to a known C2 IP |
-| Domain match — DNS resolution | ThreatIntelIndicators + AZFWDnsQuery / DnsEvents | T1071.004 | DNS query for a known malicious domain |
-| File hash match | ThreatIntelIndicators + DeviceFileEvents | T1204 | File on endpoint matching a known malware hash |
-| Email sender match | ThreatIntelligenceIndicator + EmailEvents | T1566 | Email received from a known threat actor email address |
-| URL match — user visited | ThreatIntelligenceIndicator + UrlClickEvents / NetworkAccessTraffic | T1566.002 | User visited a known phishing or malware delivery URL |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| IP match — inbound connection | ThreatIntelIndicators + AZFWNetworkRule / CommonSecurityLog | [T1190](https://attack.mitre.org/techniques/T1190/) | [DET0080](https://attack.mitre.org/detectionstrategies/DET0080/) — Exploit Public-Facing Application – multi-signal correlation (request → error → post-exploit process/egress) | Inbound connection from a known malicious IP |
+| IP match — outbound C2 | ThreatIntelIndicators + DeviceNetworkEvents / AZFWApplicationRule | [T1071](https://attack.mitre.org/techniques/T1071/) | [DET0444](https://attack.mitre.org/detectionstrategies/DET0444/) — Detection of Command and Control Over Application Layer Protocols | Outbound connection to a known C2 IP |
+| Domain match — DNS resolution | ThreatIntelIndicators + AZFWDnsQuery / DnsEvents | [T1071.004](https://attack.mitre.org/techniques/T1071/004/) | [DET0400](https://attack.mitre.org/detectionstrategies/DET0400/) — Behavioral Detection of DNS Tunneling and Application Layer Abuse | DNS query for a known malicious domain |
+| File hash match | ThreatIntelIndicators + DeviceFileEvents | [T1204](https://attack.mitre.org/techniques/T1204/) | [DET0478](https://attack.mitre.org/detectionstrategies/DET0478/) — User Execution – multi-surface behavior chain (documents/links → helper/unpacker → LOLBIN/child → egress) | File on endpoint matching a known malware hash |
+| Email sender match | ThreatIntelligenceIndicator + EmailEvents | [T1566](https://attack.mitre.org/techniques/T1566/) | [DET0070](https://attack.mitre.org/detectionstrategies/DET0070/) — Detection Strategy for Phishing across platforms. | Email received from a known threat actor email address |
+| URL match — user visited | ThreatIntelligenceIndicator + UrlClickEvents / NetworkAccessTraffic | [T1566.002](https://attack.mitre.org/techniques/T1566/002/) | [DET0107](https://attack.mitre.org/detectionstrategies/DET0107/) — Detection Strategy for Spearphishing Links | User visited a known phishing or malware delivery URL |
 
 ### TI Quality and Lifecycle
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| High-confidence IOC match | ThreatIntelligenceIndicator | — | Alert only on IOCs with confidence score ≥ 80 to reduce false positives |
-| Expired IOC still matching | ThreatIntelligenceIndicator | — | IOC past its expiry date still generating matches — may need refresh or removal |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| High-confidence IOC match | ThreatIntelligenceIndicator | — | — | Alert only on IOCs with confidence score ≥ 80 to reduce false positives |
+| Expired IOC still matching | ThreatIntelligenceIndicator | — | — | IOC past its expiry date still generating matches — may need refresh or removal |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T1071](https://attack.mitre.org/techniques/T1071/) | [DET0444](https://attack.mitre.org/detectionstrategies/DET0444/) &mdash; Detection of Command and Control Over Application Layer Protocols |
+| [T1071.004](https://attack.mitre.org/techniques/T1071/004/) | [DET0400](https://attack.mitre.org/detectionstrategies/DET0400/) &mdash; Behavioral Detection of DNS Tunneling and Application Layer Abuse |
+| [T1204](https://attack.mitre.org/techniques/T1204/) | [DET0478](https://attack.mitre.org/detectionstrategies/DET0478/) &mdash; User Execution &ndash; multi-surface behavior chain (documents/links &rarr; helper/unpacker &rarr; LOLBIN/child &rarr; egress) |
+| [T1190](https://attack.mitre.org/techniques/T1190/) | [DET0080](https://attack.mitre.org/detectionstrategies/DET0080/) &mdash; Exploit Public-Facing Application &ndash; multi-signal correlation (request &rarr; error &rarr; post-exploit process/egress) |
+| [T1566](https://attack.mitre.org/techniques/T1566/) | [DET0070](https://attack.mitre.org/detectionstrategies/DET0070/) &mdash; Detection Strategy for Phishing across platforms. |
+| [T1566.002](https://attack.mitre.org/techniques/T1566/002/) | [DET0107](https://attack.mitre.org/detectionstrategies/DET0107/) &mdash; Detection Strategy for Spearphishing Links |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. Threat intelligence matching is correlation across many downstream tables, so MITRE source names do not map 1:1 to a single native connector telemetry stream here.
 
 ---
 

@@ -17,6 +17,7 @@
 - [Overview](#overview)
 - [Tables and Rationale](#tables-and-rationale)
 - [Example Detections](#example-detections)
+- [MITRE Detection Strategies](#mitre-detection-strategies)
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Notes](#notes)
 - [Tools](#tools)
@@ -62,11 +63,25 @@ Configure on the **Purview account** in the Azure portal:
 
 ## Example Detections
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Sensitive data in unexpected location | PurviewDataSensitivityLogs | T1074 | Credit card numbers or PII discovered in a storage account, container, or SQL database not designated for sensitive data |
-| New high-sensitivity classifier match | PurviewDataSensitivityLogs | — | First detection of a custom or high-risk classifier (e.g. trade secrets, source code) — triggers data-owner review |
-| Crown jewels touched in incident | PurviewDataSensitivityLogs + StorageBlobLogs / AKSAudit / SigninLogs | T1530 | Correlate compromised resource (from incident) against assets known to contain sensitive data — fast blast-radius answer |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Sensitive data in unexpected location | PurviewDataSensitivityLogs | [T1074](https://attack.mitre.org/techniques/T1074/) | [DET0014](https://attack.mitre.org/detectionstrategies/DET0014/) — Detection of Data Staging Prior to Exfiltration | Credit card numbers or PII discovered in a storage account, container, or SQL database not designated for sensitive data |
+| New high-sensitivity classifier match | PurviewDataSensitivityLogs | — | — | First detection of a custom or high-risk classifier (e.g. trade secrets, source code) — triggers data-owner review |
+| Crown jewels touched in incident | PurviewDataSensitivityLogs + StorageBlobLogs / AKSAudit / SigninLogs | [T1530](https://attack.mitre.org/techniques/T1530/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) — Multi-Platform Cloud Storage Exfiltration Behavior Chain | Correlate compromised resource (from incident) against assets known to contain sensitive data — fast blast-radius answer |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T1074](https://attack.mitre.org/techniques/T1074/) | [DET0014](https://attack.mitre.org/detectionstrategies/DET0014/) &mdash; Detection of Data Staging Prior to Exfiltration |
+| [T1530](https://attack.mitre.org/techniques/T1530/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) &mdash; Multi-Platform Cloud Storage Exfiltration Behavior Chain |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. Purview Data Map identifies data sensitivity and location through service-native metadata, not the raw storage or identity channels cited by MITRE strategies.
 
 ---
 

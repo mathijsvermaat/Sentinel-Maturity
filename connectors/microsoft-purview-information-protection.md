@@ -23,6 +23,7 @@
   - [Example Detections](#example-detections)
     - [Data Protection](#data-protection)
     - [Insider Threat Correlation](#insider-threat-correlation)
+  - [MITRE Detection Strategies](#mitre-detection-strategies)
   - [MCSB Control Mapping](#mcsb-control-mapping)
   - [Notes](#notes)
   - [Tools](#tools)
@@ -79,18 +80,33 @@ Enable from the **Sentinel Data connectors** page:
 
 ### Data Protection
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Bulk sensitivity label downgrade | MicrosoftPurviewInformationProtection | T1565 | User downgrading labels on many documents in a short timeframe — potential data staging |
-| Sensitivity label removal | MicrosoftPurviewInformationProtection | T1565 | Removal of protection labels — may indicate preparation for exfiltration |
-| First-time labelling failure spike | MicrosoftPurviewInformationProtection | — | Spike in label-apply failures may indicate client-side tampering or policy misconfiguration |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Bulk sensitivity label downgrade | MicrosoftPurviewInformationProtection | [T1565](https://attack.mitre.org/techniques/T1565/) | [DET0059](https://attack.mitre.org/detectionstrategies/DET0059/) — Detection Strategy for Data Manipulation | User downgrading labels on many documents in a short timeframe — potential data staging |
+| Sensitivity label removal | MicrosoftPurviewInformationProtection | [T1565](https://attack.mitre.org/techniques/T1565/) | [DET0059](https://attack.mitre.org/detectionstrategies/DET0059/) — Detection Strategy for Data Manipulation | Removal of protection labels — may indicate preparation for exfiltration |
+| First-time labelling failure spike | MicrosoftPurviewInformationProtection | — | — | Spike in label-apply failures may indicate client-side tampering or policy misconfiguration |
 
 ### Insider Threat Correlation
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Label downgrade + mass download | MicrosoftPurviewInformationProtection + CloudAppEvents | T1530 | User downgrades labels then downloads the same files — strong insider threat indicator |
-| DLP policy match + external email | OfficeActivity + EmailEvents | T1048.003 | DLP detected sensitive content + the same user sent external email with attachments |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Label downgrade + mass download | MicrosoftPurviewInformationProtection + CloudAppEvents | [T1530](https://attack.mitre.org/techniques/T1530/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) — Multi-Platform Cloud Storage Exfiltration Behavior Chain | User downgrades labels then downloads the same files — strong insider threat indicator |
+| DLP policy match + external email | OfficeActivity + EmailEvents | [T1048.003](https://attack.mitre.org/techniques/T1048/003/) | [DET0149](https://attack.mitre.org/detectionstrategies/DET0149/) — Detection of Exfiltration Over Unencrypted Non-C2 Protocol | DLP detected sensitive content + the same user sent external email with attachments |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T1565](https://attack.mitre.org/techniques/T1565/) | [DET0059](https://attack.mitre.org/detectionstrategies/DET0059/) &mdash; Detection Strategy for Data Manipulation |
+| [T1530](https://attack.mitre.org/techniques/T1530/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) &mdash; Multi-Platform Cloud Storage Exfiltration Behavior Chain |
+| [T1048.003](https://attack.mitre.org/techniques/T1048/003/) | [DET0149](https://attack.mitre.org/detectionstrategies/DET0149/) &mdash; Detection of Exfiltration Over Unencrypted Non-C2 Protocol |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. Purview Information Protection surfaces label lifecycle events through service-native telemetry, not the raw mail, endpoint, or file-system channels MITRE strategies may cite.
 
 ---
 
@@ -109,15 +125,6 @@ Enable from the **Sentinel Data connectors** page:
 ---
 
 ## Notes
-
-- This connector is in **Preview** — schema and behaviour may change. Validate KQL detections after Microsoft schema updates
-- This connector **replaces the retired Azure Information Protection (AIP) connector**. Disable AIP if previously enabled to avoid duplicate ingestion in `InformationProtectionLogs_CL`
-- DLP policy matches are **not** in this table — they appear in `OfficeActivity` (Tier 1) or as Defender XDR alerts in `AlertInfo` (Tier 1). Plan your DLP alert routing accordingly
-- Pair with the **Microsoft Purview (Data Map / Discovery)** connector for end-to-end coverage: that connector tells you *where* sensitive data lives; this connector tells you *what users do* with labelled documents
-- The highest detection value comes from **correlating** Purview IP events with identity and endpoint tables — label downgrade + mass download + unusual sign-in = strong insider threat signal
-- Ensure your organisation has a deployed **sensitivity label taxonomy** before enabling this connector — without labels applied, the table will be sparse
-
----
 
 ## Tools
 

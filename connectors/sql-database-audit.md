@@ -12,6 +12,7 @@
     - [Licensing Benefits](#licensing-benefits)
   - [Tables and Rationale](#tables-and-rationale)
   - [Example Detections](#example-detections)
+  - [MITRE Detection Strategies](#mitre-detection-strategies)
   - [MCSB Control Mapping](#mcsb-control-mapping)
   - [Important Considerations](#important-considerations)
   - [Notes](#notes)
@@ -51,13 +52,32 @@ For organisations with databases containing sensitive data (PII, financial recor
 
 ## Example Detections
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Bulk data retrieval from sensitive tables | SQLSecurityAuditEvents | T1213 | Large SELECT queries against tables containing PII, financial data, or credentials |
-| SQL login from unusual IP | SQLSecurityAuditEvents | T1078 | Database authentication from an IP address not in the normal application/admin range |
-| Schema modification — new user or permission grant | SQLSecurityAuditEvents | T1098 | `CREATE USER`, `ALTER ROLE`, or `GRANT` statements indicating persistence or privilege escalation |
-| SQL injection that reached the database | SQLSecurityAuditEvents | T1190 | Query patterns containing SQL injection strings (`UNION SELECT`, `xp_cmdshell`, `EXEC`) that successfully executed |
-| Database export or backup to unusual location | SQLSecurityAuditEvents | T1567 | `COPY`, `BACKUP`, or `BCP` operations targeting locations outside normal backup paths |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Bulk data retrieval from sensitive tables | SQLSecurityAuditEvents | [T1213](https://attack.mitre.org/techniques/T1213/) | [DET0413](https://attack.mitre.org/detectionstrategies/DET0413/) — Abuse of Information Repositories for Data Collection | Large SELECT queries against tables containing PII, financial data, or credentials |
+| SQL login from unusual IP | SQLSecurityAuditEvents | [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) — Detection of Valid Account Abuse Across Platforms | Database authentication from an IP address not in the normal application/admin range |
+| Schema modification — new user or permission grant | SQLSecurityAuditEvents | [T1098](https://attack.mitre.org/techniques/T1098/) | [DET0096](https://attack.mitre.org/detectionstrategies/DET0096/) — Account Manipulation Behavior Chain Detection | `CREATE USER`, `ALTER ROLE`, or `GRANT` statements indicating persistence or privilege escalation |
+| SQL injection that reached the database | SQLSecurityAuditEvents | [T1190](https://attack.mitre.org/techniques/T1190/) | [DET0080](https://attack.mitre.org/detectionstrategies/DET0080/) — Exploit Public-Facing Application – multi-signal correlation (request → error → post-exploit process/egress) | Query patterns containing SQL injection strings (`UNION SELECT`, `xp_cmdshell`, `EXEC`) that successfully executed |
+| Database export or backup to unusual location | SQLSecurityAuditEvents | [T1567](https://attack.mitre.org/techniques/T1567/) | [DET0548](https://attack.mitre.org/detectionstrategies/DET0548/) — Detection Strategy for Exfiltration Over Web Service | `COPY`, `BACKUP`, or `BCP` operations targeting locations outside normal backup paths |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T1213](https://attack.mitre.org/techniques/T1213/) | [DET0413](https://attack.mitre.org/detectionstrategies/DET0413/) &mdash; Abuse of Information Repositories for Data Collection |
+| [T1110](https://attack.mitre.org/techniques/T1110/) | [DET0463](https://attack.mitre.org/detectionstrategies/DET0463/) &mdash; Brute Force Authentication Failures with Multi-Platform Log Correlation |
+| [T1530](https://attack.mitre.org/techniques/T1530/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) &mdash; Multi-Platform Cloud Storage Exfiltration Behavior Chain |
+| [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) &mdash; Detection of Valid Account Abuse Across Platforms |
+| [T1098](https://attack.mitre.org/techniques/T1098/) | [DET0096](https://attack.mitre.org/detectionstrategies/DET0096/) &mdash; Account Manipulation Behavior Chain Detection |
+| [T1190](https://attack.mitre.org/techniques/T1190/) | [DET0080](https://attack.mitre.org/detectionstrategies/DET0080/) &mdash; Exploit Public-Facing Application &ndash; multi-signal correlation (request &rarr; error &rarr; post-exploit process/egress) |
+| [T1567](https://attack.mitre.org/techniques/T1567/) | [DET0548](https://attack.mitre.org/detectionstrategies/DET0548/) &mdash; Detection Strategy for Exfiltration Over Web Service |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. SQL audit and Cosmos DB data-plane tables expose service-native operations, not the raw cross-platform source names MITRE strategies may cite.
 
 ---
 

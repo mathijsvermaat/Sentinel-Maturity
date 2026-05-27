@@ -7,18 +7,19 @@
 ## Contents
 
 - [Microsoft Copilot / AI Governance](#microsoft-copilot--ai-governance)
-  - [Contents](#contents)
-  - [Overview](#overview)
-    - [Current AI Log Sources](#current-ai-log-sources)
-    - [Licensing Benefits](#licensing-benefits)
-  - [Tables and Rationale](#tables-and-rationale)
-  - [Example Detections](#example-detections)
-    - [M365 Copilot](#m365-copilot)
-    - [Azure OpenAI](#azure-openai)
-  - [MCSB Control Mapping](#mcsb-control-mapping)
-  - [Notes](#notes)
-  - [Tools](#tools)
-  - [References](#references)
+	- [Contents](#contents)
+	- [Overview](#overview)
+		- [Current AI Log Sources](#current-ai-log-sources)
+		- [Licensing Benefits](#licensing-benefits)
+	- [Tables and Rationale](#tables-and-rationale)
+	- [Example Detections](#example-detections)
+		- [M365 Copilot](#m365-copilot)
+		- [Azure OpenAI](#azure-openai)
+	- [MITRE Detection Strategies](#mitre-detection-strategies)
+	- [MCSB Control Mapping](#mcsb-control-mapping)
+	- [Notes](#notes)
+	- [Tools](#tools)
+	- [References](#references)
 
 ---
 
@@ -62,19 +63,35 @@ The Copilot/AI governance logging story in Sentinel is evolving rapidly. This pa
 
 ### M365 Copilot
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Copilot surfacing restricted content | OfficeActivity | T1530 | Copilot responding with content from restricted SharePoint sites — indicates permission gap |
-| Excessive Copilot usage by single user | OfficeActivity | — | Abnormally high interaction volume — may indicate data harvesting via AI |
-| Copilot used during incident | OfficeActivity + SigninLogs | T1078 | Compromised account using Copilot to enumerate internal knowledge bases |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Copilot surfacing restricted content | OfficeActivity | [T1530](https://attack.mitre.org/techniques/T1530/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) — Multi-Platform Cloud Storage Exfiltration Behavior Chain | Copilot responding with content from restricted SharePoint sites — indicates permission gap |
+| Excessive Copilot usage by single user | OfficeActivity | — | — | Abnormally high interaction volume — may indicate data harvesting via AI |
+| Copilot used during incident | OfficeActivity + SigninLogs | [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) — Detection of Valid Account Abuse Across Platforms | Compromised account using Copilot to enumerate internal knowledge bases |
 
 ### Azure OpenAI
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Prompt injection attempt | AzureDiagnostics | T1059 | Request patterns indicative of prompt injection — unusual system message overrides |
-| Unauthorized API caller | AzureDiagnostics | T1078 | Azure OpenAI API called from unexpected service principal or IP |
-| Excessive token consumption | AzureDiagnostics | T1496 | Abnormal token usage — potential abuse of AI compute resources |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Prompt injection attempt | AzureDiagnostics | [T1059](https://attack.mitre.org/techniques/T1059/) | [DET0516](https://attack.mitre.org/detectionstrategies/DET0516/) — Behavioral Detection of Command and Scripting Interpreter Abuse | Request patterns indicative of prompt injection — unusual system message overrides |
+| Unauthorized API caller | AzureDiagnostics | [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) — Detection of Valid Account Abuse Across Platforms | Azure OpenAI API called from unexpected service principal or IP |
+| Excessive token consumption | AzureDiagnostics | [T1496](https://attack.mitre.org/techniques/T1496/) | [DET0267](https://attack.mitre.org/detectionstrategies/DET0267/) — Resource Hijacking Detection Strategy | Abnormal token usage — potential abuse of AI compute resources |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T1059](https://attack.mitre.org/techniques/T1059/) | [DET0516](https://attack.mitre.org/detectionstrategies/DET0516/) &mdash; Behavioral Detection of Command and Scripting Interpreter Abuse |
+| [T1530](https://attack.mitre.org/techniques/T1530/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) &mdash; Multi-Platform Cloud Storage Exfiltration Behavior Chain |
+| [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) &mdash; Detection of Valid Account Abuse Across Platforms |
+| [T1496](https://attack.mitre.org/techniques/T1496/) | [DET0267](https://attack.mitre.org/detectionstrategies/DET0267/) &mdash; Resource Hijacking Detection Strategy |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. It combines `OfficeActivity`, `SigninLogs`, and `AzureDiagnostics` across Copilot and Azure OpenAI, so MITRE source names do not map 1:1 to the telemetry shown here.
 
 ---
 

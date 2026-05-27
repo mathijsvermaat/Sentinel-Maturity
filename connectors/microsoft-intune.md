@@ -12,6 +12,7 @@
 - [Overview](#overview)
 - [Tables and Rationale](#tables-and-rationale)
 - [Example Detections](#example-detections)
+- [MITRE Detection Strategies](#mitre-detection-strategies)
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Notes](#notes)
 - [Tools](#tools)
@@ -52,13 +53,29 @@ This connector bridges endpoint **management** (Intune) with endpoint **detectio
 
 ### Endpoint Management
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Compliance policy disabled | IntuneAuditLogs | T1562.001 | Admin disabling a compliance policy — may indicate compromised admin credentials |
-| Bulk remote wipe triggered | IntuneAuditLogs | T1485 | Mass remote wipe actions across multiple devices — destructive action |
-| Privileged Intune role assigned | IntuneAuditLogs | T1098 | New user added to Intune Administrator or similar privileged role |
-| Device compliance drift | IntuneOperationalLogs | — | Devices moving from compliant to non-compliant — encryption disabled, OS outdated |
-| Stale device accessing resources | IntuneDevices + SigninLogs | T1078 | Device not checked in for 90+ days but still authenticating to resources |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Compliance policy disabled | IntuneAuditLogs | [T1562.001](https://attack.mitre.org/techniques/T1562/001/) | — *(no published strategy)* | Admin disabling a compliance policy — may indicate compromised admin credentials |
+| Bulk remote wipe triggered | IntuneAuditLogs | [T1485](https://attack.mitre.org/techniques/T1485/) | [DET0146](https://attack.mitre.org/detectionstrategies/DET0146/) — Detection of Data Destruction Across Platforms via Mass Overwrite and Deletion Patterns | Mass remote wipe actions across multiple devices — destructive action |
+| Privileged Intune role assigned | IntuneAuditLogs | [T1098](https://attack.mitre.org/techniques/T1098/) | [DET0096](https://attack.mitre.org/detectionstrategies/DET0096/) — Account Manipulation Behavior Chain Detection | New user added to Intune Administrator or similar privileged role |
+| Device compliance drift | IntuneOperationalLogs | — | — | Devices moving from compliant to non-compliant — encryption disabled, OS outdated |
+| Stale device accessing resources | IntuneDevices + SigninLogs | [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) — Detection of Valid Account Abuse Across Platforms | Device not checked in for 90+ days but still authenticating to resources |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T1562.001](https://attack.mitre.org/techniques/T1562/001/) | — *(no published strategy)* |
+| [T1485](https://attack.mitre.org/techniques/T1485/) | [DET0146](https://attack.mitre.org/detectionstrategies/DET0146/) &mdash; Detection of Data Destruction Across Platforms via Mass Overwrite and Deletion Patterns |
+| [T1098](https://attack.mitre.org/techniques/T1098/) | [DET0096](https://attack.mitre.org/detectionstrategies/DET0096/) &mdash; Account Manipulation Behavior Chain Detection |
+| [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) &mdash; Detection of Valid Account Abuse Across Platforms |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. Intune exposes administrative and device state changes through normalized audit and operational tables, not the raw endpoint or identity channels MITRE strategies may reference.
 
 ---
 

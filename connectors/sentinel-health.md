@@ -15,6 +15,7 @@
   - [Example Detections](#example-detections)
     - [Health Monitoring](#health-monitoring)
     - [Audit Trail](#audit-trail)
+  - [MITRE Detection Strategies](#mitre-detection-strategies)
   - [MCSB Control Mapping](#mcsb-control-mapping)
   - [Enabling Health Monitoring](#enabling-health-monitoring)
   - [Notes](#notes)
@@ -61,21 +62,35 @@ This is a **Tier 1 essential** because a SIEM that silently stops ingesting data
 
 ### Health Monitoring
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Data connector ingestion failure | SentinelHealth | T1562.002 | Data connector reports persistent failure status — indicates data is no longer being ingested into the workspace |
-| Analytics rule execution failure | SentinelHealth | — | Scheduled or NRT analytics rule fails to execute, potentially leaving detection gaps |
-| Automation rule failure | SentinelHealth | — | Automation rule or playbook fails to execute, indicating broken incident response workflows |
-| Data connector status changed to failure | SentinelHealth | T1562.002 | Connector transitions from success to failure state — immediate detection of new ingestion problems |
-| Connector recovered from failure | SentinelHealth | — | Connector transitions from failure back to success — useful for tracking resolution times and SLA compliance |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Data connector ingestion failure | SentinelHealth | [T1562.002](https://attack.mitre.org/techniques/T1562/002/) | — *(no published strategy)* | Data connector reports persistent failure status — indicates data is no longer being ingested into the workspace |
+| Analytics rule execution failure | SentinelHealth | — | — | Scheduled or NRT analytics rule fails to execute, potentially leaving detection gaps |
+| Automation rule failure | SentinelHealth | — | — | Automation rule or playbook fails to execute, indicating broken incident response workflows |
+| Data connector status changed to failure | SentinelHealth | [T1562.002](https://attack.mitre.org/techniques/T1562/002/) | — *(no published strategy)* | Connector transitions from success to failure state — immediate detection of new ingestion problems |
+| Connector recovered from failure | SentinelHealth | — | — | Connector transitions from failure back to success — useful for tracking resolution times and SLA compliance |
 
 ### Audit Trail
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Analytics rule disabled | SentinelAudit | T1562.001 | Detection rule was disabled — could indicate an attacker or insider disabling detections before malicious activity |
-| Analytics rule modified by unexpected user | SentinelAudit | T1562.001 | Rule configuration changed by a user who is not part of the expected SOC engineering team |
-| Analytics rule query modified | SentinelAudit | T1562.001 | The KQL query in an analytics rule was changed — could weaken detection logic |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Analytics rule disabled | SentinelAudit | [T1562.001](https://attack.mitre.org/techniques/T1562/001/) | — *(no published strategy)* | Detection rule was disabled — could indicate an attacker or insider disabling detections before malicious activity |
+| Analytics rule modified by unexpected user | SentinelAudit | [T1562.001](https://attack.mitre.org/techniques/T1562/001/) | — *(no published strategy)* | Rule configuration changed by a user who is not part of the expected SOC engineering team |
+| Analytics rule query modified | SentinelAudit | [T1562.001](https://attack.mitre.org/techniques/T1562/001/) | — *(no published strategy)* | The KQL query in an analytics rule was changed — could weaken detection logic |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T1562.001](https://attack.mitre.org/techniques/T1562/001/) | — *(no published strategy)* |
+| [T1562.002](https://attack.mitre.org/techniques/T1562/002/) | — *(no published strategy)* |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. Sentinel Health and Sentinel Audit expose service health and configuration state rather than the raw host, network, or identity telemetry channels MITRE strategies typically reference.
 
 ---
 

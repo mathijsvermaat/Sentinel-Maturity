@@ -9,6 +9,7 @@
 - [Overview](#overview)
 - [Tables and Rationale](#tables-and-rationale)
 - [Example Detections](#example-detections)
+- [MITRE Detection Strategies](#mitre-detection-strategies)
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Important Considerations](#important-considerations)
 - [Notes](#notes)
@@ -48,14 +49,32 @@ GitHub is often the central nervous system of software development — it holds 
 
 ## Example Detections
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Workflow file modified in protected branch | GitHubAuditLogsV2_CL | T1195.002 | GitHub Actions workflow YAML changed — potential supply chain backdoor |
-| Repository cloned by unusual actor | GitHubAuditLogsV2_CL | T1213 | Repository clone event from a user or machine not in the normal contributor set |
-| Secret scanning alert dismissed | GitHubAuditLogsV2_CL | T1552 | Leaked secret detected by scanning but dismissed by a user — potential cover-up or negligence |
-| Outside collaborator added to private repo | GitHubAuditLogsV2_CL | T1199 | External user granted access to a private repository — trust boundary expansion |
-| Personal Access Token created with broad scope | GitHubAuditLogsV2_CL | T1528 | PAT with repo, admin, or write-all scope created — high-risk credential |
-| Repository visibility changed to public | GitHubAuditLogsV2_CL | T1567 | Private repository made public — potential data leak of source code or secrets |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Workflow file modified in protected branch | GitHubAuditLogsV2_CL | [T1195.002](https://attack.mitre.org/techniques/T1195/002/) | [DET0309](https://attack.mitre.org/detectionstrategies/DET0309/) — Compromised software/update chain (installer/write → first-run/child → egress/signature anomaly) | GitHub Actions workflow YAML changed — potential supply chain backdoor |
+| Repository cloned by unusual actor | GitHubAuditLogsV2_CL | [T1213](https://attack.mitre.org/techniques/T1213/) | [DET0413](https://attack.mitre.org/detectionstrategies/DET0413/) — Abuse of Information Repositories for Data Collection | Repository clone event from a user or machine not in the normal contributor set |
+| Secret scanning alert dismissed | GitHubAuditLogsV2_CL | [T1552](https://attack.mitre.org/techniques/T1552/) | [DET0412](https://attack.mitre.org/detectionstrategies/DET0412/) — Detect Access or Search for Unsecured Credentials Across Platforms | Leaked secret detected by scanning but dismissed by a user — potential cover-up or negligence |
+| Outside collaborator added to private repo | GitHubAuditLogsV2_CL | [T1199](https://attack.mitre.org/techniques/T1199/) | [DET0488](https://attack.mitre.org/detectionstrategies/DET0488/) — Detect abuse of Trusted Relationships (third-party and delegated admin access) | External user granted access to a private repository — trust boundary expansion |
+| Personal Access Token created with broad scope | GitHubAuditLogsV2_CL | [T1528](https://attack.mitre.org/techniques/T1528/) | [DET0515](https://attack.mitre.org/detectionstrategies/DET0515/) — Detection Strategy for T1528 - Steal Application Access Token | PAT with repo, admin, or write-all scope created — high-risk credential |
+| Repository visibility changed to public | GitHubAuditLogsV2_CL | [T1567](https://attack.mitre.org/techniques/T1567/) | [DET0548](https://attack.mitre.org/detectionstrategies/DET0548/) — Detection Strategy for Exfiltration Over Web Service | Private repository made public — potential data leak of source code or secrets |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T1195.002](https://attack.mitre.org/techniques/T1195/002/) | [DET0309](https://attack.mitre.org/detectionstrategies/DET0309/) &mdash; Compromised software/update chain (installer/write &rarr; first-run/child &rarr; egress/signature anomaly) |
+| [T1567](https://attack.mitre.org/techniques/T1567/) | [DET0548](https://attack.mitre.org/detectionstrategies/DET0548/) &mdash; Detection Strategy for Exfiltration Over Web Service |
+| [T1213](https://attack.mitre.org/techniques/T1213/) | [DET0413](https://attack.mitre.org/detectionstrategies/DET0413/) &mdash; Abuse of Information Repositories for Data Collection |
+| [T1552](https://attack.mitre.org/techniques/T1552/) | [DET0412](https://attack.mitre.org/detectionstrategies/DET0412/) &mdash; Detect Access or Search for Unsecured Credentials Across Platforms |
+| [T1199](https://attack.mitre.org/techniques/T1199/) | [DET0488](https://attack.mitre.org/detectionstrategies/DET0488/) &mdash; Detect abuse of Trusted Relationships (third-party and delegated admin access) |
+| [T1528](https://attack.mitre.org/techniques/T1528/) | [DET0515](https://attack.mitre.org/detectionstrategies/DET0515/) &mdash; Detection Strategy for T1528 - Steal Application Access Token |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. GitHub Enterprise exposes audit activity through `GitHubAuditLogsV2_CL`, not the raw source names MITRE strategies may cite, so a two-column strategy list is clearer than a forced translation.
 
 ---
 

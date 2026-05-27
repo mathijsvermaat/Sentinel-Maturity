@@ -12,6 +12,7 @@
     - [Licensing Benefits](#licensing-benefits)
   - [Tables and Rationale](#tables-and-rationale)
   - [Example Detections](#example-detections)
+  - [MITRE Detection Strategies](#mitre-detection-strategies)
   - [MCSB Control Mapping](#mcsb-control-mapping)
   - [Important Considerations](#important-considerations)
   - [Notes](#notes)
@@ -51,13 +52,32 @@ SAP systems are high-value targets because they store financial data, HR records
 
 ## Example Detections
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| SAP_ALL / SAP_NEW profile assigned | SAPAuditLog | T1078, T1098 | Superuser profile assigned to a dialog user — grants unrestricted access to the entire SAP system |
-| Debug/replace in production | ABAPAuditLog | T1059 | Developer using debug-with-replace capability in a production system — can modify variables at runtime |
-| Critical transaction executed by unusual user | SAPAuditLog | T1078 | Sensitive transactions (SU01, SE16, SM59) executed by a user who normally doesn't use them |
-| Vendor master bank account changed | SAPChangeDocuments | T1565.001 | Bank account details modified on a vendor master record — classic financial fraud indicator |
-| RFC connection to unknown system | SAPAuditLog | T1021 | RFC (Remote Function Call) connection established to an unrecognised external SAP system |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| SAP_ALL / SAP_NEW profile assigned | SAPAuditLog | [T1078](https://attack.mitre.org/techniques/T1078/), [T1098](https://attack.mitre.org/techniques/T1098/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) — Detection of Valid Account Abuse Across Platforms<br>[DET0096](https://attack.mitre.org/detectionstrategies/DET0096/) — Account Manipulation Behavior Chain Detection | Superuser profile assigned to a dialog user — grants unrestricted access to the entire SAP system |
+| Debug/replace in production | ABAPAuditLog | [T1059](https://attack.mitre.org/techniques/T1059/) | [DET0516](https://attack.mitre.org/detectionstrategies/DET0516/) — Behavioral Detection of Command and Scripting Interpreter Abuse | Developer using debug-with-replace capability in a production system — can modify variables at runtime |
+| Critical transaction executed by unusual user | SAPAuditLog | [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) — Detection of Valid Account Abuse Across Platforms | Sensitive transactions (SU01, SE16, SM59) executed by a user who normally doesn't use them |
+| Vendor master bank account changed | SAPChangeDocuments | [T1565.001](https://attack.mitre.org/techniques/T1565/001/) | [DET0193](https://attack.mitre.org/detectionstrategies/DET0193/) — Detection Strategy for Stored Data Manipulation across OS Platforms. | Bank account details modified on a vendor master record — classic financial fraud indicator |
+| RFC connection to unknown system | SAPAuditLog | [T1021](https://attack.mitre.org/techniques/T1021/) | [DET0269](https://attack.mitre.org/detectionstrategies/DET0269/) — Behavioral Detection Strategy for Remote Service Logins and Post-Access Activity | RFC (Remote Function Call) connection established to an unrecognised external SAP system |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T1110](https://attack.mitre.org/techniques/T1110/) | [DET0463](https://attack.mitre.org/detectionstrategies/DET0463/) &mdash; Brute Force Authentication Failures with Multi-Platform Log Correlation |
+| [T1059](https://attack.mitre.org/techniques/T1059/) | [DET0516](https://attack.mitre.org/detectionstrategies/DET0516/) &mdash; Behavioral Detection of Command and Scripting Interpreter Abuse |
+| [T1565.001](https://attack.mitre.org/techniques/T1565/001/) | [DET0193](https://attack.mitre.org/detectionstrategies/DET0193/) &mdash; Detection Strategy for Stored Data Manipulation across OS Platforms. |
+| [T1039](https://attack.mitre.org/techniques/T1039/) | [DET0410](https://attack.mitre.org/detectionstrategies/DET0410/) &mdash; Detection Strategy for Data from Network Shared Drive |
+| [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) &mdash; Detection of Valid Account Abuse Across Platforms |
+| [T1098](https://attack.mitre.org/techniques/T1098/) | [DET0096](https://attack.mitre.org/detectionstrategies/DET0096/) &mdash; Account Manipulation Behavior Chain Detection |
+| [T1021](https://attack.mitre.org/techniques/T1021/) | [DET0269](https://attack.mitre.org/detectionstrategies/DET0269/) &mdash; Behavioral Detection Strategy for Remote Service Logins and Post-Access Activity |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. SAP telemetry on this page is service-native application and change-audit data, so MITRE source names do not map 1:1 to the tables listed here.
 
 ---
 

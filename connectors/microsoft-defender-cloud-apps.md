@@ -12,6 +12,7 @@
     - [Licensing Benefits](#licensing-benefits)
   - [Tables and Rationale](#tables-and-rationale)
   - [Example Detections](#example-detections)
+  - [MITRE Detection Strategies](#mitre-detection-strategies)
   - [MCSB Control Mapping](#mcsb-control-mapping)
   - [Important Considerations](#important-considerations)
   - [Notes](#notes)
@@ -52,12 +53,28 @@ This connector is most valuable for organisations that need visibility into unsa
 
 ## Example Detections
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Shadow IT — high-risk app usage | McasShadowItReporting | T1567 | Users uploading data to unsanctioned, high-risk cloud storage or file-sharing applications |
-| Mass download from SaaS | SecurityAlert (MDCA) | T1530 | Single user downloading abnormal volumes of data from corporate SaaS applications |
-| Suspicious OAuth app consent | SecurityAlert (MDCA) | T1550.001 | OAuth application granted excessive permissions — potential consent phishing or malicious app |
-| Impossible travel for SaaS access | SecurityAlert (MDCA) | T1078 | User accessing cloud apps from geographically impossible locations in a short timeframe |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Shadow IT — high-risk app usage | McasShadowItReporting | [T1567](https://attack.mitre.org/techniques/T1567/) | [DET0548](https://attack.mitre.org/detectionstrategies/DET0548/) — Detection Strategy for Exfiltration Over Web Service | Users uploading data to unsanctioned, high-risk cloud storage or file-sharing applications |
+| Mass download from SaaS | SecurityAlert (MDCA) | [T1530](https://attack.mitre.org/techniques/T1530/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) — Multi-Platform Cloud Storage Exfiltration Behavior Chain | Single user downloading abnormal volumes of data from corporate SaaS applications |
+| Suspicious OAuth app consent | SecurityAlert (MDCA) | [T1550.001](https://attack.mitre.org/techniques/T1550/001/) | [DET0185](https://attack.mitre.org/detectionstrategies/DET0185/) — Behavioral Detection Strategy for Use Alternate Authentication Material: Application Access Token (T1550.001) | OAuth application granted excessive permissions — potential consent phishing or malicious app |
+| Impossible travel for SaaS access | SecurityAlert (MDCA) | [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) — Detection of Valid Account Abuse Across Platforms | User accessing cloud apps from geographically impossible locations in a short timeframe |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T1567](https://attack.mitre.org/techniques/T1567/) | [DET0548](https://attack.mitre.org/detectionstrategies/DET0548/) &mdash; Detection Strategy for Exfiltration Over Web Service |
+| [T1530](https://attack.mitre.org/techniques/T1530/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) &mdash; Multi-Platform Cloud Storage Exfiltration Behavior Chain |
+| [T1550.001](https://attack.mitre.org/techniques/T1550/001/) | [DET0185](https://attack.mitre.org/detectionstrategies/DET0185/) &mdash; Behavioral Detection Strategy for Use Alternate Authentication Material: Application Access Token (T1550.001) |
+| [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) &mdash; Detection of Valid Account Abuse Across Platforms |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. Defender for Cloud Apps surfaces normalized CASB alerts and shadow IT telemetry, not the raw SaaS audit channels that MITRE strategies may reference.
 
 ---
 

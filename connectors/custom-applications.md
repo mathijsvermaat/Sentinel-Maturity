@@ -9,6 +9,7 @@
 - [Overview](#overview)
 - [Tables and Rationale](#tables-and-rationale)
 - [Example Detections](#example-detections)
+- [MITRE Detection Strategies](#mitre-detection-strategies)
 - [MCSB Control Mapping](#mcsb-control-mapping)
 - [Important Considerations](#important-considerations)
 - [Notes](#notes)
@@ -51,13 +52,31 @@ Custom application tables are defined per-application. Below are common patterns
 
 ## Example Detections
 
-| Detection | Table(s) | MITRE ATT&CK | Description |
-|:----------|:---------|:-------------|:------------|
-| Unusual login hours for business application | {AppName}AuditLog_CL | T1078 | User accessing crown jewel application outside normal business hours — correlated with role expectations |
-| Mass record access or export | {AppName}AuditLog_CL | T1530, T1567 | Single user accessing or exporting abnormally large volumes of records within a short timeframe |
-| Privilege escalation within application | {AppName}SecurityEvents_CL | T1098 | User role or permission changed within the application to gain elevated access |
-| Failed authentication spike | {AppName}SecurityEvents_CL | T1110 | Significant increase in failed login attempts against the application |
-| Business logic anomaly | {AppName}Transactions_CL | T1565 | Transaction patterns deviating from established baselines — potential fraud or data manipulation |
+| Detection | Table(s) | MITRE ATT&CK | Detection Strategy | Description |
+|:----------|:---------|:-------------|:-------------------|:------------|
+| Unusual login hours for business application | {AppName}AuditLog_CL | [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) — Detection of Valid Account Abuse Across Platforms | User accessing crown jewel application outside normal business hours — correlated with role expectations |
+| Mass record access or export | {AppName}AuditLog_CL | [T1530](https://attack.mitre.org/techniques/T1530/), [T1567](https://attack.mitre.org/techniques/T1567/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) — Multi-Platform Cloud Storage Exfiltration Behavior Chain<br>[DET0548](https://attack.mitre.org/detectionstrategies/DET0548/) — Detection Strategy for Exfiltration Over Web Service | Single user accessing or exporting abnormally large volumes of records within a short timeframe |
+| Privilege escalation within application | {AppName}SecurityEvents_CL | [T1098](https://attack.mitre.org/techniques/T1098/) | [DET0096](https://attack.mitre.org/detectionstrategies/DET0096/) — Account Manipulation Behavior Chain Detection | User role or permission changed within the application to gain elevated access |
+| Failed authentication spike | {AppName}SecurityEvents_CL | [T1110](https://attack.mitre.org/techniques/T1110/) | [DET0463](https://attack.mitre.org/detectionstrategies/DET0463/) — Brute Force Authentication Failures with Multi-Platform Log Correlation | Significant increase in failed login attempts against the application |
+| Business logic anomaly | {AppName}Transactions_CL | [T1565](https://attack.mitre.org/techniques/T1565/) | [DET0059](https://attack.mitre.org/detectionstrategies/DET0059/) — Detection Strategy for Data Manipulation | Transaction patterns deviating from established baselines — potential fraud or data manipulation |
+
+---
+
+## MITRE Detection Strategies
+
+Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detectionstrategies/) relevant to the techniques referenced on this page.
+
+| Technique | Detection Strategy |
+|:----------|:-------------------|
+| [T1078](https://attack.mitre.org/techniques/T1078/) | [DET0560](https://attack.mitre.org/detectionstrategies/DET0560/) &mdash; Detection of Valid Account Abuse Across Platforms |
+| [T1110](https://attack.mitre.org/techniques/T1110/) | [DET0463](https://attack.mitre.org/detectionstrategies/DET0463/) &mdash; Brute Force Authentication Failures with Multi-Platform Log Correlation |
+| [T1567](https://attack.mitre.org/techniques/T1567/) | [DET0548](https://attack.mitre.org/detectionstrategies/DET0548/) &mdash; Detection Strategy for Exfiltration Over Web Service |
+| [T1530](https://attack.mitre.org/techniques/T1530/) | [DET0484](https://attack.mitre.org/detectionstrategies/DET0484/) &mdash; Multi-Platform Cloud Storage Exfiltration Behavior Chain |
+| [T1098](https://attack.mitre.org/techniques/T1098/) | [DET0096](https://attack.mitre.org/detectionstrategies/DET0096/) &mdash; Account Manipulation Behavior Chain Detection |
+| [T1565](https://attack.mitre.org/techniques/T1565/) | [DET0059](https://attack.mitre.org/detectionstrategies/DET0059/) &mdash; Detection Strategy for Data Manipulation |
+
+> [!NOTE]
+> This page intentionally omits the third MITRE-evidence column. Custom application telemetry is implementation-specific, so MITRE source names do not map consistently to `{AppName}` tables across deployments.
 
 ---
 
