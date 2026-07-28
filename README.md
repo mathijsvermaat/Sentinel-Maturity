@@ -1,6 +1,6 @@
 # Sentinel Maturity Model — Data Connector Guidance
 
-A structured approach to Microsoft Sentinel data connector onboarding, retention, and detection rationale for the Dutch Security TS team.
+A structured approach to Microsoft Sentinel data connector onboarding, retention, and detection rationale.
 
 > [!TIP]
 > This maturity model is the **what-to-ingest layer**. It is paired with the [Guidance](guidance/README.md) section that explains **why** each decision is made (risk, retention, cost, compliance), and the interactive [Assessment Checklist](https://mathijsvermaat.github.io/sentinel-maturity-assessment.html) that tracks **how far** an organisation has implemented it. Use the model to define the target, the guidance to justify it, and the assessment to measure progress.
