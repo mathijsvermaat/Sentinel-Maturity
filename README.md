@@ -39,6 +39,7 @@ A structured approach to Microsoft Sentinel data connector onboarding, retention
   - [Assessment Checklist](#assessment-checklist)
   - [References](#references)
   - [Reference Index](#reference-index)
+  - [License](#license)
 
 ---
 
@@ -284,5 +285,11 @@ Features: save/load progress (JSON), export to PDF, export to Excel.
 ## Reference Index
 
 For a consolidated, categorised index of every external URL cited across this maturity model (Microsoft Learn docs, Azure pricing pages, tools and workbooks, blogs, standards and frameworks), see **[references.md](references.md)**.
+
+---
+
+## License
+
+Licensed under the [MIT License](LICENSE).
 
 *Last updated: April 2026*
