@@ -375,6 +375,7 @@ See the following resources for deeper analysis:
 | **Workspace Usage Report** | Workbook | Monitor SecurityEvent/WindowsEvent ingestion volumes per server | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
 | **Defender AMA Coverage** | Workbook | Validate AMA agent deployment and Windows Security Event collection coverage | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](../procedures/defender-ama-coverage.md) · [Blog](https://www.linkedin.com/pulse/closing-telemetry-gap-how-we-built-kql-query-workbook-mathijs-vermaat-rzfbe/) |
 | **Windows Security Events** | Solution | Event Analyzer workbook — explore, audit, and speed up Windows Event Log analysis with all event details and attributes | Sentinel Content Hub | — |
+| **Windows Event Log Size Estimator** | Script | Measure events per second, average event size, and projected monthly volume for the Application, System, and Security channels on a host — sizes the connector before onboarding | [GitHub — mathijsvermaat/GetWinEventlogSize](https://github.com/mathijsvermaat/GetWinEventlogSize) | [Walkthrough](../procedures/windows-event-log-size.md) |
 
 ---
 

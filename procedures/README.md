@@ -13,6 +13,8 @@ Step-by-step guides for the tools referenced throughout the Sentinel Maturity Mo
 | [XDR Ingestion Calculator](xdr-ingestion-calculator.md) | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector |
 | [XDR Data Volume Insights](xdr-data-volume-insights.md) | KQL Query | Measure Defender XDR and Entra ID table sizes, daily averages, and event counts to inform Analytics vs Data Lake tier decisions |
 | [Defender AMA Coverage](defender-ama-coverage.md) | Workbook | Validate AMA agent deployment coverage and identify gaps in security event and syslog collection |
+| [Windows Event Log Size Estimator](windows-event-log-size.md) | Script | Measure Application, System, and Security channel volume on a Windows host before onboarding Windows Security Events |
+| [Linux Log Size Estimator](linux-log-size.md) | Script | Measure GB/day and events per second on a Linux host before onboarding Syslog |
 
 ## Template
 

@@ -225,6 +225,7 @@ Just as with Windows, relying solely on EDR for Linux server security leaves gap
 | **Workspace Usage Report** | Workbook | Monitor `Syslog` and `LinuxAuditLog` ingestion volumes per server (note: neither table is covered by the Defender for Servers P2 pooled allowance — both are billed as regular ingestion) | Sentinel Content Hub | [Walkthrough](../procedures/workspace-usage-report.md) |
 | **Defender AMA Coverage** | Workbook | Validate AMA agent deployment and Syslog collection coverage on Linux servers | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](../procedures/defender-ama-coverage.md) · [Blog](https://www.linkedin.com/pulse/closing-telemetry-gap-how-we-built-kql-query-workbook-mathijs-vermaat-rzfbe/) |
 | **SOC Handbook** | Solution | Identity & Access workbook, Investigation Insights workbook, MITRE ATT&CK workbook — Syslog authentication events feed identity-based detections | Sentinel Content Hub | — |
+| **Linux Log Size Estimator** | Script | Measure GB/day, events per second, and monthly volume from a host's own logs — sizes the connector before onboarding (neither table is covered by the P2 pooled allowance, so this translates directly into cost) | [GitHub — mathijsvermaat/GetLinuxEventLogSize](https://github.com/mathijsvermaat/GetLinuxEventLogSize) | [Walkthrough](../procedures/linux-log-size.md) |
 
 ---
 

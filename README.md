@@ -76,6 +76,8 @@ Step-by-step guides for the operational tools used alongside this maturity model
 | [XDR Data Volume Insights](procedures/xdr-data-volume-insights.md) | KQL Query | Measure Defender XDR and Entra ID table sizes, daily averages, and event counts to inform Analytics vs Data Lake tier decisions |
 | [Defender AMA Coverage](procedures/defender-ama-coverage.md) | Workbook | Validate AMA deployment coverage and identify gaps in security event and syslog collection |
 | [Retention Insights](procedures/retention-insights.md) | Workbook | Review table-level retention and archiving settings, evaluate Data Lake candidates, and estimate cost impact of plan changes |
+| [Windows Event Log Size Estimator](procedures/windows-event-log-size.md) | Script | Measure Application, System, and Security channel volume on a Windows host before onboarding Windows Security Events |
+| [Linux Log Size Estimator](procedures/linux-log-size.md) | Script | Measure GB/day and events per second on a Linux host before onboarding Syslog |
 
 ## Tier Model
 
@@ -253,6 +255,8 @@ To help identify retention settings, monitor ingestion volumes, estimate costs, 
 | **XDR tables to Sentinel ingestion calculator** | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector | [GitHub — mathijsvermaat/DefenderIngestToSentinel](https://github.com/mathijsvermaat/DefenderIngestToSentinel) | [Walkthrough](procedures/xdr-ingestion-calculator.md) |
 | **XDR Data Volume Insights** | KQL Query | Measure Defender XDR and Entra ID table sizes, daily averages, and event counts to inform Analytics vs Data Lake tier decisions | Run in Advanced Hunting in Defender portal | [Walkthrough](procedures/xdr-data-volume-insights.md) |
 | **Retention Insights** | Workbook | Review table-level retention and archiving settings, evaluate Data Lake candidates, and estimate cost impact of plan changes | [Github — Azure-Sentinel/Workbooks](https://github.com/Azure/Azure-Sentinel/blob/master/Workbooks/ArchivingBasicLogsRetention.json) | [Walkthrough](procedures/retention-insights.md) |
+| **Windows Event Log Size Estimator** | Script | Estimate Application, System, and Security channel volume on a Windows host before onboarding Windows Security Events | [GitHub — mathijsvermaat/GetWinEventlogSize](https://github.com/mathijsvermaat/GetWinEventlogSize) | [Walkthrough](procedures/windows-event-log-size.md) |
+| **Linux Log Size Estimator** | Script | Estimate GB/day and events per second on a Linux host before onboarding Syslog | [GitHub — mathijsvermaat/GetLinuxEventLogSize](https://github.com/mathijsvermaat/GetLinuxEventLogSize) | [Walkthrough](procedures/linux-log-size.md) |
 
 ---
 
@@ -292,4 +296,4 @@ For a consolidated, categorised index of every external URL cited across this ma
 
 Licensed under the [MIT License](LICENSE).
 
-*Last updated: April 2026*
+*Last updated: September 2026*
