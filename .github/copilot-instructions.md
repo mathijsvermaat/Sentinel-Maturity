@@ -8,12 +8,14 @@ This is a **Microsoft Sentinel data connector maturity model** for the Dutch Sec
 
 ```
 README.md                  # Main entry point — tier tables, TOC, tools, references
+references.md              # Consolidated index of every external URL
 connectors/                # One .md per data connector + README.md + _TEMPLATE.md
 guidance/                  # Strategic guidance articles + README.md
 procedures/                # Step-by-step tool walkthroughs + README.md + _TEMPLATE.md
+tools/                     # Executable helper scripts maintained here + README.md
 ```
 
-A separate repo (`mathijsvermaat.github.io`) hosts the assessment HTML checklist. Do NOT mix changes across repos.
+A separate repo (`mathijsvermaat.github.io`) hosts the assessment HTML checklist. Do NOT mix changes across repos. Scripts that **feed** the checklist live in `tools/` here; the importer that **consumes** their output lives in the Pages repo.
 
 ---
 
@@ -32,20 +34,20 @@ A separate repo (`mathijsvermaat.github.io`) hosts the assessment HTML checklist
 
 ## README Synchronisation Rules
 
-When adding, removing, or renaming a connector, guidance, or procedure file:
+When adding, removing, or renaming a connector, guidance, procedure, or tool script:
 
 - **Main `README.md`**: Update both the tier connector table AND the Procedures/Tools tables if affected.
-- **Category `README.md`** (`connectors/README.md`, `guidance/README.md`, `procedures/README.md`): Update the index table.
+- **Category `README.md`** (`connectors/README.md`, `guidance/README.md`, `procedures/README.md`, `tools/README.md`): Update the index table.
 - **TOC in main README**: Must list every tier subcategory heading.
 - **Date**: Update `*Last updated: [Month Year]*` at the bottom of main README.
 
-All four locations must stay in sync. Verify after every structural change.
+All applicable locations must stay in sync. Verify after every structural change.
 
 ---
 
 ## References Index Synchronisation Rules (`references.md`)
 
-`references.md` at the repo root is a **consolidated index of every external URL** used anywhere in the model, grouped by category. It MUST be kept in sync whenever external links are added, changed, or removed in any `.md` file under `connectors/`, `guidance/`, `procedures/`, or the root `README.md`.
+`references.md` at the repo root is a **consolidated index of every external URL** used anywhere in the model, grouped by category. It MUST be kept in sync whenever external links are added, changed, or removed in any `.md` file under `connectors/`, `guidance/`, `procedures/`, `tools/`, or the root `README.md`.
 
 **When adding a new external URL to any page:**
 
@@ -249,6 +251,47 @@ Template: `procedures/_TEMPLATE.md`
 - `## Accuracy and Limitations`
 - `## Customisation`
 - `## Related Tools`
+
+---
+
+## Tool Scripts (`tools/*.sh`)
+
+Executable helpers maintained **in this repo** (as opposed to the tools that live in their own repositories and are only linked from the Tools table).
+
+### Hard Rules
+
+1. **Read-only.** A script in `tools/` may only read. No create, update, delete, or write-back to a workspace, ever. State this explicitly in the file header and in `-h` output.
+2. **Bash, portable.** `#!/usr/bin/env bash`, `set -uo pipefail`. Must run unmodified in Azure Cloud Shell. Keep the dependency set to `az` and `jq`.
+3. **No secrets.** Never accept, prompt for, log, or persist credentials. Authentication is whatever `az login` already established.
+4. **No telemetry.** Nothing is transmitted anywhere except to Microsoft APIs on the user's own behalf.
+5. **Fail soft.** A section that cannot be collected must produce `null` plus an entry in a `warnings` array — never a partial guess, never a crash, never an empty array standing in for "unknown".
+6. **Never assert absence.** Output must let the consumer distinguish *not present* from *could not be determined*. Downstream, unknown becomes **To verify**, never **Not configured**.
+7. **LF line endings**, enforced by `.gitattributes`. Commit with the executable bit set.
+
+### Structure
+
+- Header comment: purpose, read-only statement, link to the consumer, MIT licence note.
+- `SCRIPT_VERSION` and, where the script emits a machine-readable contract, `SCHEMA_VERSION`.
+- API versions declared as named constants at the top, never inline in URLs.
+- `-h` help covering usage, required and optional parameters, prerequisites, **permissions**, and output shape.
+- Argument validation before any network call; exit `2` for bad arguments, `3` for missing prerequisites.
+
+### Output Contracts
+
+Scripts that emit JSON for another tool define a **neutral contract** — not the consumer's internal save format. Bump `SCHEMA_VERSION` on any breaking field change; additive fields do not require a bump.
+
+### Accompanying Documentation
+
+Every script in `tools/` needs all four of:
+
+1. A row in `tools/README.md`.
+2. A row in the main `README.md` **Tools** table.
+3. A walkthrough in `procedures/`, plus its rows in `procedures/README.md` and the main README **Procedures** table.
+4. A `references.md` §10 entry pointing at its GitHub URL.
+
+### Third-Party Code
+
+Do **not** copy code, structure, function names, query text, or output schemas from proprietary or internal tooling. Public API surface — endpoint paths and api-versions documented on Microsoft Learn — is factual and may be used freely.
 
 ---
 
