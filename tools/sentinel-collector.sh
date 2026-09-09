@@ -110,12 +110,14 @@ if ! az account show --only-show-errors >/dev/null 2>&1; then
     exit 3
 fi
 
+SUB_DEFAULTED=""
 if [[ -z "$SUBSCRIPTION" ]]; then
     SUBSCRIPTION=$(az account show --only-show-errors --query id -o tsv 2>/dev/null)
     if [[ -z "$SUBSCRIPTION" ]]; then
         echo "Error: could not determine the current subscription. Pass -s explicitly." >&2
         exit 3
     fi
+    SUB_DEFAULTED="  [defaulted — pass -s to override]"
 fi
 
 COLLECTED_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)
@@ -165,17 +167,42 @@ frag() {
 WS_ID="/subscriptions/${SUBSCRIPTION}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.OperationalInsights/workspaces/${WORKSPACE}"
 SI="${ARM}${WS_ID}/providers/Microsoft.SecurityInsights"
 
+SUB_NAME=$(az account show --subscription "$SUBSCRIPTION" --only-show-errors --query name -o tsv 2>/dev/null)
+
 log ""
 log "Sentinel Maturity Model — collector v${SCRIPT_VERSION} (read-only)"
-log "  Subscription:   ${SUBSCRIPTION}"
+log "  Subscription:   ${SUBSCRIPTION}${SUB_NAME:+  (${SUB_NAME})}${SUB_DEFAULTED}"
 log "  Resource group: ${RESOURCE_GROUP}"
 log "  Workspace:      ${WORKSPACE}"
 log ""
 
+# A wrong subscription, resource group or workspace name is a targeting error,
+# not a permissions one: every later call would fail the same way and the output
+# would be meaningless, so stop here with something actionable.
+fail_target() {
+    log ""
+    log "Error: that workspace could not be found."
+    log "  Subscription:   ${SUBSCRIPTION}${SUB_NAME:+  (${SUB_NAME})}${SUB_DEFAULTED}"
+    log "  Resource group: ${RESOURCE_GROUP}"
+    log "  Workspace:      ${WORKSPACE}"
+    log ""
+    log "  $(flatten_err "$1")"
+    log ""
+    log "If the workspace lives in another subscription, pass it with -s. If it lives in"
+    log "another tenant, sign in there first with 'az login --tenant <tenant-id>'."
+    log ""
+    log "Subscriptions you can currently see:"
+    az account list --only-show-errors --query "[].{Name:name, SubscriptionId:id, TenantId:tenantId}" -o table >&2 2>/dev/null
+    log ""
+    exit 4
+}
+
 # --- 1. Workspace -----------------------------------------------------------
 step "Workspace settings"
 CUSTOMER_ID=""
+WORKSPACE_OK=0
 if arm_get "${ARM}${WS_ID}?api-version=${API_WORKSPACE}" "$TMP/workspace.raw"; then
+    WORKSPACE_OK=1
     jq -c \
         --arg sub "$SUBSCRIPTION" \
         --arg rg "$RESOURCE_GROUP" \
@@ -193,7 +220,12 @@ if arm_get "${ARM}${WS_ID}?api-version=${API_WORKSPACE}" "$TMP/workspace.raw"; t
         }' "$TMP/workspace.raw" > "$TMP/workspace.frag"
     CUSTOMER_ID=$(jq -r '.customerId // empty' "$TMP/workspace.frag")
 else
-    warn "workspace-unavailable" "Could not read the workspace: $(flatten_err "$LAST_ERR")"
+    case "$LAST_ERR" in
+        *SubscriptionNotFound*|*ResourceGroupNotFound*|*ResourceNotFound*|*InvalidSubscriptionId*)
+            fail_target "$LAST_ERR" ;;
+        *)
+            warn "workspace-unavailable" "Could not read the workspace: $(flatten_err "$LAST_ERR")" ;;
+    esac
 fi
 
 # --- 2. Tables --------------------------------------------------------------
@@ -228,10 +260,16 @@ fi
 # --- 3. Sentinel onboarding -------------------------------------------------
 step "Sentinel onboarding state"
 SENTINEL_ONBOARDED="null"
-if arm_get "${SI}/onboardingStates/default?api-version=${API_SECURITYINSIGHTS}" "$TMP/onboarding.raw"; then
+if (( ! WORKSPACE_OK )); then
+    warn "onboarding-unavailable" "Onboarding state not checked: the workspace itself could not be read."
+elif arm_get "${SI}/onboardingStates/default?api-version=${API_SECURITYINSIGHTS}" "$TMP/onboarding.raw"; then
     SENTINEL_ONBOARDED="true"
 else
     case "$LAST_ERR" in
+        # A 404 only means "not onboarded" when it is the onboarding resource that
+        # is missing — a missing subscription or resource group also returns 404.
+        *SubscriptionNotFound*|*ResourceGroupNotFound*)
+            warn "onboarding-unavailable" "Could not read the Sentinel onboarding state: $(flatten_err "$LAST_ERR")" ;;
         *NotFound*|*404*)
             SENTINEL_ONBOARDED="false"
             warn "sentinel-not-onboarded" "Microsoft Sentinel does not appear to be enabled on this workspace." ;;
