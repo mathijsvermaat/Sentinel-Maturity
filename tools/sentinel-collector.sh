@@ -39,14 +39,17 @@ usage() {
 sentinel-collector.sh — read-only Microsoft Sentinel workspace collector
 
 USAGE
-  ./sentinel-collector.sh -g <resource-group> -w <workspace-name> [options]
+  ./sentinel-collector.sh -s <subscription-id> -g <resource-group> -w <workspace-name>
 
 REQUIRED
   -g <name>   Resource group containing the Log Analytics workspace
   -w <name>   Log Analytics workspace name
 
 OPTIONS
-  -s <guid>   Subscription ID (defaults to the current az subscription)
+  -s <guid>   Subscription ID. Optional, but pass it: without -s the script uses
+              whichever subscription az currently has selected, which is rarely
+              the right one when you can reach more than one tenant. List them
+              with: az account list -o table
   -o <path>   Output file (defaults to ./sentinel-collector-<workspace>-<timestamp>.json)
   -d <days>   Look-back window for table activity (default 30, max 90)
   -Q          Skip the table-activity query (ARM reads only)

@@ -12,10 +12,21 @@ Executable helper scripts maintained in this repository. Scripts hosted in their
 
 ```bash
 chmod +x sentinel-collector.sh
-./sentinel-collector.sh -g <resource-group> -w <workspace-name>
+./sentinel-collector.sh -s <subscription-id> -g <resource-group> -w <workspace-name>
 ```
 
 Run `./sentinel-collector.sh -h` for the full option list.
+
+> [!TIP]
+> **Always pass `-s`.** It is technically optional — without it the script uses whichever subscription `az` currently has selected — but that is rarely the one you want if you have access to more than one tenant or subscription. Getting it wrong produces `ResourceGroupNotFound`, which reads like a permissions problem but is not.
+>
+> To find the right value:
+>
+> ```bash
+> az account list --query "[].{Name:name, SubscriptionId:id, TenantId:tenantId}" -o table
+> ```
+>
+> If the workspace lives in another tenant, sign in there first with `az login --tenant <tenant-id>`.
 
 > [!TIP]
 > `bash: ./sentinel-collector.sh: Permission denied` means the executable bit was lost in transit — Cloud Shell uploads and copy-paste both drop it. Run `chmod +x sentinel-collector.sh` once, or invoke it as `bash sentinel-collector.sh …` instead.
