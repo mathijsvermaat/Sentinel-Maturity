@@ -2,7 +2,7 @@
 
 A consolidated index of every external resource cited across the Sentinel Maturity Model, grouped by category. Each entry links to the source and to the page(s) within this repo where it is used.
 
-This page is kept in sync via the repository's Copilot instructions: whenever a new external URL is added to a connector, guidance, or procedure page through GitHub Copilot, a matching entry is added (or the existing entry's "Referenced in" cell extended) here automatically. See [.github/copilot-instructions.md](.github/copilot-instructions.md) — section *"References Index Synchronisation Rules"* — for the rule definition. Contributors editing files without Copilot are expected to follow the same rule by hand.
+This page is kept in sync via the repository's Copilot instructions: whenever a new external URL is added to a connector, guidance, procedure, or tools page through GitHub Copilot, a matching entry is added (or the existing entry's "Referenced in" cell extended) here automatically. See [.github/copilot-instructions.md](.github/copilot-instructions.md) — section *"References Index Synchronisation Rules"* — for the rule definition. Contributors editing files without Copilot are expected to follow the same rule by hand.
 
 ---
 
@@ -24,6 +24,7 @@ This page is kept in sync via the repository's Copilot instructions: whenever a 
   - [12. Standards \& frameworks](#12-standards--frameworks)
   - [13. Sentinel Ninja (reference documentation)](#13-sentinel-ninja-reference-documentation)
   - [14. Admin portals](#14-admin-portals)
+  - [15. Azure CLI \& Cloud Shell](#15-azure-cli--cloud-shell)
 
 ---
 
@@ -85,6 +86,7 @@ This page is kept in sync via the repository's Copilot instructions: whenever a 
 | 1.52 | Data connectors reference — Cisco ASA | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/cisco-asa) | [connectors/third-party-network-appliances.md](connectors/third-party-network-appliances.md) |
 | 1.53 | Data connectors reference — Zscaler | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/zscaler) | [connectors/third-party-network-appliances.md](connectors/third-party-network-appliances.md) |
 | 1.54 | Data connectors reference — Sophos XG Firewall | [learn.microsoft.com](https://learn.microsoft.com/en-us/azure/sentinel/data-connectors/sophos-xg-firewall) | [connectors/third-party-network-appliances.md](connectors/third-party-network-appliances.md) |
+| 1.55 | Roles and permissions in Microsoft Sentinel | [learn.microsoft.com](https://learn.microsoft.com/azure/sentinel/roles) | [procedures/sentinel-collector.md](procedures/sentinel-collector.md), [tools/README.md](tools/README.md) |
 
 ---
 
@@ -240,7 +242,7 @@ Per-event pages on [learn.microsoft.com/windows/security/threat-protection/audit
 | 10.3 | XDR Data Volume Insights KQL | [github.com/mathijsvermaat/DefenderIngestToSentinelKQL](https://github.com/mathijsvermaat/DefenderIngestToSentinelKQL) | [procedures/xdr-data-volume-insights.md](procedures/xdr-data-volume-insights.md), [connectors/microsoft-defender-xdr.md](connectors/microsoft-defender-xdr.md) |
 | 10.4 | Archiving / Basic / Retention workbook (Azure-Sentinel) | [github.com/Azure/Azure-Sentinel](https://github.com/Azure/Azure-Sentinel/blob/master/Workbooks/ArchivingBasicLogsRetention.json) | [README.md](README.md), [procedures/retention-insights.md](procedures/retention-insights.md) |
 | 10.5 | Sentinel Health workbook (Azure-Sentinel) | [github.com/Azure/Azure-Sentinel](https://github.com/Azure/Azure-Sentinel/blob/master/Workbooks/SentinelHealth.json) | [connectors/sentinel-health.md](connectors/sentinel-health.md) |
-| 10.6 | Sentinel Maturity Assessment Checklist (HTML, Full + Lite modes) | [mathijsvermaat.github.io](https://mathijsvermaat.github.io/sentinel-maturity-assessment.html) | [README.md](README.md), [procedures/windows-event-log-size.md](procedures/windows-event-log-size.md), [procedures/linux-log-size.md](procedures/linux-log-size.md) |
+| 10.6 | Sentinel Maturity Assessment Checklist (HTML, Full + Lite modes) | [mathijsvermaat.github.io](https://mathijsvermaat.github.io/sentinel-maturity-assessment.html) | [README.md](README.md), [procedures/windows-event-log-size.md](procedures/windows-event-log-size.md), [procedures/linux-log-size.md](procedures/linux-log-size.md), [procedures/sentinel-collector.md](procedures/sentinel-collector.md), [tools/README.md](tools/README.md) |
 | 10.7 | Defender for Servers P2 Count (KQL / Azure Resource Graph) | [github.com/mathijsvermaat/DefenderForServersP2Count](https://github.com/mathijsvermaat/DefenderForServersP2Count) | [guidance/budget-and-cost-planning.md](guidance/budget-and-cost-planning.md), [connectors/windows-security-events.md](connectors/windows-security-events.md) |
 | 10.8 | Azure Activity Log Sentinel Audit (PowerShell) | [github.com/mathijsvermaat/azure-activity-log-sentinel-audit](https://github.com/mathijsvermaat/azure-activity-log-sentinel-audit) | [connectors/azure-activity-logs.md](connectors/azure-activity-logs.md) |
 | 10.9 | Analytics Health & Audit workbook (Azure-Sentinel) | [github.com/Azure/Azure-Sentinel](https://github.com/Azure/Azure-Sentinel/blob/master/Workbooks/AnalyticsHealthAudit.json) | [connectors/sentinel-health.md](connectors/sentinel-health.md) |
@@ -249,6 +251,7 @@ Per-event pages on [learn.microsoft.com/windows/security/threat-protection/audit
 | 10.12 | Workspace Usage Report workbook (Azure-Sentinel) | [github.com/Azure/Azure-Sentinel](https://github.com/Azure/Azure-Sentinel/blob/master/Workbooks/WorkspaceUsage.json) | [guidance/budget-and-cost-planning.md](guidance/budget-and-cost-planning.md), [procedures/workspace-usage-report.md](procedures/workspace-usage-report.md), [connectors/microsoft-defender-xdr.md](connectors/microsoft-defender-xdr.md) |
 | 10.13 | Windows Event Log Size Estimator (PowerShell) | [github.com/mathijsvermaat/GetWinEventlogSize](https://github.com/mathijsvermaat/GetWinEventlogSize) | [README.md](README.md), [procedures/windows-event-log-size.md](procedures/windows-event-log-size.md), [connectors/windows-security-events.md](connectors/windows-security-events.md) |
 | 10.14 | Linux Log Size Estimator (Bash) | [github.com/mathijsvermaat/GetLinuxEventLogSize](https://github.com/mathijsvermaat/GetLinuxEventLogSize) | [README.md](README.md), [procedures/linux-log-size.md](procedures/linux-log-size.md), [connectors/syslog-linux.md](connectors/syslog-linux.md) |
+| 10.15 | Sentinel Collector — read-only workspace collector (Bash, this repo) | [github.com/mathijsvermaat/Sentinel-Maturity](https://github.com/mathijsvermaat/Sentinel-Maturity/blob/main/tools/sentinel-collector.sh) | [README.md](README.md), [procedures/sentinel-collector.md](procedures/sentinel-collector.md), [tools/README.md](tools/README.md) |
 
 > Section 10 is reserved for **executable / deployable** tools — workbooks, scripts, KQL queries, hosted apps. Configuration baselines, vendor documentation, mindmaps, and reading material belong in section 11 below.
 
@@ -359,6 +362,19 @@ Web portals used to configure data connectors, diagnostic settings, and supporti
 | 14.6 | cmd.ms — Microsoft Cloud command line | [cmd.ms](https://cmd.ms/) | [connectors/microsoft-entra-id.md](connectors/microsoft-entra-id.md), [connectors/microsoft-intune.md](connectors/microsoft-intune.md), [connectors/microsoft-defender-xdr.md](connectors/microsoft-defender-xdr.md), [connectors/microsoft-defender-for-cloud.md](connectors/microsoft-defender-for-cloud.md), [connectors/microsoft-defender-cloud-apps.md](connectors/microsoft-defender-cloud-apps.md), [connectors/microsoft-purview-data-map.md](connectors/microsoft-purview-data-map.md), [connectors/microsoft-purview-information-protection.md](connectors/microsoft-purview-information-protection.md), [connectors/sentinel-health.md](connectors/sentinel-health.md), [connectors/azure-activity-logs.md](connectors/azure-activity-logs.md), [connectors/azure-firewall.md](connectors/azure-firewall.md), [connectors/azure-key-vault.md](connectors/azure-key-vault.md), [connectors/azure-storage-account.md](connectors/azure-storage-account.md), [connectors/azure-waf.md](connectors/azure-waf.md), [connectors/azure-kubernetes-service.md](connectors/azure-kubernetes-service.md), [connectors/azure-devops.md](connectors/azure-devops.md), [connectors/dns-security-logs.md](connectors/dns-security-logs.md), [connectors/vnet-flow-logs.md](connectors/vnet-flow-logs.md), [connectors/sql-database-audit.md](connectors/sql-database-audit.md) |
 
 > **About cmd.ms** — community-maintained short-link service by Merill Fernando (Microsoft) that redirects memorable address-bar aliases such as `defender.cmd.ms`, `enca.cmd.ms`, `azkv.cmd.ms`, `pu.cmd.ms`, `in.cmd.ms` to the corresponding Microsoft cloud admin blade. Open source on [github.com/merill/cmd](https://github.com/merill/cmd) (MIT licence). Useful for rapidly opening a specific configuration blade without navigating the portal tree.
+
+---
+
+## 15. Azure CLI & Cloud Shell
+
+Tooling required to run the Bash helper scripts in [tools/](tools/README.md).
+
+| # | Title | URL | Referenced in |
+| - | ----- | --- | ------------- |
+| 15.1 | Azure Cloud Shell overview | [learn.microsoft.com](https://learn.microsoft.com/azure/cloud-shell/overview) | [procedures/sentinel-collector.md](procedures/sentinel-collector.md), [tools/README.md](tools/README.md) |
+| 15.2 | Azure Cloud Shell (launch) | [shell.azure.com](https://shell.azure.com) | [procedures/sentinel-collector.md](procedures/sentinel-collector.md), [tools/README.md](tools/README.md) |
+| 15.3 | Install the Azure CLI | [learn.microsoft.com](https://learn.microsoft.com/cli/azure/install-azure-cli) | [procedures/sentinel-collector.md](procedures/sentinel-collector.md), [tools/README.md](tools/README.md) |
+| 15.4 | Sign in with the Azure CLI | [learn.microsoft.com](https://learn.microsoft.com/cli/azure/authenticate-azure-cli) | [procedures/sentinel-collector.md](procedures/sentinel-collector.md), [tools/README.md](tools/README.md) |
 
 ---
 
