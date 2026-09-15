@@ -71,6 +71,7 @@ Step-by-step guides for the operational tools used alongside this maturity model
 
 | Procedure | Tool Type | Description |
 |:----------|:----------|:------------|
+| [Sentinel Collector](procedures/sentinel-collector.md) | Script | Collect workspace and per-table retention, connectors, solutions, workbooks and table activity into a JSON file for import into the assessment checklist |
 | [Workspace Usage Report](procedures/workspace-usage-report.md) | Workbook | Check free data connectors, ingestion benefit coverage, connector volumes, and retention settings |
 | [XDR Ingestion Calculator](procedures/xdr-ingestion-calculator.md) | Script | Estimate Defender XDR ingestion volumes before enabling the Sentinel connector |
 | [XDR Data Volume Insights](procedures/xdr-data-volume-insights.md) | KQL Query | Measure Defender XDR and Entra ID table sizes, daily averages, and event counts to inform Analytics vs Data Lake tier decisions |
@@ -257,6 +258,7 @@ To help identify retention settings, monitor ingestion volumes, estimate costs, 
 | **Retention Insights** | Workbook | Review table-level retention and archiving settings, evaluate Data Lake candidates, and estimate cost impact of plan changes | [Github — Azure-Sentinel/Workbooks](https://github.com/Azure/Azure-Sentinel/blob/master/Workbooks/ArchivingBasicLogsRetention.json) | [Walkthrough](procedures/retention-insights.md) |
 | **Windows Event Log Size Estimator** | Script | Estimate Application, System, and Security channel volume on a Windows host before onboarding Windows Security Events | [GitHub — mathijsvermaat/GetWinEventlogSize](https://github.com/mathijsvermaat/GetWinEventlogSize) | [Walkthrough](procedures/windows-event-log-size.md) |
 | **Linux Log Size Estimator** | Script | Estimate GB/day and events per second on a Linux host before onboarding Syslog | [GitHub — mathijsvermaat/GetLinuxEventLogSize](https://github.com/mathijsvermaat/GetLinuxEventLogSize) | [Walkthrough](procedures/linux-log-size.md) |
+| **Sentinel Collector** | Script | Read-only collection of workspace and per-table retention, data connectors, installed solutions, deployed workbooks and table activity, exported as JSON for import into the assessment checklist | [tools/sentinel-collector.sh](tools/sentinel-collector.sh) | [Walkthrough](procedures/sentinel-collector.md) |
 
 ---
 

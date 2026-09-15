@@ -8,6 +8,7 @@ Step-by-step guides for the tools referenced throughout the Sentinel Maturity Mo
 
 | Procedure | Tool Type | Description |
 |:----------|:----------|:------------|
+| [Sentinel Collector](sentinel-collector.md) | Script | Collect workspace and per-table retention, connectors, solutions, workbooks and table activity into a JSON file for import into the assessment checklist |
 | [Workspace Usage Report](workspace-usage-report.md) | Workbook | Check free data connectors, ingestion benefit coverage, general ingestion volumes, and retention settings |
 | [Retention Insights](retention-insights.md) | Workbook | Review table-level retention and archiving settings, evaluate Basic Logs candidates, and estimate cost impact of plan changes |
 | [XDR Ingestion Calculator](xdr-ingestion-calculator.md) | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector |

@@ -1,0 +1,5 @@
+* text=auto
+
+# Shell scripts must keep LF endings so they stay runnable when a Windows clone
+# is copied to Cloud Shell or a Linux host.
+*.sh text eol=lf
