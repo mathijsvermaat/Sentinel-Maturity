@@ -192,6 +192,12 @@ Per-event pages on [learn.microsoft.com/windows/security/threat-protection/audit
 
 **AppLocker (8001/8003/8222):** [Using Event Viewer with AppLocker](https://learn.microsoft.com/windows/security/application-security/application-control/app-control-for-business/applocker/using-event-viewer-with-applocker).
 
+**Active Directory compromise events:** [4627](https://learn.microsoft.com/windows/security/threat-protection/auditing/event-4627), [4662](https://learn.microsoft.com/windows/security/threat-protection/auditing/event-4662), [4674](https://learn.microsoft.com/windows/security/threat-protection/auditing/event-4674), [4675](https://learn.microsoft.com/windows/security/threat-protection/auditing/event-4675), [4928](https://learn.microsoft.com/windows/security/threat-protection/auditing/event-4928), [4929](https://learn.microsoft.com/windows/security/threat-protection/auditing/event-4929), [5712](https://learn.microsoft.com/windows/security/threat-protection/auditing/event-5712).
+
+**Audit subcategories required for the above:** [Audit Directory Service Access](https://learn.microsoft.com/windows/security/threat-protection/auditing/audit-directory-service-access), [Audit Directory Service Changes](https://learn.microsoft.com/windows/security/threat-protection/auditing/audit-directory-service-changes), [Audit Certification Services](https://learn.microsoft.com/windows/security/threat-protection/auditing/audit-certification-services), [Audit Kerberos Service Ticket Operations](https://learn.microsoft.com/windows/security/threat-protection/auditing/audit-kerberos-service-ticket-operations).
+
+**Non-`Security` channel events:** [How to enable LDAP signing in Windows Server](https://learn.microsoft.com/troubleshoot/windows-server/active-directory/enable-ldap-signing-in-windows-server) (event 2889 and the LDAP Interface Events diagnostic), [LDAP signing for AD DS](https://learn.microsoft.com/windows-server/identity/ad-ds/ldap-signing), [KB5014754 — Certificate-based authentication changes on Windows domain controllers](https://support.microsoft.com/help/5014754) (KDC events 39, 40, 41).
+
 ---
 
 ## 8. Microsoft Learn — Azure workload logging (Firewall, WAF, Key Vault, Storage, Network, AKS, DevOps)
@@ -315,6 +321,8 @@ Per-event pages on [learn.microsoft.com/windows/security/threat-protection/audit
 | 12.11 | NIS2 Directive — European Parliament | [europarl.europa.eu](https://www.europarl.europa.eu/topics/en/article/20221206STO60677/cybersecurity-how-the-eu-tackles-cyber-threats) | [README.md](README.md), [guidance/frameworks-and-compliance.md](guidance/frameworks-and-compliance.md), [guidance/retention.md](guidance/retention.md) |
 | 12.12 | GDPR — General Data Protection Regulation | [gdpr-info.eu](https://gdpr-info.eu/) | [guidance/retention.md](guidance/retention.md) |
 | 12.13 | MITRE ATT&CK for ICS | [attack.mitre.org](https://attack.mitre.org/matrices/ics/) | [connectors/microsoft-defender-for-iot.md](connectors/microsoft-defender-for-iot.md) |
+| 12.14 | Detecting and mitigating Active Directory compromises (landing page) | [cisa.gov](https://www.cisa.gov/resources-tools/resources/detecting-and-mitigating-active-directory-compromises) | [connectors/windows-security-events.md](connectors/windows-security-events.md), [connectors/microsoft-entra-id.md](connectors/microsoft-entra-id.md), [guidance/layered-detection.md](guidance/layered-detection.md), [guidance/forensic-readiness.md](guidance/forensic-readiness.md) |
+| 12.15 | Detecting and mitigating Active Directory compromises (September 2026 PDF) | [cyber.gov.au](https://www.cyber.gov.au/sites/default/files/2026-09/Detecting%20and%20mitigating%20Active%20Directory%20compromises%20%28September%202026%29.pdf) | [connectors/windows-security-events.md](connectors/windows-security-events.md), [connectors/microsoft-entra-id.md](connectors/microsoft-entra-id.md), [guidance/layered-detection.md](guidance/layered-detection.md), [guidance/forensic-readiness.md](guidance/forensic-readiness.md) |
 
 ---
 

@@ -20,6 +20,7 @@
     - [Risk-Based](#risk-based)
   - [MITRE Detection Strategies](#mitre-detection-strategies)
   - [MCSB Control Mapping](#mcsb-control-mapping)
+  - [Hybrid Identity Server Events (AD FS and Entra Connect)](#hybrid-identity-server-events-ad-fs-and-entra-connect)
   - [Notes](#notes)
   - [Tools](#tools)
   - [References](#references)
@@ -169,6 +170,40 @@ Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detections
 
 ---
 
+## Hybrid Identity Server Events (AD FS and Entra Connect)
+
+The tables above cover the **cloud** side of identity. Where an organisation still runs AD FS or Microsoft Entra Connect, the attack path into the tenant frequently starts on those **on-premises servers** — and none of that activity appears in `SigninLogs` or `AuditLogs`.
+
+[*Detecting and mitigating Active Directory compromises*](https://www.cisa.gov/resources-tools/resources/detecting-and-mitigating-active-directory-compromises) describes two techniques that cross this boundary:
+
+- **Golden SAML** — the AD FS token-signing certificate is stolen, letting an attacker mint SAML tokens for any user. Authentication then succeeds in the cloud without any federated sign-in ever happening, so the tenant sees a valid sign-in and nothing suspicious.
+- **Microsoft Entra Connect compromise** — the sync account is abused to change cloud objects, or hard match takeover and soft matching are used to bind an attacker-controlled on-premises object to an existing cloud identity.
+
+These events are in the `Application` and AD FS channels on the servers themselves, so they require a **custom DCR writing to `WindowsEvent`** — they do not arrive through the Entra ID connector or through `SecurityEvent`.
+
+| Event ID | Server | Description | Why it matters |
+|:---------|:-------|:------------|:---------------|
+| **70** | AD FS | A certificate private key was acquired | Direct precursor to Golden SAML — the token-signing key is the whole attack |
+| **307** | AD FS | The Federation Service configuration was changed | Trust or claim-rule tampering |
+| **510** | AD FS | Additional detail for configuration-change events | Correlate with 307 for the specifics of what changed |
+| **1007** | AD FS | A certificate was exported | Token-signing certificate leaving the server |
+| **1102** | AD FS / Entra Connect | The Security audit log was cleared | Post-compromise cleanup |
+| **1200** | AD FS | The Federation Service issued a valid token | Baseline for legitimate issuance — tokens accepted by the tenant with **no** matching 1200 indicate forgery |
+| **1202** | AD FS | The Federation Service validated a new credential | Credential validation trail |
+| **611** | Entra Connect | Password hash synchronisation failed for the domain | Sync disruption, often the first sign of tampering |
+| **650, 651** | Entra Connect | Password sync started / finished retrieving passwords from AD DS | Establishes the normal sync rhythm |
+| **656, 657** | Entra Connect | Password change detected and synced to Entra ID | Off-schedule activity on privileged accounts |
+
+> [!IMPORTANT]
+> **Golden SAML is detected by absence.** A forged token is never issued by AD FS, so there is no 1200 to find. The signal is a successful cloud sign-in for a federated user with **no corresponding token issuance** on the AD FS server — which is only possible if AD FS events are being collected in the first place. Without them the attack is invisible from the tenant side.
+
+> [!TIP]
+> Do not synchronise privileged on-premises accounts to Entra ID, and keep separate privileged accounts for AD DS and Entra ID. This removes the sync path as an escalation route entirely and is cheaper than detecting its abuse.
+
+For the domain controller side of these techniques — including event 4662, which detects both DCSync and the directory reads behind Golden SAML — see [Windows Security Events](windows-security-events.md#active-directory-compromise-events-domain-controllers).
+
+---
+
 ## Notes
 
 - **Always enable all sign-in log types** — non-interactive and service principal logs are often overlooked but critical for detecting modern attacks (AiTM, token theft)
@@ -216,6 +251,7 @@ Curated list of MITRE [Detection Strategies](https://attack.mitre.org/detections
 
 | Title | Author | Description | Link |
 |:------|:-------|:------------|:-----|
+| Detecting and mitigating Active Directory compromises | ASD, CISA, NSA, FBI and international partners | Joint guidance covering Golden SAML and Microsoft Entra Connect compromise, with the AD FS and Entra Connect event IDs to collect (Appendix B, Tables 20–21) | [cisa.gov](https://www.cisa.gov/resources-tools/resources/detecting-and-mitigating-active-directory-compromises) · [PDF](https://www.cyber.gov.au/sites/default/files/2026-09/Detecting%20and%20mitigating%20Active%20Directory%20compromises%20%28September%202026%29.pdf) |
 | Sentinel Ninja — Microsoft Entra ID connector | Ofer Shezaf (Microsoft) | Auto-generated reference: tables ingested, related solutions, and content items | [github.com](https://github.com/oshezaf/sentinelninja/blob/main/Solutions%20Docs/connectors/azureactivedirectory.md) |
 | AADGraphActivityLogs in Microsoft Sentinel | Truls Dahlsveen (Infernux) | Detecting legacy Azure AD Graph (`graph.windows.net`) traffic via the `AADGraphActivityLogs` table — AADInternals / ROADtools detection queries and correlation with `SigninLogs` | [infernux.no](https://infernux.no/blog/aadgraphactivitylogs/) |
 | Now you see me: AADGraphActivityLogs | Fabian Bader (Cloud Brothers) | Deep dive into the `AADGraphActivityLogs` schema and detection opportunities (UserAgent, RequestUri, ResponseSizeBytes), including ROADtools / Ping Castle detection and LLM-assisted hunting | [cloudbrothers.info](https://cloudbrothers.info/en/aadgraphactivitylogs/) |
