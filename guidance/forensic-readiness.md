@@ -70,6 +70,10 @@ A centralised SIEM platform like Microsoft Sentinel addresses these challenges:
 > [!IMPORTANT]
 > The independence of the SIEM from the source environment is particularly critical from a forensic standpoint. It increases confidence that the data used during an investigation has not been manipulated by the attacker.
 
+Log clearing is not an edge case. The joint guidance [*Detecting and mitigating Active Directory compromises*](https://www.cisa.gov/resources-tools/resources/detecting-and-mitigating-active-directory-compromises) lists Windows event **1102** — *the Security audit log was cleared* — against four separate techniques: dumping `ntds.dit`, one-way domain trust bypass, SID History compromise and Skeleton Key. It appears again on the recommended event lists for AD CS certificate authority servers, AD FS servers and Microsoft Entra Connect servers. Clearing the log is simply what an attacker does once they hold the privileges these techniques grant.
+
+That makes 1102 the sharpest illustration of why centralisation must happen **before** the incident. Once the log is cleared, the forwarded copy in Sentinel is not the best evidence — it is the **only** evidence. And the event itself inverts: locally it is the last record before the trail disappears, while centrally it becomes a high-confidence alert that an attacker has reached administrative privilege and started cleaning up.
+
 ## You Cannot Investigate Logs You Never Collected
 
 In the cloud, a critical nuance compounds the case for centralised logging: **most Azure resource logs do not exist until you deliberately enable them.** There is no local buffer to fall back on. Where an on-premises server at least records to a local event log that rolls over, an Azure resource generates **nothing** at the data-plane level until diagnostic settings (or a Data Collection Rule) route its logs to a destination such as Azure Monitor / Log Analytics.
@@ -147,6 +151,7 @@ Network telemetry is often the key to validating whether suspicious endpoint act
 
 - [Demystifying Log Retention in Azure — shankuehn.io](https://www.shankuehn.io/post/demystifying-log-retention-in-azure) — per-log-type breakdown of Azure default retention and the opt-in nature of resource diagnostic logs
 - [Collect Azure resource platform logs at scale with DCRs (public preview) — Azure Observability blog](https://techcommunity.microsoft.com/blog/AzureObservabilityBlog/public-preview---azure-monitor---collect-azure-resource-platform-logs-at-scale-w/4525296) — centralised, drift-resistant collection of Azure resource platform logs
+- [Detecting and mitigating Active Directory compromises — CISA](https://www.cisa.gov/resources-tools/resources/detecting-and-mitigating-active-directory-compromises) ([PDF](https://www.cyber.gov.au/sites/default/files/2026-09/Detecting%20and%20mitigating%20Active%20Directory%20compromises%20%28September%202026%29.pdf)) — joint ASD/CISA/NSA/FBI guidance; lists event 1102 (Security log cleared) against four separate Active Directory compromise techniques
 
 ---
 
