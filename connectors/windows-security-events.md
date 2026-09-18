@@ -262,7 +262,7 @@ The detections below follow [*Detecting and mitigating Active Directory compromi
 | Skeleton Key | 3033, 3063, 4673, 4697 | [T1556.001](https://attack.mitre.org/techniques/T1556/001/) | [DET0271](https://attack.mitre.org/detectionstrategies/DET0271/) — Detect Domain Controller Authentication Process Modification (Skeleton Key) | Unsigned driver load failure on a DC, or unexpected modification of LSASS |
 | Shadow Credentials | 5136 | [T1556](https://attack.mitre.org/techniques/T1556/) | [DET0271](https://attack.mitre.org/detectionstrategies/DET0271/) — Detect Domain Controller Authentication Process Modification (Skeleton Key) | `msDS-KeyCredentialLink` written to a user or computer object |
 | Unconstrained delegation abuse | 4624, 4770, 4688 | [T1550.003](https://attack.mitre.org/techniques/T1550/003/) | [DET0352](https://attack.mitre.org/detectionstrategies/DET0352/) — Detection Strategy for T1550.003 - Pass the Ticket (Windows) | TGT captured on a delegation-enabled host, then replayed against a DC |
-| Canary object read *(see [Layered Detection](../guidance/layered-detection.md#canary-objects-in-active-directory))* | 4662 (audit failure) | [T1003.006](https://attack.mitre.org/techniques/T1003/006/) | [DET0594](https://attack.mitre.org/detectionstrategies/DET0594/) — Detection of Unauthorized DCSync Operations via Replication API Abuse | Any read attempt against a decoy object that no legitimate process should touch |
+| Canary object read | 4662 (audit failure) | [T1003.006](https://attack.mitre.org/techniques/T1003/006/) | [DET0594](https://attack.mitre.org/detectionstrategies/DET0594/) — Detection of Unauthorized DCSync Operations via Replication API Abuse | Any read attempt against a decoy object that no legitimate process should touch |
 
 > [!IMPORTANT]
 > **Golden Ticket detection works on absence, not presence.** A forged TGT is never requested from the KDC, so the tell is a 4769 service-ticket request with **no matching 4768** for the same account and session. Rules that look only for anomalous 4769 values will miss it. The same inversion applies to Silver Tickets, where the ticket is forged for a service and the DC sees no Kerberos traffic at all — 4627 discrepancy analysis on the member server is the only signal.
@@ -378,7 +378,7 @@ The events in [Active Directory Compromise Events](#active-directory-compromise-
 | Privilege Use | Sensitive Privilege Use | Success, Failure | 4673, 4674 — Skeleton Key, AD CS privileged operations |
 
 > [!WARNING]
-> **Failure auditing on Directory Service Access is not optional if you plan to use canary objects.** The canary technique works by denying read access and alerting on the resulting *audit failure* 4662. With Success-only auditing the event never fires and the canary is silently useless. See [Layered Detection](../guidance/layered-detection.md#canary-objects-in-active-directory).
+> **Failure auditing on Directory Service Access is not optional if you plan to use canary objects.** The canary technique works by denying read access to a decoy object and alerting on the resulting *audit failure* 4662. With Success-only auditing the event never fires and the canary is silently useless.
 
 Two of the recommended events need configuration outside Group Policy:
 
