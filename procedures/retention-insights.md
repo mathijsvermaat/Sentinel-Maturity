@@ -4,6 +4,9 @@
 
 This guide walks you through using the Retention Insights workbook to review table-level retention settings, understand archiving options, evaluate Basic Logs candidates, and estimate the cost impact of changing data plans across your Sentinel workspace.
 
+> [!NOTE]
+> **Use alongside the [Sentinel Table Retention workbook](sentinel-table-retention.md).** The newer workbook builds on this original and focuses on bulk total-retention increases, Data Lake storage forecasts, and explicit verification. This guide retains the broader archive, data-plan, and search/restore workflow; the newer workbook does not replace those capabilities. Check the original workbook's applicability to your current storage model, and do not treat its archive-cost estimates as interchangeable with Data Lake billing.
+
 ---
 
 ## Contents
@@ -53,12 +56,12 @@ The workbook is provided as a JSON template. To import it into your Sentinel wor
 3. Go to **Workbooks** under *Threat management*
 4. Click **+ Add workbook**
 5. In the workbook editor, click the **Advanced Editor** button (`</>` icon) in the toolbar
-6. Delete the default content and paste the contents of [`RetentionInsights.json`](../RetentionInsights.json)
+6. Delete the default content and paste the raw JSON from the [original workbook source](https://github.com/Azure/Azure-Sentinel/blob/master/Workbooks/ArchivingBasicLogsRetention.json)
 7. Click **Apply**, then **Done editing**
 8. Optionally click **Save** to persist it as a personal workbook in your workspace
 
 > [!TIP]
-> If you already have the "Archiving, Basic Logs and Retention" workbook from the Sentinel Content Hub installed, this customised version adds cost estimation capabilities and refined table views. You can run them side by side.
+> The original template is also available from the Sentinel Content Hub. Check the version of your installed copy against the upstream source; this repository does not maintain a separate customised JSON copy.
 
 <!-- Screenshot placeholder: workbook import via Advanced Editor -->
 

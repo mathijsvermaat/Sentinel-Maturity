@@ -232,6 +232,7 @@ On Windows use WSL or Git Bash. The script will not run in PowerShell or `cmd`.
 |:-----|:-----------|
 | [Workspace Usage Report](workspace-usage-report.md) | Actual ingestion volumes per table, which the collector deliberately omits |
 | [Retention Insights](retention-insights.md) | Cost modelling for the retention changes the collector surfaces |
+| [Sentinel Table Retention](sentinel-table-retention.md) | Review, cost-model, apply, and verify approved total-retention increases in a Data Lake-integrated workspace |
 | [Defender AMA Coverage](defender-ama-coverage.md) | Agent deployment gaps behind a connector that shows no recent data |
 | [XDR Data Volume Insights](xdr-data-volume-insights.md) | Sizing Defender XDR tables before moving them between tiers |
 

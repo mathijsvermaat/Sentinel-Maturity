@@ -83,7 +83,8 @@ Step-by-step guides for the operational tools used alongside this maturity model
 | [XDR Ingestion Calculator](procedures/xdr-ingestion-calculator.md) | Script | Estimate Defender XDR ingestion volumes before enabling the Sentinel connector |
 | [XDR Data Volume Insights](procedures/xdr-data-volume-insights.md) | KQL Query | Measure Defender XDR and Entra ID table sizes, daily averages, and event counts to inform Analytics vs Data Lake tier decisions |
 | [Defender AMA Coverage](procedures/defender-ama-coverage.md) | Workbook | Validate AMA deployment coverage and identify gaps in security event and syslog collection |
-| [Retention Insights](procedures/retention-insights.md) | Workbook | Review table-level retention and archiving settings, evaluate Data Lake candidates, and estimate cost impact of plan changes |
+| [Retention Insights](procedures/retention-insights.md) | Workbook | Review archive settings, data-plan options, search/restore jobs, and their cost implications using the original workbook |
+| [Sentinel Table Retention](procedures/sentinel-table-retention.md) | Workbook | Review, cost-model, apply, and verify total-retention increases for selected tables in a Data Lake-integrated workspace |
 | [Windows Event Log Size Estimator](procedures/windows-event-log-size.md) | Script | Measure Application, System, and Security channel volume on a Windows host before onboarding Windows Security Events |
 | [Linux Log Size Estimator](procedures/linux-log-size.md) | Script | Measure GB/day and events per second on a Linux host before onboarding Syslog |
 
@@ -225,10 +226,10 @@ For the full retention framework analysis including specific requirements from M
 | Tier | Duration | Purpose | Sentinel Feature |
 |:-----|:---------|:--------|:-----------------|
 | **Analytics** | 90 days | Active detection, hunting, and incident response | Analytics logs (interactive) |
-| **Long-term** | 365 days | Extended investigations, historical correlation, threat hunting | Sentinel Data Lake (Lake) |
+| **Long-term** | 365 days total, including Analytics retention | Extended investigations, historical correlation, threat hunting | Sentinel Data Lake (Lake) |
 
 > [!NOTE]
-> The default long-term retention for all Tier 1 tables is **365 days** in the Sentinel Data Lake. Adjust per table based on compliance or forensic requirements.
+> The model's default target for Tier 1 tables is **365 days total**, including the Analytics period. With 90 days Analytics retention, this means 275 additional days beyond Analytics, not 455 days total. Adjust per table based on compliance or forensic requirements. Use the [Sentinel Table Retention workbook](procedures/sentinel-table-retention.md) to apply and verify approved total-retention increases; it does not change Analytics retention or the table tier.
 
 ---
 
@@ -262,7 +263,8 @@ To help identify retention settings, monitor ingestion volumes, estimate costs, 
 | **Defender AMA Coverage** | Workbook | Validate Defender for Endpoint and AMA agent deployment coverage, identify gaps in security event and syslog collection | [GitHub — mathijsvermaat/Defender-AMA-coverage](https://github.com/mathijsvermaat/Defender-AMA-coverage) | [Walkthrough](procedures/defender-ama-coverage.md) · [Blog](https://www.linkedin.com/pulse/closing-telemetry-gap-how-we-built-kql-query-workbook-mathijs-vermaat-rzfbe/) |
 | **XDR tables to Sentinel ingestion calculator** | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector | [GitHub — mathijsvermaat/DefenderIngestToSentinel](https://github.com/mathijsvermaat/DefenderIngestToSentinel) | [Walkthrough](procedures/xdr-ingestion-calculator.md) |
 | **XDR Data Volume Insights** | KQL Query | Measure Defender XDR and Entra ID table sizes, daily averages, and event counts to inform Analytics vs Data Lake tier decisions | Run in Advanced Hunting in Defender portal | [Walkthrough](procedures/xdr-data-volume-insights.md) |
-| **Retention Insights** | Workbook | Review table-level retention and archiving settings, evaluate Data Lake candidates, and estimate cost impact of plan changes | [Github — Azure-Sentinel/Workbooks](https://github.com/Azure/Azure-Sentinel/blob/master/Workbooks/ArchivingBasicLogsRetention.json) | [Walkthrough](procedures/retention-insights.md) |
+| **Retention Insights** | Workbook | Review archive settings, data-plan options, search/restore jobs, and their cost implications using the original workbook | [Github — Azure-Sentinel/Workbooks](https://github.com/Azure/Azure-Sentinel/blob/master/Workbooks/ArchivingBasicLogsRetention.json) | [Walkthrough](procedures/retention-insights.md) |
+| **Sentinel Table Retention** | Workbook | Review, cost-model, apply, and verify total-retention increases for selected tables in a Data Lake-integrated workspace | [GitHub — mathijsvermaat/Sentinel-Table-Retention-Workbook](https://github.com/mathijsvermaat/Sentinel-Table-Retention-Workbook) | [Walkthrough](procedures/sentinel-table-retention.md) · [Blog](https://www.linkedin.com/pulse/beyond-one-table-time-managing-microsoft-sentinel-data-vermaat-gqgue/) |
 | **Windows Event Log Size Estimator** | Script | Estimate Application, System, and Security channel volume on a Windows host before onboarding Windows Security Events | [GitHub — mathijsvermaat/GetWinEventlogSize](https://github.com/mathijsvermaat/GetWinEventlogSize) | [Walkthrough](procedures/windows-event-log-size.md) |
 | **Linux Log Size Estimator** | Script | Estimate GB/day and events per second on a Linux host before onboarding Syslog | [GitHub — mathijsvermaat/GetLinuxEventLogSize](https://github.com/mathijsvermaat/GetLinuxEventLogSize) | [Walkthrough](procedures/linux-log-size.md) |
 | **Sentinel Collector** | Script | Read-only collection of workspace and per-table retention, data connectors, installed solutions, deployed workbooks and table activity, exported as JSON for import into the assessment checklist | [tools/sentinel-collector.sh](tools/sentinel-collector.sh) | [Walkthrough](procedures/sentinel-collector.md) |
@@ -305,4 +307,4 @@ For a consolidated, categorised index of every external URL cited across this ma
 
 Licensed under the [MIT License](LICENSE).
 
-*Last updated: September 2026*
+*Last updated: October 2026*

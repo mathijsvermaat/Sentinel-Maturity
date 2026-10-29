@@ -10,7 +10,8 @@ Step-by-step guides for the tools referenced throughout the Sentinel Maturity Mo
 |:----------|:----------|:------------|
 | [Sentinel Collector](sentinel-collector.md) | Script | Collect workspace and per-table retention, connectors, solutions, workbooks and table activity into a JSON file for import into the assessment checklist |
 | [Workspace Usage Report](workspace-usage-report.md) | Workbook | Check free data connectors, ingestion benefit coverage, general ingestion volumes, and retention settings |
-| [Retention Insights](retention-insights.md) | Workbook | Review table-level retention and archiving settings, evaluate Basic Logs candidates, and estimate cost impact of plan changes |
+| [Retention Insights](retention-insights.md) | Workbook | Review archive settings, data-plan options, search/restore jobs, and their cost implications using the original workbook |
+| [Sentinel Table Retention](sentinel-table-retention.md) | Workbook | Review, cost-model, apply, and verify total-retention increases for selected tables in a Data Lake-integrated workspace |
 | [XDR Ingestion Calculator](xdr-ingestion-calculator.md) | Script | Estimate Defender XDR ingestion volumes from the Advanced Hunting API before enabling the Sentinel connector |
 | [XDR Data Volume Insights](xdr-data-volume-insights.md) | KQL Query | Measure Defender XDR and Entra ID table sizes, daily averages, and event counts to inform Analytics vs Data Lake tier decisions |
 | [Defender AMA Coverage](defender-ama-coverage.md) | Workbook | Validate AMA agent deployment coverage and identify gaps in security event and syslog collection |

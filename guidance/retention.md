@@ -161,7 +161,7 @@ Microsoft Sentinel provides a tiered storage model that maps directly to the fra
 | Tier | Duration | Purpose | Cost Profile |
 |:-----|:---------|:--------|:-------------|
 | **Analytics** | 90 days (free with Sentinel) | Real-time detection, hunting, and active incident response | Included in ingestion pricing |
-| **Data Lake** | Up to 12 years | Long-term retention, historical investigation, compliance | $0.026/GB/month (significantly cheaper than Analytics ingestion) |
+| **Data Lake** | Up to 12 years | Long-term retention, historical investigation, compliance | Storage billed per compressed GB-month; use the current regional or contracted rate |
 
 The 90-day Analytics tier satisfies the "online / interactive" requirements from NIST, CIS, and the real-time access needs of NIS2 and GDPR breach notification. The Data Lake tier provides cost-effective long-term storage for the 365-day (or longer) archival requirement.
 
@@ -174,8 +174,17 @@ The 90-day Analytics tier satisfies the "online / interactive" requirements from
 | Legal hold / extended compliance | Extend Data Lake retention per table (up to 12 years) |
 | Documented retention policy | Configure per-table via **Settings > Tables** in Log Analytics workspace |
 
+**Total retention includes Analytics retention.** In this model, the shorthand `Analytics: 90d / Lake: 365d` means a 365-day total target, including the first 90 days in Analytics, not 455 days. Extending a mirrored table's total retention does not change its tier or Analytics-retention setting.
+
+Two complementary workbooks support different parts of retention management:
+
+| Workbook | Best suited to |
+|:---------|:---------------|
+| [Retention Insights](../procedures/retention-insights.md) | Broader archive, data-plan, search/restore, and cost-analysis scenarios using the original workbook. Check applicability to the workspace's storage model. |
+| [Sentinel Table Retention](../procedures/sentinel-table-retention.md) | Applying approved total-retention increases to selected tables in a Data Lake-integrated workspace, forecasting Lake storage costs, and verifying every expected result. |
+
 > [!TIP]
-> Use the [Retention Insights workbook](../procedures/retention-insights.md) to review your current per-table retention settings and identify tables that still have default retention with no archiving configured.
+> Use the [Sentinel Table Retention walkthrough](../procedures/sentinel-table-retention.md) for the focused Data Lake workflow. It complements Retention Insights rather than replacing its other capabilities. Neither workbook chooses a retention policy or proves regulatory compliance.
 
 ---
 
@@ -203,13 +212,15 @@ Setting retention is not a one-time activity. To maintain compliance and cost co
 
 1. **Document the retention policy** — record which retention period applies to each table and the regulatory justification. Include this in your data processing records (GDPR Art. 30) and security operations documentation.
 
-2. **Review retention quarterly** — use the [Retention Insights workbook](../procedures/retention-insights.md) to verify that all tables have the correct retention configured and that no tables have reverted to defaults.
+2. **Review retention quarterly** — use the [Sentinel Table Retention workbook](../procedures/sentinel-table-retention.md) to compare current settings in a Data Lake-integrated workspace against approved targets. Retain [Retention Insights](../procedures/retention-insights.md) for its broader archive and data-plan reviews. Installing either tool is not evidence that the policy has been applied.
 
 3. **Align with connector onboarding** — when enabling a new connector, immediately configure retention on the new tables. Retention is set at the table level, not the connector level — new tables default to the workspace default, which may not be sufficient.
 
-4. **Cost-model before extending** — before increasing retention beyond 365 days, use the [Retention Insights Cost Estimation tab](../procedures/retention-insights.md#cost-estimation-tab) to model the financial impact with your actual ingestion volumes.
+4. **Cost-model before extending** — use the [Sentinel Table Retention cost forecast](../procedures/sentinel-table-retention.md#step-4--forecast-lake-storage-costs) to compare Lake-storage scenarios with observed volume and the appropriate billed GB-month rate. Missing estimates and partial subtotals must remain visible; the forecast is not the complete Sentinel bill.
 
 5. **Communicate to stakeholders** — retention decisions have budget implications. Ensure that security leadership, compliance, and finance teams are aligned on the retention strategy and its costs.
+
+6. **Verify approved changes** — record read-back for every expected table and investigate missing results, partial batch failures, or incomplete provisioning. Current retention settings and supporting activity are distinct evidence; neither proves that a full historical retention window is already available.
 
 ---
 
@@ -225,6 +236,7 @@ Setting retention is not a one-time activity. To maintain compliance and cost co
 - [Configure data retention and archive policies in Azure Monitor Logs](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-retention-archive)
 - [Demystifying log retention in Azure — Shannon Kuehn](https://www.shankuehn.io/post/demystifying-log-retention-in-azure) — end-to-end overview of retention across Activity logs, resource logs, Log Analytics, metrics, Entra ID, and Purview, with a retention cheat-sheet and cost considerations
 - [Manage Microsoft Sentinel table tiers and retention as code with Bicep — Nicola Suter](https://nicolasuter.ch/sentinel-table-retention-bicep/) — declaratively manage per-table tier and total retention with the `Microsoft.OperationalInsights/workspaces/tables` Bicep resource
+- [Beyond One Table at a Time: Managing Microsoft Sentinel Data Lake Retention with a Workbook — Mathijs Vermaat](https://www.linkedin.com/pulse/beyond-one-table-time-managing-microsoft-sentinel-data-vermaat-gqgue/) — operational background, storage-cost examples, and verification of retention-only batch changes
 
 ---
 
