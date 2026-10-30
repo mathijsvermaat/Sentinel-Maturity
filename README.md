@@ -123,6 +123,7 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
 | [Azure Key Vault](connectors/azure-key-vault.md) | AKVAuditLogs | No |
+| [Microsoft Agent 365 Observability (Preview)](connectors/agent-365-observability.md) | `UnifiedAgentObservability` (Data Lake; verify current schema and scope) | No (planning baseline; verify entitlement) — *conditional* |
 | [Microsoft Copilot / AI Governance](connectors/copilot-ai-governance.md) | OfficeActivity (Copilot), AzureDiagnostics (OpenAI) | No |
 | [Microsoft Purview (Data Map / Discovery)](connectors/microsoft-purview-data-map.md) | PurviewDataSensitivityLogs | No |
 | [Microsoft Purview Information Protection (Preview)](connectors/microsoft-purview-information-protection.md) | MicrosoftPurviewInformationProtection | No |
@@ -143,6 +144,7 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
+| [Microsoft Agent Identities (Preview)](connectors/microsoft-agent-identities.md) | `EntraAgentIdentities`, `EntraAgentIdentityBlueprintPrincipals`, `EntraAgentIdentityBlueprints`, `EntraAgentUsers` (Data Lake) | No (verify current entitlement) — *conditional* |
 | Third-Party Identity (Okta, CyberArk, Ping Identity, BeyondTrust) | Vendor-specific tables via API or CEF/Syslog | No — *conditional* |
 
 ### Multi-Cloud

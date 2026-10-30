@@ -35,6 +35,7 @@ Additional connectors for customers with higher maturity requirements. Connector
 | Connector | Key Focus | Free Ingestion |
 |:----------|:----------|:---------------|
 | [Azure Key Vault](azure-key-vault.md) | Secrets, keys, and certificate access audit trail | No |
+| [Microsoft Agent 365 Observability (Preview)](agent-365-observability.md) | Agent runtime, tool-use and session evidence in Data Lake | No (planning baseline; verify entitlement) — *conditional* |
 | [Microsoft Copilot / AI Governance](copilot-ai-governance.md) | AI interaction auditing and governance for Copilot and Azure OpenAI | No — *conditional* |
 | [Microsoft Purview (Data Map / Discovery)](microsoft-purview-data-map.md) | Data discovery and classification scan results across the data estate | No — *conditional* |
 | [Microsoft Purview Information Protection (Preview)](microsoft-purview-information-protection.md) | Sensitivity-label activity from MIP clients and scanners | No — *conditional* |
@@ -55,6 +56,7 @@ Additional connectors for customers with higher maturity requirements. Connector
 
 | Connector | Key Focus | Free Ingestion |
 |:----------|:----------|:---------------|
+| [Microsoft Agent Identities (Preview)](microsoft-agent-identities.md) | Agent, blueprint principal, blueprint and agent user inventory in Data Lake | No (verify current entitlement) — *conditional* |
 | Third-Party Identity | Non-Microsoft identity providers and PAM solutions (Okta, CyberArk, Ping Identity, BeyondTrust) via API or CEF/Syslog | No — *conditional* |
 
 ### Multi-Cloud
