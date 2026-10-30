@@ -44,7 +44,8 @@ Additional connectors for customers with higher maturity requirements. Connector
 
 | Connector | Key Focus | Free Ingestion |
 |:----------|:----------|:---------------|
-| [Threat Intelligence Platforms](threat-intelligence.md) | IOC matching — IPs, domains, URLs, file hashes from TI feeds | Yes — free data source |
+| [Threat Intelligence Platforms](threat-intelligence.md) | IOC matching — IPs, domains, URLs, file hashes from TI feeds | No |
+| [Third-Party Threat Intelligence](threat-intelligence.md) | External TI feeds and platforms (Anomali, Recorded Future, MISP) via TAXII or API | No — *conditional* |
 
 ### Endpoint Compliance
 

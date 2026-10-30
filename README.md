@@ -132,7 +132,8 @@ Tier 2 extends monitoring into network security, cloud posture, data protection,
 
 | Connector | Key Tables | Free Ingestion |
 |:----------|:-----------|:---------------|
-| [Threat Intelligence Platforms](connectors/threat-intelligence.md) | ThreatIntelIndicators, ThreatIntelObjects | Yes — free data source |
+| [Threat Intelligence Platforms](connectors/threat-intelligence.md) | ThreatIntelIndicators, ThreatIntelObjects | No |
+| [Third-Party Threat Intelligence (Anomali, Recorded Future, MISP)](connectors/threat-intelligence.md) | ThreatIntelIndicators, ThreatIntelObjects | No — *conditional* |
 
 ### Endpoint Compliance
 
