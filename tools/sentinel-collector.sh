@@ -16,7 +16,7 @@
 
 set -uo pipefail
 
-SCRIPT_VERSION="0.1.0"
+SCRIPT_VERSION="0.1.1"
 SCHEMA_VERSION="1.0"
 
 API_WORKSPACE="2023-09-01"
@@ -130,7 +130,8 @@ if [[ -z "$OUTPUT" ]]; then
 fi
 
 TMP=$(mktemp -d 2>/dev/null || mktemp -d -t sentinel-collector)
-trap 'rm -rf "$TMP"' EXIT
+OUTPUT_TMP=""
+trap 'rm -rf "$TMP"; if [[ -n "$OUTPUT_TMP" ]]; then rm -f -- "$OUTPUT_TMP"; fi' EXIT
 WARN_FILE="$TMP/warnings.ndjson"
 : > "$WARN_FILE"
 
@@ -159,12 +160,6 @@ arm_get() {
     fi
     : > "$out"
     return 1
-}
-
-# Reads a normalised fragment, or 'null' when the section could not be collected.
-frag() {
-    local f="$TMP/$1"
-    if [[ -s "$f" ]]; then cat "$f"; else printf 'null'; fi
 }
 
 WS_ID="/subscriptions/${SUBSCRIPTION}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.OperationalInsights/workspaces/${WORKSPACE}"
@@ -372,37 +367,55 @@ else
 fi
 
 # --- 8. Assemble ------------------------------------------------------------
-jq -n \
+for fragment in workspace tables activity connectors packages workbooks; do
+    if [[ ! -s "$TMP/$fragment.frag" ]]; then
+        if ! printf 'null\n' > "$TMP/$fragment.frag"; then
+            echo "Error: failed to prepare $fragment for output." >&2
+            exit 4
+        fi
+    fi
+done
+
+if [[ -d "$OUTPUT" ]] || ! OUTPUT_TMP=$(mktemp "${OUTPUT}.tmp.XXXXXX"); then
+    echo "Error: failed to prepare output file $OUTPUT." >&2
+    exit 4
+fi
+
+if ! jq -n \
     --arg schemaVersion "$SCHEMA_VERSION" \
     --arg scriptVersion "$SCRIPT_VERSION" \
     --arg collectedAt "$COLLECTED_AT" \
     --argjson lookbackDays "$LOOKBACK_DAYS" \
     --argjson sentinelOnboarded "$SENTINEL_ONBOARDED" \
-    --argjson workspace "$(frag workspace.frag)" \
-    --argjson tables "$(frag tables.frag)" \
-    --argjson tableActivity "$(frag activity.frag)" \
-    --argjson dataConnectors "$(frag connectors.frag)" \
-    --argjson contentPackages "$(frag packages.frag)" \
-    --argjson workbooks "$(frag workbooks.frag)" \
+    --slurpfile workspace "$TMP/workspace.frag" \
+    --slurpfile tables "$TMP/tables.frag" \
+    --slurpfile tableActivity "$TMP/activity.frag" \
+    --slurpfile dataConnectors "$TMP/connectors.frag" \
+    --slurpfile contentPackages "$TMP/packages.frag" \
+    --slurpfile workbooks "$TMP/workbooks.frag" \
     --slurpfile warnings "$WARN_FILE" \
     '{
         schemaVersion: $schemaVersion,
         scriptVersion: $scriptVersion,
         collectedAt: $collectedAt,
         lookbackDays: $lookbackDays,
-        workspace: (if $workspace == null then null else $workspace + { sentinelOnboarded: $sentinelOnboarded } end),
-        tables: $tables,
-        tableActivity: $tableActivity,
-        dataConnectors: $dataConnectors,
-        contentPackages: $contentPackages,
-        workbooks: $workbooks,
+        workspace: (if $workspace[0] == null then null else $workspace[0] + { sentinelOnboarded: $sentinelOnboarded } end),
+        tables: $tables[0],
+        tableActivity: $tableActivity[0],
+        dataConnectors: $dataConnectors[0],
+        contentPackages: $contentPackages[0],
+        workbooks: $workbooks[0],
         warnings: $warnings
-    }' > "$OUTPUT"
+    }' > "$OUTPUT_TMP"; then
+    echo "Error: failed to assemble collector output for $OUTPUT." >&2
+    exit 4
+fi
 
-if [[ ! -s "$OUTPUT" ]]; then
+if ! mv -f -- "$OUTPUT_TMP" "$OUTPUT"; then
     echo "Error: failed to write $OUTPUT." >&2
     exit 4
 fi
+OUTPUT_TMP=""
 
 log ""
 log "Collected:"
